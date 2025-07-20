@@ -1,0 +1,377 @@
+<div class="progress-tracking-container">
+  <div class="page-header">
+    <h1>
+      <span class="material-icons">trending_up</span>
+      تتبع التقدم
+    </h1>
+    <p>مراقبة وتحديث تقدم الطلاب في الفصول</p>
+  </div>
+
+  <div class="card filter-card">
+    <div class="card-header">
+      <h5 class="card-title">تصفية التقدم</h5>
+    </div>
+    <div class="card-body">
+      <div class="filter-form-group">
+        <div class="form-floating">
+          <select
+            class="form-select"
+            id="classSelect"
+            aria-label="Select Class"
+          >
+            <option selected disabled value="">اختر الفصل</option>
+            <option value="1">تحفيظ أ</option>
+            <option value="2">مراجعة ب</option>
+            <option value="3">كلاهما ج</option>
+          </select>
+          <label for="classSelect">اسم الفصل</label>
+        </div>
+
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="dateSelect"
+            placeholder="اختر التاريخ"
+            value="2025-07-13"
+          />
+          <label for="dateSelect">التاريخ</label>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <button type="button" class="btn btn-outline-primary">
+          <span class="material-icons">filter_list</span>
+          تطبيق التصفية
+        </button>
+        <button type="button" class="btn btn-outline-secondary">
+          <span class="material-icons">refresh</span>
+          مسح التصفية
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card progress-table-card">
+    <div class="card-header">
+      <h5 class="card-title">
+        التقدم لـ: <span id="currentClassName">تحفيظ أ</span>
+      </h5>
+    </div>
+    <div class="card-body">
+      <ul class="nav nav-tabs" id="progressTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="memorization-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#memorization"
+            type="button"
+            role="tab"
+            aria-controls="memorization"
+            aria-selected="true"
+          >
+            التحفيظ
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="revision-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#revision"
+            type="button"
+            role="tab"
+            aria-controls="revision"
+            aria-selected="false"
+          >
+            المراجعة
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="attendance-notes-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#attendance-notes"
+            type="button"
+            role="tab"
+            aria-controls="attendance-notes"
+            aria-selected="false"
+          >
+            الحضور والملاحظات
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="progressTabsContent">
+        <div
+          class="tab-pane fade show active"
+          id="memorization"
+          role="tabpanel"
+          aria-labelledby="memorization-tab"
+        >
+          <div class="table-container">
+            <table class="table progress-table">
+              <thead>
+                <tr>
+                  <th>اسم الطالب</th>
+                  <th>من سورة</th>
+                  <th>من آية</th>
+                  <th>إلى سورة</th>
+                  <th>إلى آية</th>
+                  <th>التقييم</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>أحمد علي</td>
+                  <td>الفاتحة</td>
+                  <td>1</td>
+                  <td>البقرة</td>
+                  <td>10</td>
+                  <td class="evaluation-select">
+                    <select class="form-select">
+                      <option value="Excellent">ممتاز</option>
+                      <option value="Good">جيد</option>
+                      <option value="Fair">مقبول</option>
+                      <option value="Weak">ضعيف</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>فاطمة الزهراء</td>
+                  <td>البقرة</td>
+                  <td>11</td>
+                  <td>البقرة</td>
+                  <td>20</td>
+                  <td class="evaluation-select">
+                    <select class="form-select">
+                      <option value="Excellent">ممتاز</option>
+                      <option value="Good" selected>جيد</option>
+                      <option value="Fair">مقبول</option>
+                      <option value="Weak">ضعيف</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>يوسف عمر</td>
+                  <td>آل عمران</td>
+                  <td>1</td>
+                  <td>آل عمران</td>
+                  <td>5</td>
+                  <td class="evaluation-select">
+                    <select class="form-select">
+                      <option value="Excellent">ممتاز</option>
+                      <option value="Good">جيد</option>
+                      <option value="Fair" selected>مقبول</option>
+                      <option value="Weak">ضعيف</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="revision"
+          role="tabpanel"
+          aria-labelledby="revision-tab"
+        >
+          <div class="table-container">
+            <table class="table progress-table">
+              <thead>
+                <tr>
+                  <th>اسم الطالب</th>
+                  <th>من سورة</th>
+                  <th>من آية</th>
+                  <th>إلى سورة</th>
+                  <th>إلى آية</th>
+                  <th>التقييم</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>أحمد علي</td>
+                  <td>الفاتحة</td>
+                  <td>1</td>
+                  <td>البقرة</td>
+                  <td>10</td>
+                  <td class="evaluation-select">
+                    <select class="form-select">
+                      <option value="Excellent">ممتاز</option>
+                      <option value="Good" selected>جيد</option>
+                      <option value="Fair">مقبول</option>
+                      <option value="Weak">ضعيف</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td>فاطمة الزهراء</td>
+                  <td>البقرة</td>
+                  <td>1</td>
+                  <td>البقرة</td>
+                  <td>10</td>
+                  <td class="evaluation-select">
+                    <select class="form-select">
+                      <option value="Excellent" selected>ممتاز</option>
+                      <option value="Good">جيد</option>
+                      <option value="Fair">مقبول</option>
+                      <option value="Weak">ضعيف</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          class="tab-pane fade"
+          id="attendance-notes"
+          role="tabpanel"
+          aria-labelledby="attendance-notes-tab"
+        >
+          <div class="table-container">
+            <table class="table progress-table">
+              <thead>
+                <tr>
+                  <th>اسم الطالب</th>
+                  <th>الحضور</th>
+                  <th>الملاحظات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>أحمد علي</td>
+                  <td class="attendance-toggle">
+                    <div class="btn-group" role="group">
+                      <button
+                        type="button"
+                        class="btn btn-outline-success btn-attendance-present active"
+                      >
+                        حاضر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-attendance-absent"
+                      >
+                        غائب
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-warning btn-attendance-late"
+                      >
+                        متأخر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-info btn-attendance-excused"
+                      >
+                        بإذن
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="أضف ملاحظات..."
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>فاطمة الزهراء</td>
+                  <td class="attendance-toggle">
+                    <div class="btn-group" role="group">
+                      <button
+                        type="button"
+                        class="btn btn-outline-success btn-attendance-present"
+                      >
+                        حاضر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-attendance-absent active"
+                      >
+                        غائب
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-warning btn-attendance-late"
+                      >
+                        متأخر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-info btn-attendance-excused"
+                      >
+                        بإذن
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="أضف ملاحظات..."
+                      value="إجازة مرضية"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>يوسف عمر</td>
+                  <td class="attendance-toggle">
+                    <div class="btn-group" role="group">
+                      <button
+                        type="button"
+                        class="btn btn-outline-success btn-attendance-present"
+                      >
+                        حاضر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger btn-attendance-absent"
+                      >
+                        غائب
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-warning btn-attendance-late active"
+                      >
+                        متأخر
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-outline-info btn-attendance-excused"
+                      >
+                        بإذن
+                      </button>
+                    </div>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="أضف ملاحظات..."
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="action-buttons mt-4">
+        <button type="button" class="btn btn-secondary">
+          <span class="material-icons">clear_all</span>
+          مسح التقدم
+        </button>
+        <button type="button" class="btn btn-primary">
+          <span class="material-icons">save</span>
+          حفظ التقدم
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

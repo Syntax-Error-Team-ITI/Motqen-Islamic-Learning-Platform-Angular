@@ -7,6 +7,7 @@ import { Login } from './pages/login/login';
 import { Halaqas } from './pages/halaqas/halaqas';
 import { Chatbot } from './layout/chatbot/chatbot';
 import { Footer } from './layout/footer/footer';
+import { AdminDashboard } from './dashboards/admin-dashboard/admin-dashboard';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ import { Footer } from './layout/footer/footer';
     Halaqas,
     Chatbot,
     Footer,
+    AdminDashboard,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

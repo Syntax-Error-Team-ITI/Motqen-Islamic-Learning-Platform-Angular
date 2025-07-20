@@ -1,0 +1,125 @@
+.student-list-container {
+  padding: 30px 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 20px; /* Space between content and actions */
+}
+
+.page-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 32px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.page-header p {
+  margin: 4px 0 0 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.header-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-filter-card {
+  margin-bottom: 24px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.search-container {
+  min-width: 300px;
+}
+
+.form-floating > label {
+  padding-left: 0.75rem;
+}
+.form-floating > .form-control {
+  padding: 1rem 0.75rem;
+}
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+.student-table-card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow-x: auto; /* Ensures table is scrollable on small screens */
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table th,
+.table td {
+  white-space: nowrap; /* Prevent content from wrapping too early */
+  vertical-align: middle;
+  padding: 12px 15px;
+}
+
+.table thead th {
+  font-weight: 600;
+  color: #555;
+  background-color: #f2f2f2;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+.table .btn-icon-only {
+  padding: 6px;
+  min-width: unset;
+  line-height: 1;
+}
+
+.status-badge {
+  padding: 0.35em 0.65em;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.75em;
+  color: #fff;
+}
+.status-active {
+  background-color: #28a745;
+} /* Bootstrap success */
+.status-inactive {
+  background-color: #6c757d;
+} /* Bootstrap secondary */
+.status-pending {
+  background-color: #ffc107;
+  color: #343a40;
+} /* Bootstrap warning */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .page-header h1 {
+    font-size: 28px;
+  }
+  .search-container {
+    min-width: 100%;
+  }
+}
