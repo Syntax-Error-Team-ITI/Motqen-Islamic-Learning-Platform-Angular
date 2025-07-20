@@ -1,0 +1,87 @@
+<div class="chatbot-container" id="chatbotContainer">
+  <div class="chatbot-header">
+    <div class="d-flex align-items-center">
+      <div class="chatbot-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="ms-2">
+        <h6 class="mb-0 arabic-text">المساعد الذكي</h6>
+        <small class="text-white-50 arabic-text">متقن للعلوم الشرعية</small>
+      </div>
+    </div>
+    <button class="btn btn-link p-0 text-white" id="closeChatbot">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <div class="chatbot-messages">
+    <div class="message bot">
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">
+          السلام عليكم ورحمة الله وبركاته! مرحباً بكم في منصة متقن للعلوم
+          الشرعية
+        </div>
+        <div class="message-time">10:00 ص</div>
+      </div>
+    </div>
+    <div class="message bot">
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">
+          كيف يمكنني مساعدتكم في رحلتكم التعليمية اليوم؟
+        </div>
+        <div class="message-time">10:01 ص</div>
+      </div>
+    </div>
+    <div class="message user">
+      <div class="message-avatar">
+        <i class="fas fa-user"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">
+          أبحث عن دورات لتحفيظ القرآن الكريم.
+        </div>
+        <div class="message-time">10:05 ص</div>
+      </div>
+    </div>
+    <div class="message bot">
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">
+          بإمكانكم البدء في تحفيظ القرآن الكريم من خلال قسم 'تحفيظ القرآن' في
+          المنصة. نوفر خطط حفظ مخصصة حسب مستواكم مع متابعة يومية من المعلمين
+          المختصين.
+        </div>
+        <div class="message-time">10:06 ص</div>
+      </div>
+    </div>
+
+    <div id="messagesEndRef"></div>
+  </div>
+
+  <div class="chatbot-input">
+    <div class="input-group">
+      <button class="btn btn-primary" type="button">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+      <input
+        type="text"
+        class="form-control border-0 arabic-text"
+        placeholder="اكتب رسالتك هنا..."
+        dir="rtl"
+      />
+    </div>
+  </div>
+</div>
+
+<button class="chatbot-toggle" id="chatbotToggle">
+  <i class="fas fa-comment-dots"></i>
+  <span class="notification-badge">AI</span>
+</button>
