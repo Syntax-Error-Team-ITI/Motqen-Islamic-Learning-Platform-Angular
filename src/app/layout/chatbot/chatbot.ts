@@ -1,4 +1,12 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  Inject,
+  PLATFORM_ID,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-chatbot',
@@ -7,6 +15,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
   styleUrl: './chatbot.css',
 })
 export class Chatbot implements OnInit, AfterViewInit, OnDestroy {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   ngOnInit(): void {}
   ngAfterViewInit(): void {
     // This lifecycle hook is called after Angular has fully initialized a component's view.
@@ -25,6 +34,7 @@ export class Chatbot implements OnInit, AfterViewInit, OnDestroy {
   private messagesEndRef: HTMLElement | null = null;
 
   private setupChatbotInteractions(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.chatbotToggle = document.getElementById('chatbotToggle');
     this.chatbotContainer = document.getElementById('chatbotContainer');
     this.closeChatbotBtn = document.getElementById('closeChatbot');
@@ -54,6 +64,7 @@ export class Chatbot implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private removeChatbotInteractions(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     if (this.chatbotToggle) {
       this.chatbotToggle.removeEventListener(
         'click',

@@ -1,0 +1,56 @@
+.children-list {
+  max-width: 700px;
+  margin: 2rem auto;
+  direction: rtl;
+}
+
+.title {
+  text-align: center;
+  color: #2e8b57;
+  margin-bottom: 2rem;
+  font-family: "Amiri", serif;
+}
+
+.child-card {
+  transition: box-shadow 0.3s, transform 0.2s;
+}
+.child-card:hover {
+  box-shadow: 0 8px 32px rgba(46, 139, 87, 0.18) !important;
+  transform: translateY(-6px) scale(1.03);
+}
+.child-info {
+  flex: 1;
+}
+.child-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4a90e2;
+  margin-bottom: 0.5rem;
+  font-family: "Amiri", serif;
+}
+.child-details {
+  display: flex;
+  gap: 1.5rem;
+  color: #333;
+  font-size: 1rem;
+  font-family: "Amiri", serif;
+}
+.child-details span {
+  background: #e0f7fa;
+  border-radius: 8px;
+  padding: 0.25rem 0.75rem;
+  margin-left: 0.5rem;
+}
+.child-card .btn.btn-outline-primary {
+  border: 2px solid #2e8b57;
+  color: #2e8b57;
+  transition: background 0.2s, color 0.2s;
+  -webkit-transition: background 0.2s, color 0.2s;
+  -moz-transition: background 0.2s, color 0.2s;
+  -ms-transition: background 0.2s, color 0.2s;
+  -o-transition: background 0.2s, color 0.2s;
+}
+.child-card .btn.btn-outline-primary:hover {
+  background: #2e8b57;
+  color: white;
+}

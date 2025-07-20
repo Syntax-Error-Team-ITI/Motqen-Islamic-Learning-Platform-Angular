@@ -12,19 +12,19 @@
       </div>
 
       <div class="navbar-nav d-none d-lg-flex">
-        <a routerLink="/home" class="nav-link active">
+        <a routerLink="/home" routerLinkActive="active" class="nav-link">
           <i class="fas fa-home"></i>
           <span class="arabic-text">الرئيسية</span>
         </a>
-        <a routerLink="/halaqas" class="nav-link">
+        <a routerLink="/halaqas" routerLinkActive="active" class="nav-link">
           <i class="fas fa-graduation-cap"></i>
           <span class="arabic-text">الدورات</span>
         </a>
-        <a routerLink="/about-us" class="nav-link">
+        <a routerLink="/about-us" routerLinkActive="active" class="nav-link">
           <i class="fas fa-info-circle"></i>
           <span class="arabic-text">من نحن</span>
         </a>
-        <a routerLink="/contact-us" class="nav-link">
+        <a routerLink="/contact-us" routerLinkActive="active" class="nav-link">
           <i class="fas fa-info-circle"></i>
           <span class="arabic-text">تواصل معنا</span>
         </a>
@@ -38,63 +38,36 @@
       </div>
 
       <button class="mobile-menu-toggle d-lg-none" (click)="toggleMobileMenu()">
-        <i
-          class="fas"
-          [ngClass]="{'fa-times': isMobileMenuOpen, 'fa-bars': !isMobileMenuOpen}"
-        ></i>
+        <i class="fas" [ngClass]="{'fa-times': isMobileMenuOpen, 'fa-bars': !isMobileMenuOpen}"></i>
       </button>
     </div>
   </div>
 
   <div class="mobile-menu d-lg-none" [ngClass]="{'open': isMobileMenuOpen}">
     <div class="mobile-nav">
-      <a
-        [routerLink]="['/home']"
-        routerLinkActive="router-link-active"
-        class="mobile-nav-link active"
-      >
+      <a [routerLink]="['/home']" routerLinkActive="router-link-active" class="mobile-nav-link active">
         <i class="fas fa-home"></i>
         <span class="arabic-text">الرئيسية</span>
       </a>
-      <a
-        [routerLink]="['/halaqas']"
-        routerLinkActive="router-link-active"
-        class="mobile-nav-link"
-      >
+      <a [routerLink]="['/halaqas']" routerLinkActive="router-link-active" class="mobile-nav-link">
         <i class="fas fa-graduation-cap"></i>
         <span class="arabic-text">الدورات</span>
       </a>
-      <a
-        [routerLink]="['/about-us']"
-        routerLinkActive="router-link-active"
-        class="mobile-nav-link"
-      >
+      <a [routerLink]="['/about-us']" routerLinkActive="router-link-active" class="mobile-nav-link">
         <i class="fas fa-info-circle"></i>
         <span class="arabic-text">من نحن</span>
       </a>
-      <a
-        [routerLink]="['/contact-us']"
-        routerLinkActive="router-link-active"
-        class="mobile-nav-link"
-      >
+      <a [routerLink]="['/contact-us']" routerLinkActive="router-link-active" class="mobile-nav-link">
         <i class="fas fa-info-circle"></i>
         <span class="arabic-text">تواصل معنا</span>
       </a>
     </div>
     <div class="mobile-auth">
-      <a
-        [routerLink]="['/login']"
-        routerLinkActive="router-link-active"
-        class="mobile-auth-btn login"
-      >
+      <a [routerLink]="['/login']" routerLinkActive="router-link-active" class="mobile-auth-btn login">
         <i class="fas fa-sign-in-alt"></i>
         <span class="arabic-text">تسجيل الدخول</span>
       </a>
     </div>
   </div>
 </nav>
-<div
-  class="mobile-overlay"
-  *ngIf="isMobileMenuOpen"
-  (click)="closeMobileMenu()"
-></div>
+<div class="mobile-overlay" *ngIf="isMobileMenuOpen" (click)="closeMobileMenu()"></div>
