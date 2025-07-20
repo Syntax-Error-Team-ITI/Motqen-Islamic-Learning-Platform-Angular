@@ -1,0 +1,83 @@
+<div class="not-found-page">
+  <div class="container">
+    <div class="not-found-content">
+      <div class="error-hero">
+        <div class="error-illustration">
+          <div class="error-number">404</div>
+          <div class="error-icon">
+            <i class="fas fa-exclamation-triangle" style="font-size: 80px"></i>
+          </div>
+          <div class="floating-elements">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+          </div>
+        </div>
+
+        <div class="error-text">
+          <h1 class="error-title arabic-text">الصفحة غير موجودة</h1>
+          <p class="error-subtitle arabic-text">
+            عذراً، لا يمكننا العثور على الصفحة التي تبحث عنها. ربما تم نقلها أو
+            حذفها أو أن الرابط غير صحيح.
+          </p>
+
+          <div class="error-actions">
+            <button class="btn-primary-404" [routerLink]="['/']">
+              <i class="fas fa-home"></i>
+              <span>العودة للرئيسية</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="suggestions-section">
+        <h2 class="suggestions-title arabic-text">ربما تبحث عن:</h2>
+        <div class="suggestions-grid">
+          <div class="suggestion-card" onclick="window.location.href='/'">
+            <div class="suggestion-icon">
+              <i class="fas fa-home"></i>
+            </div>
+            <h3 class="suggestion-title arabic-text">الصفحة الرئيسية</h3>
+            <p class="suggestion-description arabic-text">
+              العودة إلى الصفحة الرئيسية
+            </p>
+            <div class="suggestion-arrow">
+              <a [routerLink]="['/']" routerLinkActive="router-link-active">
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+          </div>
+          <div class="suggestion-card">
+            <div class="suggestion-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="suggestion-title arabic-text">الدورات التعليمية</h3>
+            <p class="suggestion-description arabic-text">
+              تصفح الدورات المتاحة
+            </p>
+            <div class="suggestion-arrow">
+              <a
+                [routerLink]="['/courses']"
+                routerLinkActive="router-link-active"
+              >
+                <i class="fas fa-arrow-left"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="help-section">
+        <div class="help-card">
+          <h3 class="help-title arabic-text">هل تحتاج مساعدة؟</h3>
+          <p class="help-text arabic-text">
+            إذا كنت تواجه مشكلة أو تحتاج إلى مساعدة، لا تتردد في التواصل معنا
+          </p>
+          <button class="help-btn" [routerLink]="['/contact-us']">
+            <span class="arabic-text">تواصل معنا</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

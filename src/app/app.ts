@@ -6,10 +6,20 @@ import { AboutUs } from './pages/about-us/about-us';
 import { Login } from './pages/login/login';
 import { Halaqas } from './pages/halaqas/halaqas';
 import { Chatbot } from './layout/chatbot/chatbot';
+import { Footer } from './layout/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Home, AboutUs, Login, Halaqas, Chatbot],
+  imports: [
+    RouterOutlet,
+    Navbar,
+    Home,
+    AboutUs,
+    Login,
+    Halaqas,
+    Chatbot,
+    Footer,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

@@ -24,6 +24,10 @@
           <i class="fas fa-info-circle"></i>
           <span class="arabic-text">من نحن</span>
         </a>
+        <a routerLink="/contact-us" class="nav-link">
+          <i class="fas fa-info-circle"></i>
+          <span class="arabic-text">تواصل معنا</span>
+        </a>
       </div>
 
       <div class="navbar-actions d-none d-lg-flex">
@@ -67,6 +71,14 @@
       >
         <i class="fas fa-info-circle"></i>
         <span class="arabic-text">من نحن</span>
+      </a>
+      <a
+        [routerLink]="['/contact-us']"
+        routerLinkActive="router-link-active"
+        class="mobile-nav-link"
+      >
+        <i class="fas fa-info-circle"></i>
+        <span class="arabic-text">تواصل معنا</span>
       </a>
     </div>
     <div class="mobile-auth">
