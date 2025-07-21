@@ -6,6 +6,8 @@ import { Login } from './pages/login/login';
 import { ContactUs } from './pages/contact-us/contact-us';
 import { NotFound } from './pages/not-found/not-found';
 import { ParentChildren } from './pages/parent/parent-children/parent-children';
+import { TeacherReports } from './pages/teacher-reports/teacher-reports';
+import { ParentReports } from './pages/parent-reports/parent-reports';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,5 +17,7 @@ export const routes: Routes = [
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
   { path: 'parent-children/:id', component: ParentChildren },
+  { path: 'parent-reports/:studentId', component: ParentReports },
+  { path: 'teacher-reports/:teacherId', component: TeacherReports },
   { path: '**', component: NotFound },
 ];

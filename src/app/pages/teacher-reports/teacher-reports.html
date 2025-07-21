@@ -1,0 +1,408 @@
+<!--  <div class="teacher-reports-container">
+
+  <div class="dashboard-header">
+    <h2>لوحة تحكم المعلم</h2>
+    <div *ngIf="dashboardData" class="dashboard-summary">
+      <div class="summary-card">
+        <h3>عدد الحلقات</h3>
+        <p>{{ dashboardData.totalHalaqas }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>عدد الطلاب</h3>
+        <p>{{ dashboardData.totalStudents }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>معدل الحضور</h3>
+        <p>{{ dashboardData.overallAttendanceRate | number:'1.0-2' }}%</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="dashboardData?.halaqasProgress?.length" class="halaqa-selector">
+    <h3>اختر الحلقة:</h3>
+    <div class="halaqa-buttons">
+      <button
+        *ngFor="let halaqa of dashboardData?.halaqasProgress"
+        [class.active]="selectedHalaqaId === halaqa.halaqaId"
+        (click)="onHalaqaSelect(halaqa.halaqaId)">
+        {{ halaqa.halaqaName }} ({{ halaqa.subjectName }})
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedHalaqaId" class="report-section">
+    <h3>تقدم القرآن الكريم</h3>
+
+    <div class="chart-container">
+      <div class="chart-card">
+        <h4>تقدم الحفظ اليومي</h4>
+        <canvas baseChart
+          [data]="quranProgressChartData"
+          [options]="lineChartOptions"
+          type="line">
+        </canvas>
+      </div>
+    </div>
+
+    <div *ngIf="quranSummaryData" class="summary-grid">
+      <div class="summary-item">
+        <h4>إجمالي الآيات المحفوظة</h4>
+        <p>{{ quranSummaryData.totalLinesMemorized }}</p>
+      </div>
+      <div class="summary-item">
+        <h4>إجمالي الآيات المراجعة</h4>
+        <p>{{ quranSummaryData.totalLinesReviewed }}</p>
+      </div>
+      <div class="summary-item">
+        <h4>متوسط الحفظ لكل طالب</h4>
+        <p>{{ quranSummaryData.averageLinesPerStudent | number:'1.0-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedHalaqaId" class="report-section">
+    <h3>تقارير الحضور</h3>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>نسبة الحضور</h4>
+        <canvas baseChart
+          [data]="attendancePieChartData"
+          [options]="pieChartOptions"
+          type="pie">
+        </canvas>
+      </div>
+
+      <div class="chart-card">
+        <h4>اتجاه الحضور الشهري</h4>
+        <canvas baseChart
+          [data]="attendanceTrendChartData"
+          [options]="barChartOptions"
+          type="bar">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedHalaqaId && islamicProgressData?.length" class="report-section">
+    <h3>تقدم المواد الإسلامية</h3>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>الطالب</th>
+            <th>التاريخ</th>
+            <th>المادة</th>
+            <th>الدرس</th>
+            <th>من صفحة</th>
+            <th>إلى صفحة</th>
+            <th>التقييم</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let progress of islamicProgressData">
+            <td>{{ progress.studentName }}</td>
+            <td>{{ progress.date | date:'shortDate' }}</td>
+            <td>{{ progress.subject }}</td>
+            <td>{{ progress.lessonName }}</td>
+            <td>{{ progress.fromPage }}</td>
+            <td>{{ progress.toPage }}</td>
+            <td>{{ progress.evaluation }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->
+<div class="container-fluid py-4" dir="rtl">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h2 class="text-center text-primary">تقارير المعلم</h2>
+      <hr class="border-primary">
+    </div>
+  </div>
+
+  <!-- Teacher Dashboard Summary -->
+  @if (dashboardData; as data) {
+    <div class="row mb-4">
+      <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title text-success">عدد الحلقات</h5>
+            <p class="display-4">{{ data.totalHalaqas }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title text-info">عدد الطلاب</h5>
+            <p class="display-4">{{ data.totalStudents }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body text-center">
+            <h5 class="card-title text-warning">متوسط الحضور</h5>
+            <p class="display-4">{{ data.overallAttendanceRate }}%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Halaqa Selection and Controls -->
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">اختيار الحلقة</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-2">
+            @for (halaqa of dashboardData?.halaqasProgress || []; track halaqa.halaqaId) {
+              <button
+                class="btn"
+                [class.btn-primary]="selectedHalaqaId === halaqa.halaqaId"
+                [class.btn-outline-primary]="selectedHalaqaId !== halaqa.halaqaId"
+                (click)="onHalaqaSelect(halaqa.halaqaId)"
+              >
+                {{ halaqa.halaqaName }} ({{ halaqa.subjectName }})
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">إعدادات التقارير</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="chartControlForm">
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="showAttendanceTrend" formControlName="showAttendanceTrend">
+              <label class="form-check-label" for="showAttendanceTrend">عرض تطور الحضور</label>
+            </div>
+            <div class="form-check form-switch mb-2">
+              <input class="form-check-input" type="checkbox" id="showAttendanceSummary" formControlName="showAttendanceSummary">
+              <label class="form-check-label" for="showAttendanceSummary">عرض ملخص الحضور</label>
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="showQuranProgress" formControlName="showQuranProgress">
+              <label class="form-check-label" for="showQuranProgress">عرض تقدم الحفظ</label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Halaqa Comparison Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">مقارنة بين الحلقات</h5>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <h6>اختر حلقات للمقارنة:</h6>
+            <div class="d-flex flex-wrap gap-2 mb-3">
+              @for (halaqa of dashboardData?.halaqasProgress || []; track halaqa.halaqaId) {
+                <button
+                  class="btn btn-sm"
+                  [class.btn-success]="selectedHalaqas.includes(halaqa.halaqaId)"
+                  [class.btn-outline-secondary]="!selectedHalaqas.includes(halaqa.halaqaId)"
+                  (click)="toggleHalaqaSelection(halaqa.halaqaId)"
+                >
+                  {{ halaqa.halaqaName }}
+                </button>
+              }
+            </div>
+            <button class="btn btn-primary" (click)="compareHalaqas()">إجراء المقارنة</button>
+          </div>
+
+          @if (comparisonChartData?.labels?.length) {
+            <div class="chart-container">
+              <canvas baseChart
+                [type]="'bar'"
+                [data]="comparisonChartData"
+                [options]="chartOptions"
+              ></canvas>
+            </div>
+          } @else {
+            <p class="text-muted text-center py-3">اختر حلقتين على الأقل للمقارنة</p>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quran Progress Section -->
+  @if (chartControlForm.value.showQuranProgress) {
+    <div class="row mb-4">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">تقدم الحفظ القرآني</h5>
+          </div>
+          <div class="card-body">
+            @if (quranProgressChartData?.labels?.length) {
+              <div class="chart-container">
+                <canvas baseChart
+                  [type]="'line'"
+                  [data]="quranProgressChartData"
+                  [options]="lineChartOptions"
+                ></canvas>
+              </div>
+            } @else {
+              <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">ملخص الحفظ</h5>
+          </div>
+          <div class="card-body">
+            @if (quranSummaryData) {
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  إجمالي الآيات المحفوظة
+                  <span class="badge bg-primary rounded-pill">{{ quranSummaryData.totalLinesMemorized }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  إجمالي الآيات المراجعة
+                  <span class="badge bg-info rounded-pill">{{ quranSummaryData.totalLinesReviewed }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  متوسط الحفظ لكل طالب
+                  <span class="badge bg-success rounded-pill">{{ quranSummaryData.averageLinesPerStudent | number:'1.0-1' }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  عدد الطلاب
+                  <span class="badge bg-warning rounded-pill">{{ quranSummaryData.totalStudents }}</span>
+                </li>
+              </ul>
+            } @else {
+              <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Attendance Section -->
+  @if (chartControlForm.value.showAttendanceTrend || chartControlForm.value.showAttendanceSummary) {
+    <div class="row mb-4">
+      @if (chartControlForm.value.showAttendanceTrend) {
+        <div class="col-md-8">
+          <div class="card shadow-sm">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">تطور الحضور</h5>
+            </div>
+            <div class="card-body">
+              @if (attendanceTrendChartData?.labels?.length) {
+                <div class="chart-container">
+                  <canvas baseChart
+                    [type]="'bar'"
+                    [data]="attendanceTrendChartData"
+                    [options]="barChartOptions"
+                  ></canvas>
+                </div>
+              } @else {
+                <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (chartControlForm.value.showAttendanceSummary) {
+        <div class="col-md-4">
+          <div class="card shadow-sm h-100">
+            <div class="card-header bg-light">
+              <h5 class="mb-0">نسبة الحضور</h5>
+            </div>
+            <div class="card-body">
+              @if (attendancePieChartData?.labels?.length) {
+                <div class="chart-container">
+                  <canvas baseChart
+                    [type]="'pie'"
+                    [data]="attendancePieChartData"
+                    [options]="pieChartOptions"
+                  ></canvas>
+                </div>
+                <div class="mt-3">
+                  @for (item of attendanceSummaryData || []; track item.status) {
+                    <div class="d-flex justify-content-between mb-1">
+                      <span>{{ item.status }}</span>
+                      <span>{{ item.count }} ({{ item.percentage }}%)</span>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Islamic Subjects Progress -->
+  @if (islamicProgressData?.length) {
+    <div class="row">
+      <div class="col-12">
+        <div class="card shadow-sm">
+          <div class="card-header bg-light">
+            <h5 class="mb-0">تقدم المواد الإسلامية</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>التاريخ</th>
+                    <th>المادة</th>
+                    <th>الدرس</th>
+                    <th>الصفحات</th>
+                    <th>الحالة</th>
+                    <th>التقييم</th>
+                    <th>الملاحظات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (progress of islamicProgressData; track progress.date) {
+                    <tr>
+                      <td>{{ progress.date | date:'shortDate' }}</td>
+                      <td>{{ progress.subject }}</td>
+                      <td>{{ progress.lessonName }}</td>
+                      <td>{{ progress.fromPage }} - {{ progress.toPage }}</td>
+                      <td>{{ progress.status }}</td>
+                      <td>{{ progress.evaluation }}</td>
+                      <td>{{ progress.notes }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="alert alert-info mt-3">
+      لا توجد بيانات متاحة للمواد الإسلامية
+    </div>
+  }
+</div>
