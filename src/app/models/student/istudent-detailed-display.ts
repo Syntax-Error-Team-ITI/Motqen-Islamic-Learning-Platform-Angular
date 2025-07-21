@@ -1,5 +1,5 @@
 export interface IStudentDetailedDisplay {
-  id: number;
+  // id: number;
   name: string;
   pic: string;
   gender: string;

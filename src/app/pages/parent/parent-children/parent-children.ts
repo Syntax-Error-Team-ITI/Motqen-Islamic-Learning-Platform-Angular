@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ParentChildren implements OnInit {
   children: IParentChildren[] = [];
-  parentId: number = 2;
+  parentId: number = 0;
 
   constructor(
     private parentService: ParentService,
@@ -28,7 +28,6 @@ export class ParentChildren implements OnInit {
         this.parentId = id;
       }
     });
-    console.log(this.parentId);
     this.parentService.getParentChildren(this.parentId).subscribe({
       next: (children) => {
         this.children = children;

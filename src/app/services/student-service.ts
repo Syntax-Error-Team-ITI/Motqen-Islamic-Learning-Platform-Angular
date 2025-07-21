@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IStudentHalaqaDisplay } from '../models/student/istudent-halaqa-display';
 import { IStudentHalaqaForm } from '../models/student/istudent-halaqa-form';
+import { IHalaqaStudentDisplayHalaqa } from '../models/student/ihalaqa-student-display-halaqa';
 
 @Injectable({
   providedIn: 'root',
@@ -42,8 +43,8 @@ export class StudentService {
   getAllHalaqaForStudent(
     studentId: number,
     includeDeleted: boolean = false
-  ): Observable<IStudentHalaqaDisplay[]> {
-    return this.http.get<IStudentHalaqaDisplay[]>(
+  ): Observable<IHalaqaStudentDisplayHalaqa[]> {
+    return this.http.get<IHalaqaStudentDisplayHalaqa[]>(
       `${this.baseUrl}/student/${studentId}/all-halaqa?includeDeleted=${includeDeleted}`
     );
   }

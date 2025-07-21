@@ -6,6 +6,8 @@ import { Login } from './pages/login/login';
 import { ContactUs } from './pages/contact-us/contact-us';
 import { NotFound } from './pages/not-found/not-found';
 import { ParentChildren } from './pages/parent/parent-children/parent-children';
+import { DisplayHalaqaForStudent } from './pages/student/display-halaqa-for-student/display-halaqa-for-student';
+import { HalaqaMeeting } from './pages/halaqa/halaqa-meeting/halaqa-meeting';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,5 +17,7 @@ export const routes: Routes = [
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
   { path: 'parent-children/:id', component: ParentChildren },
+  { path: 'student/:id/halaqa', component: DisplayHalaqaForStudent },
+  { path: 'student/join-halaqa/:guestLiveLink', component: HalaqaMeeting },
   { path: '**', component: NotFound },
 ];
