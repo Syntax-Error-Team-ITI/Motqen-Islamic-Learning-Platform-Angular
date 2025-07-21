@@ -15,4 +15,10 @@ body {
   --light-gray: #6c757d;
   --border-color: #e9ecef;
   --gold-color: #daa520;
+  --primary-blue: #4a90e2;
+  --secondary-red: #e74c3c;
+  --secondary-purple: #9b59b6;
+  --secondary-yellow: #f39c12;
+  --secondary-teal: #1abc9c;
+  --soft-white: rgba(255, 255, 255, 0.9);
 }
