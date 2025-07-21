@@ -33,7 +33,7 @@ export class DisplayHalaqaForStudent implements OnInit {
     });
   }
   joinHalaqa(guestLiveLink: string) {
-    this.router.navigate(['/student/join-halaqa', guestLiveLink]);
+    this.router.navigate(['/join-halaqa', guestLiveLink]);
     this.cdr.detectChanges();
   }
 }

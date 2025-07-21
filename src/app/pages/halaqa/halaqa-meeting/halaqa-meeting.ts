@@ -13,8 +13,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class HalaqaMeeting implements OnInit {
   micGranted = false;
   camGranted = false;
-  guestLiveLink: string = '';
-  safeGuestLiveLink: SafeResourceUrl = '';
+  liveLink: string = '';
+  safeLiveLink: SafeResourceUrl = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -24,18 +24,11 @@ export class HalaqaMeeting implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
-      this.guestLiveLink = `${environment.meetingBaseUrl}${params['guestLiveLink']}`;
-      this.safeGuestLiveLink = this.sanitizer.bypassSecurityTrustResourceUrl(
-        this.guestLiveLink
+      this.liveLink = `${environment.meetingBaseUrl}${params['liveLink']}`;
+      this.safeLiveLink = this.sanitizer.bypassSecurityTrustResourceUrl(
+        this.liveLink
       );
       this.cdr.detectChanges();
     });
-  }
-
-  async joinHalaqa(link: string) {
-    // طلب إذن مشاركة الشاشة
-    try {
-      // منطق مشاركة الشاشة إذا أردت
-    } catch {}
   }
 }
