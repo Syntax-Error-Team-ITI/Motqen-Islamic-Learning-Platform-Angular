@@ -1,0 +1,197 @@
+.student-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 15px; /* Add padding for better spacing */
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  gap: 24px;
+  flex-wrap: wrap; /* Allow header content to wrap */
+}
+
+.header-content h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.header-content p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.header-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.students-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+.students-table th,
+.students-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: right; /* Changed to right for RTL */
+}
+
+.students-table th {
+  background-color: #f5f5f5;
+  font-weight: 500;
+  color: #555;
+}
+
+.students-table td {
+  vertical-align: middle; /* Align cell content vertically */
+}
+
+.badge-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.gender-male {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.gender-female {
+  background-color: #fce4ec;
+  color: #c2185b;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-badge.inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.action-dropdown .btn-icon {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #555; /* Default icon color */
+}
+
+.action-dropdown .btn-icon .material-icons {
+  font-size: 24px;
+}
+
+.delete-action {
+  color: #f44336 !important; /* Important to override Bootstrap default link color if needed */
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-actions {
+    justify-content: flex-start;
+  }
+
+  .students-table {
+    min-width: unset; /* Allow table to shrink on small screens */
+  }
+}
+.input-group-append .btn {
+  border-top-left-radius: 0.5rem; /* Adjusted for RTL */
+  border-bottom-left-radius: 0.5rem; /* Adjusted for RTL */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.input-group-prepend .btn {
+  border-top-right-radius: 0.5rem; /* Adjusted for RTL */
+  border-bottom-right-radius: 0.5rem; /* Adjusted for RTL */
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-control:focus {
+  border-color: #059669; /* emerald-500 */
+  box-shadow: 0 0 0 0.25rem rgba(5, 150, 105, 0.25); /* emerald-500 with alpha */
+}
+.modal-header-custom {
+  background-color: #047857 !important;
+  color: white;
+}
+/* Custom styles for RTL adjustments and specific elements */
+.card-header-custom {
+  background-color: #047857; /* Equivalent to bg-emerald-600 */
+}
+
+/* Custom style to replicate the emerald-500 ring focus */
+.form-control:focus,
+.form-select:focus,
+.form-control-plaintext:focus {
+  border-color: #10b981; /* Equivalent to emerald-500 */
+  box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.25); /* Equivalent to ring-2 emerald-500 */
+}
+
+.input-group-text-custom {
+  background-color: #d1fae5; /* bg-green-100 */
+  color: #04785e; /* text-green-700 */
+  border-color: #a7f3d0; /* border-green-300 */
+}
+
+.credentials-section {
+  border: 1px solid #a7f3d0; /* border border-green-200 */
+  background-color: #f0fdf4; /* bg-green-50 */
+}
+
+.credentials-section h3 {
+  border-bottom: 1px solid #a7f3d0; /* border-b border-green-200 */
+}
+
+.info-alert-custom {
+  background-color: #d1fae5; /* bg-green-100 */
+  color: #065f46; /* text-green-800 */
+  border: 1px solid #a7f3d0; /* border border-green-300 */
+}

@@ -1,0 +1,476 @@
+:root {
+  --primary-green: #2e8b57;
+  --primary-blue: #4a90e2;
+  --secondary-red: #e74c3c;
+  --secondary-purple: #9b59b6;
+  --secondary-yellow: #f39c12;
+  --secondary-teal: #1abc9c;
+  --soft-white: rgba(255, 255, 255, 0.9);
+  --dark-gray: #343a40;
+  --light-gray: #f8f9fa;
+}
+
+body {
+  font-family: "Amiri", serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  display: flex; /* For overall layout */
+  direction: rtl; /* Global RTL */
+  overflow-x: hidden; /* Prevent horizontal scroll from sidebar transition */
+}
+
+.arabic-text {
+  font-family: "Amiri", serif;
+}
+
+/* Overall Layout */
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+/* Sidebar Styles */
+.modern-sidebar {
+  width: 280px;
+  background: linear-gradient(
+    180deg,
+    #1f422e,
+    #2e8b57
+  ); /* Darker green gradient */
+  color: white;
+  padding: 2rem 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  right: 0; /* Position on the right for RTL */
+  z-index: 1000;
+  transition: all 0.3s ease;
+  transform: translateX(0); /* Default: visible */
+  display: flex;
+  flex-direction: column;
+}
+
+.modern-sidebar.closed {
+  transform: translateX(280px); /* Hide by moving it off-screen to the right */
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--soft-white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-green);
+  font-size: 1.8rem;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+.logo-text h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.logo-subtitle {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.sidebar-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--soft-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+  color: white;
+}
+
+.sidebar-nav {
+  padding: 1.5rem 0;
+  flex-grow: 1; /* Allow navigation to take available space */
+  overflow-y: auto; /* Enable scrolling for many items */
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-right: 3px solid transparent;
+  direction: rtl; /* Important for icon positioning */
+  margin: 0.25rem 0;
+}
+
+.sidebar-link:hover {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+  color: white;
+  text-decoration: none;
+  transform: translateX(-5px); /* Slide left slightly on hover */
+}
+
+.sidebar-link.active {
+  background: linear-gradient(90deg, rgba(218, 165, 32, 0.2), transparent);
+  color: white;
+  border-right-color: #daa520; /* Gold color for active border */
+}
+
+.sidebar-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-left: 1rem; /* Space between icon and text for RTL */
+  flex-shrink: 0;
+}
+
+.sidebar-text {
+  flex-grow: 1;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Logout Section in Sidebar */
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto; /* Pushes footer to the bottom */
+}
+
+.logout-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: var(--secondary-red);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+/* Enhanced Active State */
+.sidebar-link.active {
+  background: linear-gradient(
+    90deg,
+    rgba(218, 165, 32, 0.3),
+    transparent
+  ); /* Slightly more opaque */
+  color: white;
+  border-right-color: #daa520; /* Gold color for active border */
+  border-right-width: 5px; /* Thicker border */
+  box-shadow: inset 5px 0 15px rgba(218, 165, 32, 0.3); /* Subtle inner shadow */
+}
+
+/* Icon Hover Effect */
+.sidebar-link .sidebar-icon {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar-link:hover .sidebar-icon {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ) !important; /* Slightly lighter background */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar Styling (for Webkit browsers) */
+.sidebar-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  direction: rtl; /* Ensure content inside is RTL */
+  justify-content: flex-start; /* Align content to the right side */
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.user-info {
+  text-align: right; /* Text align right for RTL */
+}
+
+.user-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.user-role {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Main Content Area */
+.main-content {
+  flex-grow: 1;
+  padding-right: 280px; /* Space for fixed sidebar */
+  transition: padding-right 0.3s ease;
+  width: 100%; /* Important for proper flex behavior */
+}
+
+.main-content.sidebar-closed {
+  padding-right: 0; /* No space when sidebar is closed */
+}
+
+/* Header Styles */
+.modern-header {
+  background: white;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.header-logo {
+  display: none; /* Hide on larger screens if sidebar has logo */
+}
+
+.search-container {
+  flex-grow: 1;
+  max-width: 500px;
+  margin-right: 2rem; /* Adjusted for RTL */
+  margin-left: 0; /* Ensure no left margin for RTL */
+}
+
+.search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  border: 1px solid #e9ecef;
+  border-radius: 25px;
+  padding: 0.75rem 1.5rem;
+  padding-right: 3rem; /* Space for icon for RTL */
+  font-family: "Amiri", serif;
+  font-size: 0.95rem;
+  text-align: right;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25);
+}
+
+.search-icon {
+  position: absolute;
+  right: 15px; /* Position on the right for RTL */
+  color: #adb5bd;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-button {
+  background: #f0f2f5;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-gray);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.icon-button:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.header-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 45px;
+  height: 45px;
+  background: var(--primary-blue);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.profile-info {
+  line-height: 1.2;
+  text-align: right; /* Right align text for RTL */
+}
+
+.profile-name {
+  font-weight: 600;
+  margin-bottom: 0;
+  color: #343a40;
+}
+
+.profile-role {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--secondary-red);
+  color: white;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-dropdown {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+}
+
+.custom-dropdown .dropdown-item {
+  padding: 0.75rem 1.5rem;
+  font-family: "Amiri", serif;
+  transition: all 0.3s ease;
+}
+
+.custom-dropdown .dropdown-item:hover {
+  background: rgba(46, 139, 87, 0.1);
+  color: var(--primary-green);
+}
+
+/* Dashboard Styles */
+.dashboard-content {
+  padding: 2rem;
+  background-color: #f0f2f5;
+  min-height: calc(100vh - 80px); /* Adjust based on header height */
+}
+
+/* Logout Button Hover Adjustment */
+.logout-btn:hover {
+  background: var(--secondary-red);
+  transform: translateY(-2px) scale(1.01); /* Slight scale added */
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .modern-sidebar {
+    transform: translateX(280px); /* Hide by default on small screens */
+  }
+
+  .modern-sidebar.open {
+    transform: translateX(0); /* Show when open */
+  }
+
+  .main-content {
+    padding-right: 0; /* No padding on small screens */
+  }
+
+  .main-content.sidebar-open {
+    /* Add overlay or dim effect if desired */
+  }
+
+  .header-logo {
+    display: flex; /* Show logo in header on small screens */
+  }
+
+  .search-container {
+    margin-right: 1rem; /* Adjust margin */
+  }
+}
+
+@media (min-width: 992px) {
+  .menu-btn {
+    display: none !important; /* Hide menu button on larger screens */
+  }
+  .header-logo {
+    display: none; /* Hide logo in header when sidebar is visible */
+  }
+}

@@ -1,0 +1,29 @@
+.card-header-custom {
+  background-color: #047857 !important; /* emerald-600 */
+  color: white;
+}
+.detail-label {
+  color: #4b5563; /* gray-700 */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.5rem;
+}
+.detail-value {
+  color: #1f2937; /* gray-900 */
+  font-size: 1.125rem; /* text-lg */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb; /* gray-200 */
+}
+.detail-value:last-child {
+  border-bottom: none;
+}
+.modal-header-custom {
+  background-color: #047857 !important;
+  color: white;
+}
+/* Custom styles for form focus */
+.form-control:focus,
+.form-select:focus {
+  border-color: #059669; /* emerald-500 */
+  box-shadow: 0 0 0 0.25rem rgba(5, 150, 105, 0.25); /* emerald-500 with alpha */
+}

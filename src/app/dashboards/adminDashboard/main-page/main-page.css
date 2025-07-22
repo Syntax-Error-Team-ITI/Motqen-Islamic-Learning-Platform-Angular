@@ -1,0 +1,422 @@
+/* Include all relevant CSS for the main content here */
+:root {
+  --primary-green: #2e8b57;
+  --secondary-blue: #4a90e2;
+  --dark-gray: #2c3e50;
+  --light-gray: #6c757d;
+  --border-color: #e9ecef;
+  --gold-color: #daa520;
+}
+
+body {
+  margin: 0;
+  font-family: "Amiri", serif;
+  color: var(--dark-gray);
+  background-color: #f8f9fa;
+  display: flex; /* Use flexbox for sidebar and main content */
+}
+
+.arabic-text {
+  font-family: "Amiri", serif;
+}
+
+.inter-font {
+  font-family: "Inter", sans-serif;
+}
+
+/* Scrollbar Enhancement */
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px; /* For horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-green);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #28a745; /* Slightly darker green on hover */
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: thin; /* "auto" or "none" */
+  scrollbar-color: var(--primary-green) #f1f1f1; /* thumb color track color */
+}
+
+/* Main content area */
+.main-content {
+  flex-grow: 1; /* Allow main content to take remaining space */
+  margin-right: 280px; /* Space for the fixed sidebar on desktop */
+  padding: 2rem;
+  transition: margin-right 0.3s ease-in-out;
+  min-height: 100vh; /* Ensure main content pushes footer down if any */
+}
+
+/* Dashboard Specific Styles */
+.module-content {
+  animation: fadeIn 0.5s ease-out;
+  padding: 0; /* Remove default padding from main-content to allow module-hero full width */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.module-hero {
+  background: linear-gradient(
+    135deg,
+    var(--primary-green) 0%,
+    var(--secondary-blue) 100%
+  );
+  color: white;
+  padding: 4rem 0;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.module-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.module-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  padding: 0.5rem 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.hero-badge i {
+  font-size: 1rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary-custom {
+  background: var(--gold-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
+  color: white;
+  text-decoration: none;
+}
+
+.btn-outline-custom {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  padding: 0.8rem 1.8rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-outline-custom:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-3px);
+  color: white;
+  text-decoration: none;
+}
+
+.module-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  margin-top: 1.5rem; /* For mobile vertical spacing */
+}
+
+/* Dashboard Statistics/Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.stat-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.stat-info .stat-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  line-height: 1;
+  font-family: "Inter", sans-serif;
+}
+
+.stat-info .stat-label {
+  font-size: 0.9rem;
+  color: var(--light-gray);
+}
+
+/* Latest Courses/Activities */
+.section-title-dash {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+}
+
+.course-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.course-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 180px); /* Adjust height based on image */
+}
+
+.course-badge {
+  background: rgba(46, 139, 87, 0.1);
+  color: var(--primary-green);
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.course-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--dark-gray);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.course-description {
+  font-size: 0.95rem;
+  color: var(--light-gray);
+  line-height: 1.6;
+  flex-grow: 1; /* Allow description to take available space */
+  margin-bottom: 1rem;
+}
+
+.course-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: var(--light-gray);
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.course-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.course-meta i {
+  color: var(--primary-green);
+}
+
+.course-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.course-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-green);
+}
+
+.view-course-btn {
+  background: var(--primary-green);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.view-course-btn:hover {
+  background: #28a745;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .main-content {
+    margin-right: 0; /* No margin on mobile */
+  }
+  .module-hero {
+    padding: 3rem 0;
+  }
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .stats-grid,
+  .latest-courses-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .module-image {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-content {
+    padding: 1rem;
+  }
+  .module-hero {
+    padding: 2rem 0;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+  }
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-description {
+    font-size: 1rem;
+  }
+  .btn-primary-custom,
+  .btn-outline-custom {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  .module-image {
+    max-width: 200px;
+    margin-bottom: 2rem;
+  }
+  .stats-grid,
+  .latest-courses-grid {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  .stat-info {
+    text-align: center;
+  }
+  .stat-icon {
+    margin-bottom: 0.5rem;
+  }
+  .section-title-dash {
+    font-size: 1.7rem;
+  }
+}

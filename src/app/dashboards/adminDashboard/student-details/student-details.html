@@ -1,0 +1,114 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
+  <div class="w-100" style="max-width: 900px">
+    <div class="card shadow-lg rounded-xl overflow-hidden">
+      <!-- Card Header -->
+      <div
+        class="card-header-custom p-4 d-flex align-items-center gap-3 rounded-top-xl"
+      >
+        <i class="fas fa-user-graduate text-4xl"></i>
+        <div class="text-right">
+          <h2 class="fs-2 fw-bold mb-1">تفاصيل الطالب</h2>
+          <p class="fs-5 opacity-90">عرض معلومات الطالب والحلقات المسجل بها</p>
+        </div>
+      </div>
+
+      <!-- Card Body - Details Section -->
+      <div class="card-body p-5">
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-md-4 text-center">
+            <img
+              src="https://placehold.co/120x120/E0F2F7/047857?text=صورة"
+              alt="صورة الطالب"
+              class="rounded-circle mb-3"
+              style="
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                margin: 0 auto;
+              "
+            />
+            <h4 class="mb-0" id="studentNameDetail">أحمد سعيد</h4>
+            <p class="text-muted" id="userIdDetail">معرف المستخدم: STU-001</p>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="mb-3">
+              <p class="detail-label">الجنس</p>
+              <p class="detail-value" id="genderDetail">ذكر</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">العمر</p>
+              <p class="detail-value" id="ageDetail">10 سنوات</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">تاريخ الميلاد</p>
+              <p class="detail-value" id="birthDateDetail">2014-05-15</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">الجنسية</p>
+              <p class="detail-value" id="nationalityDetail">سعودي</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">ولي الأمر</p>
+              <p class="detail-value" id="parentDetail">محمد أحمد</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enrolled Halaqas Section -->
+        <div class="mt-5">
+          <h4 class="mb-3 fw-bold">الحلقات المسجل بها</h4>
+          <div class="table-responsive rounded-lg shadow-sm">
+            <table class="halaqas-table table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col">اسم الحلقة</th>
+                  <th scope="col">النوع</th>
+                  <th scope="col">الجنس</th>
+                  <th scope="col">المعلمون</th>
+                  <th scope="col">الجدول الزمني</th>
+                  <th scope="col">الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="enrolledHalaqasTableBody">
+                <!-- Example Halaqa Rows (will be populated dynamically) -->
+                <tr>
+                  <td>حفظ أ</td>
+                  <td>
+                    <span class="badge-chip type-memorization">حفظ</span>
+                  </td>
+                  <td><span class="badge-chip gender-male">ذكور</span></td>
+                  <td>الأستاذ أحمد</td>
+                  <td>الاثنين, الأربعاء - 4:00 مساءً</td>
+                  <td><span class="status-badge active">نشط</span></td>
+                </tr>
+                <tr>
+                  <td>تجويد للمبتدئين</td>
+                  <td><span class="badge-chip type-both">كلاهما</span></td>
+                  <td>
+                    <span class="badge-chip gender-mixed">مختلط</span>
+                  </td>
+                  <td>الأستاذة ليلى</td>
+                  <td>الثلاثاء, الخميس - 6:00 مساءً</td>
+                  <td><span class="status-badge active">نشط</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="d-flex justify-content-start mt-4">
+          <button
+            type="button"
+            class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+            onclick="history.back()"
+            style="background-color: #9ca3af !important"
+          >
+            <i class="fas fa-arrow-right"></i>
+            العودة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

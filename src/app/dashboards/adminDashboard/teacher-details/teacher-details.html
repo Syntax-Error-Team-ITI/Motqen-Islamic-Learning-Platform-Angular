@@ -1,0 +1,107 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
+  <div class="w-100" style="max-width: 900px">
+    <div class="card shadow-lg rounded-xl overflow-hidden">
+      <!-- Card Header -->
+      <div
+        class="card-header-custom p-4 d-flex align-items-center gap-3 rounded-top-xl"
+      >
+        <i class="fas fa-user-tie text-4xl"></i>
+        <div class="text-right">
+          <h2 class="fs-2 fw-bold mb-1">تفاصيل المعلم</h2>
+          <p class="fs-5 opacity-90">عرض معلومات المعلم والحلقات التي يدرسها</p>
+        </div>
+      </div>
+
+      <!-- Card Body - Details Section -->
+      <div class="card-body p-5">
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-md-4 text-center">
+            <img
+              src="https://placehold.co/120x120/E0F2F7/047857?text=صورة"
+              alt="صورة المعلم"
+              class="rounded-circle mb-3"
+              style="
+                width: 120px;
+                height: 120px;
+                object-fit: cover;
+                margin: 0 auto;
+              "
+            />
+            <h4 class="mb-0" id="teacherNameDetail">الأستاذ أحمد</h4>
+            <p class="text-muted" id="userIdDetail">معرف المستخدم: TEACH-001</p>
+          </div>
+          <div class="col-12 col-md-8">
+            <div class="mb-3">
+              <p class="detail-label">الجنس</p>
+              <p class="detail-value" id="genderDetail">ذكر</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">العمر</p>
+              <p class="detail-value" id="ageDetail">35 سنة</p>
+            </div>
+            <div class="mb-3">
+              <p class="detail-label">المواد التي يدرسها</p>
+              <p class="detail-value" id="subjectsDetail">
+                القرآن الكريم، الفقه
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Taught Halaqas Section -->
+        <div class="mt-5">
+          <h4 class="mb-3 fw-bold">الحلقات التي يدرسها</h4>
+          <div class="table-responsive rounded-lg shadow-sm">
+            <table class="halaqas-table table table-hover mb-0">
+              <thead class="bg-light">
+                <tr>
+                  <th scope="col">اسم الحلقة</th>
+                  <th scope="col">النوع</th>
+                  <th scope="col">الجنس</th>
+                  <th scope="col">الجدول الزمني</th>
+                  <th scope="col">الحالة</th>
+                </tr>
+              </thead>
+              <tbody id="taughtHalaqasTableBody">
+                <!-- Example Halaqa Rows (will be populated dynamically) -->
+                <tr>
+                  <td>حلقة تحفيظ للمبتدئين</td>
+                  <td>
+                    <span class="badge-chip type-memorization">حفظ</span>
+                  </td>
+                  <td><span class="badge-chip gender-male">ذكور</span></td>
+                  <td>الأحد, الثلاثاء - 9:00 صباحاً</td>
+                  <td><span class="status-badge active">نشط</span></td>
+                </tr>
+                <tr>
+                  <td>مراجعة الفقه الإسلامي</td>
+                  <td>
+                    <span class="badge-chip type-revision">مراجعة</span>
+                  </td>
+                  <td>
+                    <span class="badge-chip gender-mixed">مختلط</span>
+                  </td>
+                  <td>الاثنين, الأربعاء - 5:00 مساءً</td>
+                  <td><span class="status-badge active">نشط</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="d-flex justify-content-start mt-4">
+          <button
+            type="button"
+            class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+            onclick="history.back()"
+            style="background-color: #9ca3af !important"
+          >
+            <i class="fas fa-arrow-right"></i>
+            العودة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

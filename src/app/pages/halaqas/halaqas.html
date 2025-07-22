@@ -60,15 +60,11 @@
     </div>
 
     <div class="courses-grid">
+      @for (halaqa of halaqas; track $index) {
       <div class="course-card">
         <div class="course-content">
-          <h3 class="course-title arabic-text">
-            برنامج حفظ القرآن الكريم - المستوى الأول
-          </h3>
-          <p class="course-description arabic-text">
-            برنامج شامل لحفظ الأجزاء الأولى من القرآن الكريم مع التركيز على
-            التأسيس الصحيح.
-          </p>
+          <h3 class="course-title arabic-text">{{halaqa.name}}</h3>
+          <p class="course-description arabic-text">{{halaqa.description}}</p>
           <div class="course-meta">
             <span class="meta-item arabic-text"
               ><i class="fas fa-user-tie"></i> الشيخ أحمد محمد</span
@@ -98,6 +94,9 @@
         </div>
       </div>
 
+      }
+
+      <!-- 
       <div class="course-card">
         <div class="course-content">
           <h3 class="course-title arabic-text">دورة أحكام التجويد الأساسية</h3>
@@ -237,7 +236,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="pagination-container">
