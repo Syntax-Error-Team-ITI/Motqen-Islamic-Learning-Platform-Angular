@@ -22,6 +22,15 @@ export class StudentService {
     );
   }
 
+  getStudentsNotInHalaqa(
+    halaqaId: number,
+    includeDeleted: boolean = false
+  ): Observable<IStudentShortDisplay[]> {
+    return this.http.get<IStudentShortDisplay[]>(
+      `${this.baseUrl}/student/notInHalaqa/${halaqaId}?includeDeleted=${includeDeleted}`
+    );
+  }
+
   getStudentById(
     studentId: number,
     includeDeleted: boolean = false
