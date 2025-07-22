@@ -1,21 +1,33 @@
+/* .container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  padding: 2rem 2.5rem;
+} */
 
 h2 {
   font-weight: 700;
   color: #2c3e50;
 }
 
-.halaqa-card {
+.student-card {
   border-radius: 10px;
   box-shadow: 0 2px 16px rgba(44, 62, 80, 0.1);
   transition: box-shadow 0.3s, transform 0.2s;
 }
-.halaqa-card:hover {
+.student-card:hover {
   box-shadow: 0 8px 32px rgba(46, 139, 87, 0.18) !important;
   transform: translateY(-6px) scale(1.03);
 }
 .card-title {
   color: #3498db;
   font-weight: 600;
+}
+
+.alert-info {
+  background: #eaf6fb;
+  color: #217dbb;
+  border: none;
 }
 
 @media (max-width: 768px) {

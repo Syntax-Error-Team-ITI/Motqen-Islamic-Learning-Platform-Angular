@@ -8,6 +8,9 @@ import { NotFound } from './pages/not-found/not-found';
 import { ParentChildren } from './pages/parent/parent-children/parent-children';
 import { DisplayHalaqaForStudent } from './pages/student/display-halaqa-for-student/display-halaqa-for-student';
 import { HalaqaMeeting } from './pages/halaqa/halaqa-meeting/halaqa-meeting';
+import { TeacherReports } from './pages/teacher-reports/teacher-reports';
+import { ParentReports } from './pages/parent-reports/parent-reports';
+import { DisplayStudentsForHalaqa } from './pages/halaqa/display-students-for-halaqa/display-students-for-halaqa';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,5 +22,9 @@ export const routes: Routes = [
   { path: 'parent-children/:id', component: ParentChildren },
   { path: 'student/:id/halaqa', component: DisplayHalaqaForStudent },
   { path: 'join-halaqa/:liveLink', component: HalaqaMeeting },
+  { path: 'parent-reports/:studentId', component: ParentReports },
+  { path: 'teacher-reports/:teacherId', component: TeacherReports },
+  { path: 'halaqa/:id/students', component: DisplayStudentsForHalaqa },
+
   { path: '**', component: NotFound },
 ];
