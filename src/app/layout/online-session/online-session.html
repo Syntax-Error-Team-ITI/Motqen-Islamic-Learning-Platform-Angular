@@ -1,0 +1,72 @@
+<div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
+  <div class="w-100" style="max-width: 800px">
+    <div class="card shadow-lg rounded-xl overflow-hidden">
+      <!-- Card Header -->
+      <div
+        class="card-header-custom p-4 d-flex align-items-center gap-3 rounded-top-xl"
+      >
+        <i class="fas fa-video text-4xl"></i>
+        <div class="text-right">
+          <h2 class="fs-2 fw-bold mb-1">تفاصيل الجلسة</h2>
+          <p class="fs-5 opacity-90">معلومات حول الجلسة الحالية</p>
+        </div>
+      </div>
+
+      <!-- Card Body - Details Section -->
+      <div class="card-body p-5">
+        <div class="mb-4">
+          <p class="detail-label">اسم الحلقة</p>
+          <h3 class="detail-value" id="halaqaName">
+            حلقة تحفيظ القرآن الكريم - المستوى الأول
+          </h3>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-md-6">
+            <p class="detail-label">تاريخ الجلسة</p>
+            <p class="detail-value" id="sessionDate">2024-07-25</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <p class="detail-label">وقت الجلسة</p>
+            <p class="detail-value" id="sessionTime">04:00 مساءً</p>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <p class="detail-label">رابط الجلسة</p>
+          <div class="meeting-link-box">
+            <i class="fas fa-link"></i>
+            <a
+              href="https://meet.google.com/abc-defg-hij"
+              target="_blank"
+              id="meetingLink"
+            >
+              https://meet.google.com/abc-defg-hij
+            </a>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <p class="detail-label">وصف الجلسة / جدول الأعمال</p>
+          <p class="detail-value" id="sessionDescription">
+            مراجعة الجزء الأول من سورة البقرة، وتصحيح التلاوة، وشرح مبسط لآيات
+            مختارة. الرجاء التأكد من جاهزية الاتصال بالإنترنت قبل بدء الجلسة.
+          </p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="d-flex justify-content-start mt-4">
+          <button
+            type="button"
+            class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+            onclick="history.back()"
+            style="background-color: #9ca3af !important"
+          >
+            <i class="fas fa-arrow-right"></i>
+            العودة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

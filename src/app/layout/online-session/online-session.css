@@ -1,0 +1,39 @@
+.card-header-custom {
+  background-color: #047857 !important; /* emerald-600 */
+  color: white;
+}
+.detail-label {
+  color: #4b5563; /* gray-700 */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.5rem;
+}
+.detail-value {
+  color: #1f2937; /* gray-900 */
+  font-size: 1.125rem; /* text-lg */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb; /* gray-200 */
+}
+.detail-value:last-child {
+  border-bottom: none;
+}
+.meeting-link-box {
+  background-color: #e0f2f7; /* Light blue */
+  border: 1px solid #a7d9ee;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.meeting-link-box i {
+  color: #007bff; /* Bootstrap primary blue */
+}
+.meeting-link-box a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+.meeting-link-box a:hover {
+  text-decoration: underline;
+}
