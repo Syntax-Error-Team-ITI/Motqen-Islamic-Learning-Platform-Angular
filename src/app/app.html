@@ -7,4 +7,21 @@
   <app-footer></app-footer>
 </div> -->
 
-<app-aside></app-aside>
+@if(true)
+{
+<app-aside>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+    <app-chatbot></app-chatbot>
+  </main>
+</app-aside>
+}
+@else
+{
+<app-navbar></app-navbar>
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
+<app-footer></app-footer>
+<app-chatbot></app-chatbot>
+}

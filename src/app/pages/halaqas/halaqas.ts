@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HalaqaService } from '../../services/halaqa-service';
 import { IHalaqaDto } from '../../models/Halaqaa/ihalaqa-dto';
 import { error } from 'console';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-halaqas',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './halaqas.html',
   styleUrl: './halaqas.css',
 })
