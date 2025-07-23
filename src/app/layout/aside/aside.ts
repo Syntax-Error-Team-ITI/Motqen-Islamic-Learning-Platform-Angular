@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-import { MainPage } from "../../dashboards/adminDashboard/main-page/main-page";
-import { HalaqaList } from "../../dashboards/adminDashboard/halaqa-list/halaqa-list";
-import { HalaqaDetails } from "../../dashboards/adminDashboard/halaqa-details/halaqa-details";
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-aside',
-  imports: [MainPage, HalaqaList, HalaqaDetails],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './aside.html',
   styleUrl: './aside.css',
 })

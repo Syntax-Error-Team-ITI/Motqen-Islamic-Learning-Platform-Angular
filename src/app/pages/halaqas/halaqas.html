@@ -87,7 +87,7 @@
           </div>
           <div class="course-footer">
             <span class="course-price arabic-text">مجاني</span>
-            <a href="#" class="view-course-btn arabic-text">
+            <a [routerLink]="['/halaqa', halaqa.id, 'students']" class="view-course-btn arabic-text">
               عرض الدورة <i class="fas fa-arrow-right"></i>
             </a>
           </div>
@@ -96,7 +96,7 @@
 
       }
 
-      <!-- 
+      <!--
       <div class="course-card">
         <div class="course-content">
           <h3 class="course-title arabic-text">دورة أحكام التجويد الأساسية</h3>
