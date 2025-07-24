@@ -1,0 +1,74 @@
+<div class="container chatbot-container" id="chatbotContainer">
+  <div class="chatbot-header">
+    <div class="d-flex align-items-center">
+      <div class="chatbot-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="ms-2">
+        <h6 class="mb-0 arabic-text">المساعد الذكي</h6>
+        <small class="text-white-50 arabic-text">متقن للعلوم الشرعية</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="chatbot-messages">
+    @for (msg of messages; track msg) {
+    <div class="message {{msg.sender}}">
+      <div class="message-avatar">
+        <i
+          class="fas"
+          [ngClass]="msg.sender === 'bot' ? 'fa-robot' : 'fa-user'"
+        ></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">{{msg.text}}</div>
+        <div class="message-time">{{msg.time}}</div>
+      </div>
+    </div>
+    } @if (loading) {
+    <div class="message bot">
+      <div class="message-avatar">
+        <i class="fas fa-robot"></i>
+      </div>
+      <div class="message-content">
+        <div class="message-text arabic-text">
+          <span
+            class="spinner-border spinner-border-sm me-2"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          المساعد يفكر...
+        </div>
+        <div class="message-time">&nbsp;</div>
+      </div>
+    </div>
+    }
+    <div id="messagesEndRef"></div>
+  </div>
+
+  <div class="chatbot-input mt-2">
+    <div class="row align-items-center g-2">
+      <div class="col-2 col-md-1">
+        <button
+          class="btn btn-primary p-2 w-100"
+          type="button"
+          (click)="sendMessage()"
+          [disabled]="loading || !userInput.trim()"
+        >
+          <i class="fas fa-paper-plane fs-4"></i>
+        </button>
+      </div>
+      <div class="col-10 col-md-11">
+        <input
+          type="text"
+          class="form-control border-0 arabic-text"
+          placeholder="اكتب رسالتك هنا..."
+          dir="rtl"
+          [(ngModel)]="userInput"
+          (keydown)="onInputKeydown($event)"
+          [disabled]="loading"
+        />
+      </div>
+    </div>
+  </div>
+</div>

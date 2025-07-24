@@ -1,0 +1,51 @@
+.page-header-custom {
+  background-color: #047857 !important; /* emerald-600 */
+  color: white;
+  padding: 2rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-custom {
+  border: none;
+  border-radius: 0.75rem; /* rounded-xl */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+.card-custom:hover {
+  transform: translateY(-5px);
+}
+.card-title-custom {
+  color: #047857; /* emerald-600 */
+  font-weight: 700; /* font-bold */
+  font-size: 1.5rem; /* text-2xl */
+  margin-bottom: 0.75rem;
+}
+.card-text-label {
+  color: #4b5563; /* gray-700 */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.25rem;
+}
+.card-text-value {
+  color: #1f2937; /* gray-900 */
+  font-size: 1rem; /* text-base */
+  margin-bottom: 0.75rem;
+}
+.btn-join-session {
+  background-color: #059669 !important; /* emerald-500 */
+  border-color: #059669 !important;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+.btn-join-session:hover {
+  background-color: #047857 !important; /* emerald-600 */
+  border-color: #047857 !important;
+}

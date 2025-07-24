@@ -1,0 +1,147 @@
+<div class="admin-reports-container">
+  <!-- Loading Spinner -->
+  <div *ngIf="isloading" class="loading-spinner">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Dashboard Summary Cards -->
+  <div class="dashboard-summary">
+    <h2>Dashboard Summary</h2>
+    <div class="summary-cards">
+      <div class="summary-card">
+        <h3>Total Users</h3>
+        <p>{{ dashboardData?.totalUsers || 0 }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>Total Teachers</h3>
+        <p>{{ dashboardData?.totalTeachers || 0 }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>Total Students</h3>
+        <p>{{ dashboardData?.totalStudents || 0 }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>Total Halaqas</h3>
+        <p>{{ dashboardData?.totalHalaqas || 0 }}</p>
+      </div>
+      <div class="summary-card">
+        <h3>Attendance Rate</h3>
+        <p>{{ dashboardData?.overallAttendanceRate || 0 }}%</p>
+      </div>
+      <div class="summary-card">
+        <h3>New Joins This Month</h3>
+        <p>{{ dashboardData?.newjoinToHalaqaThisMonth || 0 }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Summary Table -->
+  <div class="report-section">
+    <h2>User Summary</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of UserSummaryData">
+          <td>{{ user.userId }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td [class.active]="user.isActive" [class.inactive]="!user.isActive">
+            {{ user.isActive ? 'Active' : 'Inactive' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Teacher Performance Table -->
+  <div class="report-section">
+    <h2>Teacher Performance</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Halaqas</th>
+          <th>Avg Attendance</th>
+          <th>Avg Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let teacher of TeacherPerformanceData">
+          <td>{{ teacher.teacherId }}</td>
+          <td>{{ teacher.teacherName }}</td>
+          <td>{{ teacher.email }}</td>
+          <td>{{ teacher.totalAssignedHalaqas }}</td>
+          <td>{{ teacher.averageAttendanceRate }}%</td>
+          <td>{{ teacher.averageStudentProgress }}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Student Performance Table -->
+  <div class="report-section">
+    <h2>Student Performance</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Attendance</th>
+          <th>Memorized</th>
+          <th>Reviewed</th>
+          <th>Islamic Pages</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of StudentPerformanceData">
+          <td>{{ student.studentId }}</td>
+          <td>{{ student.studentName }}</td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.attendanceRate }}%</td>
+          <td>{{ student.totalQuranLinesMemorized }}</td>
+          <td>{{ student.totalQuranLinesReviewed }}</td>
+          <td>{{ student.totalIslamicPagesCompleted }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Halaqa Health Table -->
+  <div class="report-section">
+    <h2>Halaqa Health</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Students</th>
+          <th>Teachers</th>
+          <th>Avg Attendance</th>
+          <th>Avg Progress</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let halaqa of HalaqaHealthData">
+          <td>{{ halaqa.halaqaId }}</td>
+          <td>{{ halaqa.halaqaName }}</td>
+          <td>{{ halaqa.studentCount }}</td>
+          <td>{{ halaqa.teacherCount }}</td>
+          <td>{{ halaqa.averageAttendanceRate }}%</td>
+          <td>{{ halaqa.averageProgress }}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
