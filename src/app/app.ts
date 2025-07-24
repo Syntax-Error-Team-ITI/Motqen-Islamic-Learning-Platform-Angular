@@ -7,6 +7,7 @@ import { Login } from './pages/login/login';
 import { Halaqas } from './pages/halaqas/halaqas';
 import { Chatbot } from './layout/chatbot/chatbot';
 import { Footer } from './layout/footer/footer';
+// import { AdminDashboard } from './dashboards/admin-dashboard/admin-dashboard';
 import { Aside } from './layout/aside/aside';
 
 @Component({
@@ -20,6 +21,7 @@ import { Aside } from './layout/aside/aside';
     Halaqas,
     Chatbot,
     Footer,
+    // AdminDashboard,
     Aside,
   ],
   templateUrl: './app.html',
