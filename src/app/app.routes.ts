@@ -10,6 +10,7 @@ import { HalaqaMeeting } from './pages/halaqa/halaqa-meeting/halaqa-meeting';
 import { TeacherReports } from './pages/teacher-reports/teacher-reports';
 import { ParentReports } from './pages/parent-reports/parent-reports';
 import { DisplayStudentsForHalaqa } from './pages/halaqa/display-students-for-halaqa/display-students-for-halaqa';
+import { AdminReports } from './pages/admin-reports/admin-reports';
 import { MainPage } from './dashboards/adminDashboard/main-page/main-page';
 import { DashboardChatbot } from './pages/chatbot/chatbot';
 import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-enrolled-by-student/halaqas-enrolled-by-student';
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'parent-reports/:studentId', component: ParentReports },
   { path: 'teacher-reports/:teacherId', component: TeacherReports },
   { path: 'halaqa/:id/students', component: DisplayStudentsForHalaqa },
+  { path: 'admin-Reports', component: AdminReports },
   { path: 'dashboard/home', component: MainPage },
   { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
   { path: 'dashboard/chatbot', component: DashboardChatbot },
