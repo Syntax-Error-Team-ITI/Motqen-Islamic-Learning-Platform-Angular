@@ -17,6 +17,7 @@ import { DashboardChatbot } from './pages/chatbot/chatbot';
 import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-enrolled-by-student/halaqas-enrolled-by-student';
 import { HalaqaList } from './dashboards/adminDashboard/halaqa-list/halaqa-list';
 import { ParentList } from './dashboards/adminDashboard/parent-list/parent-list';
+import { ProgressTracking } from './dashboards/teacherDashboard/progress-tracking/progress-tracking';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -38,6 +39,7 @@ export const routes: Routes = [
   { path: 'dashboard/chatbot', component: DashboardChatbot },
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
+  { path: 'dashboard/progress-tracking', component: ProgressTracking },
 
   { path: '**', component: NotFound },
 ];
