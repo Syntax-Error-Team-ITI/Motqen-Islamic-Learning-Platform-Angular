@@ -6,7 +6,6 @@ import { Login } from './pages/login/login';
 import { ContactUs } from './pages/contact-us/contact-us';
 import { NotFound } from './pages/not-found/not-found';
 import { ParentChildren } from './pages/parent/parent-children/parent-children';
-import { DisplayHalaqaForStudent } from './pages/student/display-halaqa-for-student/display-halaqa-for-student';
 import { HalaqaMeeting } from './pages/halaqa/halaqa-meeting/halaqa-meeting';
 import { TeacherReports } from './pages/teacher-reports/teacher-reports';
 import { ParentReports } from './pages/parent-reports/parent-reports';
@@ -24,14 +23,14 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
-  { path: 'parent-children/:id', component: ParentChildren },
+  { path: 'parent/:id/children', component: ParentChildren },
   { path: 'student/:id/halaqa', component: HalaqasEnrolledByStudent },
   { path: 'join-halaqa/:liveLink', component: HalaqaMeeting },
   { path: 'parent-reports/:studentId', component: ParentReports },
   { path: 'teacher-reports/:teacherId', component: TeacherReports },
   { path: 'halaqa/:id/students', component: DisplayStudentsForHalaqa },
-  { path: 'dashboard', component: MainPage },
-  { path: 'dashboard/home', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard/home', component: MainPage },
+  { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
   { path: 'dashboard/chatbot', component: DashboardChatbot },
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
