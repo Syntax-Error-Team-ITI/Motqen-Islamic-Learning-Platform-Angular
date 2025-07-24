@@ -11,12 +11,14 @@ import { HalaqaMeeting } from './pages/halaqa/halaqa-meeting/halaqa-meeting';
 import { TeacherReports } from './pages/teacher-reports/teacher-reports';
 import { ParentReports } from './pages/parent-reports/parent-reports';
 import { DisplayStudentsForHalaqa } from './pages/halaqa/display-students-for-halaqa/display-students-for-halaqa';
+import { Register } from './pages/register/register';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
   { path: 'about-us', component: AboutUs },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
   { path: 'parent-children/:id', component: ParentChildren },
