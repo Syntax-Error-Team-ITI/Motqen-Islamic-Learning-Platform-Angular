@@ -1,8 +1,7 @@
-// DTOs for Attendance Summary
 export interface StudentAttendanceReportDto {
   studentName: string;
   halaqaName: string;
-  attendanceDate: Date; // Note: Date will be a string from API, but we can treat it as Date in TS
+  attendanceDate: Date;
   attendanceStatus: string;
 }
 export interface StudentAttendanceDetailsDto {
@@ -21,14 +20,14 @@ export interface StudentAttendancePieChartDto {
 }
 
 export interface MonthlyWeeklyAttendanceChartDto {
-  period: string; // e.g., "January", "Week 1"
+  period: string; 
   presentCount: number;
   absentCount: number;
   excusedCount: number;
 }
 
 export interface StudentHalaqaComparisonReportDto {
-  metric: string; // e.g., "Average Memorized Lines", "Attendance Percentage"
+  metric: string;
   studentValue: number;
   halaqaAverageValue: number;
   studentId: number;
@@ -36,15 +35,14 @@ export interface StudentHalaqaComparisonReportDto {
   studentName: string;
 }
 
-// DTOs for Quran Progress
 export interface QuranProgressChartPointDto {
-  date: Date; // Note: Date will be a string from API, but we can treat it as Date in TS
+  date: Date;
   numberOfLines: number;
-  type: string; // "Memorization" or "Review"
+  type: string;
 }
 
 export interface WeeklyMonthlyQuranProgressDto {
-  period: string; // e.g., "Week 1", "January", "2024-W01", "2024-01"
+  period: string;
   totalMemorizedLines: number;
   totalReviewedLines: number;
   halaqaId : number;
@@ -73,7 +71,6 @@ export interface QuranDetailedProgressReportDto {
   notes: string;
 }
 
-// DTOs for Islamic Subjects Progress
 export interface IslamicSubjectProgressChartDto {
   subjectName: string;
   totalPagesCompleted: number;

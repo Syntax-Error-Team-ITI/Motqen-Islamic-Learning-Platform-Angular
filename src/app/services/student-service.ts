@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { IStudentHalaqaDisplay } from '../models/student/istudent-halaqa-display';
 import { IStudentHalaqaForm } from '../models/student/istudent-halaqa-form';
 import { IHalaqaStudentDisplayHalaqa } from '../models/student/ihalaqa-student-display-halaqa';
+import { IStudentList } from '../models/student/istudent-list';
 
 @Injectable({
   providedIn: 'root',
@@ -14,10 +15,8 @@ export class StudentService {
   baseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
 
-  getAllStudents(
-    includeDeleted: boolean = false
-  ): Observable<IStudentShortDisplay[]> {
-    return this.http.get<IStudentShortDisplay[]>(
+  getAllStudents(includeDeleted: boolean = false): Observable<IStudentList[]> {
+    return this.http.get<IStudentList[]>(
       `${this.baseUrl}/student?includeDeleted=${includeDeleted}`
     );
   }

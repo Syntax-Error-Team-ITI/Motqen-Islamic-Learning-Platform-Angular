@@ -334,44 +334,44 @@
 
   <!-- Student Summary Cards -->
   @if (quranSummaryCounters) {
-    <div class="row mb-4">
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <h5 class="card-title text-success">آيات محفوظة</h5>
-            <p class="display-4">{{ quranSummaryCounters.totalLinesMemorized }}</p>
-            <small class="text-muted">{{ quranSummaryCounters.totalSurahsMemorized }} سورة</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <h5 class="card-title text-info">آيات مراجعة</h5>
-            <p class="display-4">{{ quranSummaryCounters.totalLinesReviewed }}</p>
-            <small class="text-muted">{{ quranSummaryCounters.totalSurahsReviewed }} سورة</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <h5 class="card-title text-warning">نسبة الحضور</h5>
-            <p class="display-4">{{ getAttendancePercentage() }} | number:'1.0-2'  </p>
-            <small class="text-muted">إجمالي الحضور</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 mb-3">
-        <div class="card h-100 shadow-sm">
-          <div class="card-body text-center">
-            <h5 class="card-title text-primary">المواد الإسلامية</h5>
-            <p class="display-4">{{ islamicSubjectPagesChartData.length }}</p>
-            <small class="text-muted">عدد المواد</small>
-          </div>
+  <div class="row mb-4">
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title text-success">آيات محفوظة</h5>
+          <p class="display-4">{{ quranSummaryCounters.totalLinesMemorized }}</p>
+          <small class="text-muted">{{ quranSummaryCounters.totalSurahsMemorized }} سورة</small>
         </div>
       </div>
     </div>
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title text-info">آيات مراجعة</h5>
+          <p class="display-4">{{ quranSummaryCounters.totalLinesReviewed }}</p>
+          <small class="text-muted">{{ quranSummaryCounters.totalSurahsReviewed }} سورة</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title text-warning">نسبة الحضور</h5>
+          <p class="display-4">{{ getAttendancePercentage() | number:'1.0-2'}}% </p>
+          <small class="text-muted">إجمالي الحضور</small>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title text-primary">المواد الإسلامية</h5>
+          <p class="display-4">{{ islamicSubjectPagesChartData.length }}</p>
+          <small class="text-muted">عدد المواد</small>
+        </div>
+      </div>
+    </div>
+  </div>
   }
 
   <!-- Quran Progress Section -->
@@ -383,15 +383,12 @@
         </div>
         <div class="card-body">
           @if (quranProgressChartData?.labels?.length) {
-            <div class="chart-container">
-              <canvas baseChart
-                [type]="'line'"
-                [data]="quranProgressChartData"
-                [options]="quranProgressChartOptions"
-              ></canvas>
-            </div>
+          <div class="chart-container">
+            <canvas baseChart [type]="'line'" [data]="quranProgressChartData"
+              [options]="quranProgressChartOptions"></canvas>
+          </div>
           } @else {
-            <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+          <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
           }
         </div>
       </div>
@@ -403,45 +400,43 @@
         </div>
         <div class="card-body">
           @if (quranSummaryCounters) {
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                الأجزاء المحفوظة
-                <span class="badge bg-success rounded-pill">{{ quranSummaryCounters.totalJuzsMemorized }}</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                الأجزاء المراجعة
-                <span class="badge bg-info rounded-pill">{{ quranSummaryCounters.totalJuzsReviewed }}</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                السور المحفوظة
-                <span class="badge bg-primary rounded-pill">{{ quranSummaryCounters.totalSurahsMemorized }}</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                السور المراجعة
-                <span class="badge bg-warning rounded-pill">{{ quranSummaryCounters.totalSurahsReviewed }}</span>
-              </li>
-            </ul>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              الأجزاء المحفوظة
+              <span class="badge bg-success rounded-pill">{{ quranSummaryCounters.totalJuzsMemorized | number:'1.0-2'
+                }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              الأجزاء المراجعة
+              <span class="badge bg-info rounded-pill">{{ quranSummaryCounters.totalJuzsReviewed }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              السور المحفوظة
+              <span class="badge bg-primary rounded-pill">{{ quranSummaryCounters.totalSurahsMemorized }}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              السور المراجعة
+              <span class="badge bg-warning rounded-pill">{{ quranSummaryCounters.totalSurahsReviewed }}</span>
+            </li>
+          </ul>
           } @else {
-            <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+          <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
           }
         </div>
       </div>
     </div>
   </div>
   <!-- Attendance Section -->
-<div class="row mb-4">
-  <div class="col-12">
-    <div class="card shadow-sm">
-      <div class="card-header bg-light">
-        <h5 class="mb-0">حضور الطالب في الحلقات</h5>
-      </div>
-      <div class="card-body">
-        @if (attendanceBarChartData?.labels?.length) {
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">حضور الطالب في الحلقات</h5>
+        </div>
+        <div class="card-body">
+          @if (attendanceBarChartData?.labels?.length) {
           <div class="chart-container">
-            <canvas baseChart
-              [type]="'bar'"
-              [data]="attendanceBarChartData"
-              [options]="attendanceBarChartOptions">
+            <canvas baseChart [type]="'bar'" [data]="attendanceBarChartData" [options]="attendanceBarChartOptions">
             </canvas>
           </div>
 
@@ -461,25 +456,25 @@
                 </thead>
                 <tbody>
                   @for (halaqa of attendanceBarChartData.labels; track halaqa; let i = $index) {
-                    <tr>
-                      <td>{{ halaqa }}</td>
-                      <td>{{ attendanceBarChartData.datasets[0].data[i] }}</td>
-                      <td>{{ attendanceBarChartData.datasets[1].data[i] }}</td>
-                      <td>{{ attendanceBarChartData.datasets[2].data[i] }}</td>
-                      <td>{{ calculateAttendancePercentage(i) }}%</td>
-                    </tr>
+                  <tr>
+                    <td>{{ halaqa }}</td>
+                    <td>{{ attendanceBarChartData.datasets[0].data[i] }}</td>
+                    <td>{{ attendanceBarChartData.datasets[1].data[i] }}</td>
+                    <td>{{ attendanceBarChartData.datasets[2].data[i] }}</td>
+                    <td>{{ calculateAttendancePercentage(i) }}%</td>
+                  </tr>
                   }
                 </tbody>
               </table>
             </div>
           </div>
-        } @else {
+          } @else {
           <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
-        }
+          }
+        </div>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Islamic Subjects Section -->
   <div class="row mb-4">
@@ -490,15 +485,12 @@
         </div>
         <div class="card-body">
           @if (islamicSubjectPagesChart?.labels?.length) {
-            <div class="chart-container">
-              <canvas baseChart
-                [type]="'bar'"
-                [data]="islamicSubjectPagesChart"
-                [options]="islamicSubjectPagesChartOptions"
-              ></canvas>
-            </div>
+          <div class="chart-container">
+            <canvas baseChart [type]="'bar'" [data]="islamicSubjectPagesChart"
+              [options]="islamicSubjectPagesChartOptions"></canvas>
+          </div>
           } @else {
-            <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+          <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
           }
         </div>
       </div>
@@ -510,32 +502,32 @@
         </div>
         <div class="card-body">
           @if (islamicSubjectsDetailedProgressReport?.length) {
-            <div class="table-responsive">
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>التاريخ</th>
-                    <th>المادة</th>
-                    <th>الدرس</th>
-                    <th>الصفحات</th>
-                    <th>التقييم</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (progress of islamicSubjectsDetailedProgressReport; track progress.date) {
-                    <tr>
-                      <td>{{ progress.date | date:'shortDate' }}</td>
-                      <td>{{ progress.subject }}</td>
-                      <td>{{ progress.lessonName }}</td>
-                      <td>{{ progress.fromPage }} - {{ progress.toPage }}</td>
-                      <td>{{ progress.evaluation }}</td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>التاريخ</th>
+                  <th>المادة</th>
+                  <th>الدرس</th>
+                  <th>الصفحات</th>
+                  <th>التقييم</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (progress of islamicSubjectsDetailedProgressReport; track progress.date) {
+                <tr>
+                  <td>{{ progress.date | date:'shortDate' }}</td>
+                  <td>{{ progress.subject }}</td>
+                  <td>{{ progress.lessonName }}</td>
+                  <td>{{ progress.fromPage }} - {{ progress.toPage }}</td>
+                  <td>{{ progress.evaluation }}</td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
           } @else {
-            <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
+          <p class="text-muted text-center py-3">لا توجد بيانات متاحة</p>
           }
         </div>
       </div>
@@ -544,41 +536,41 @@
 
   <!-- Comparison Section -->
   @if (studentHalaqaComparisonReport?.length) {
-    <div class="row">
-      <div class="col-12">
-        <div class="card shadow-sm">
-          <div class="card-header bg-light">
-            <h5 class="mb-0">مقارنة مع زملاء الحلقة</h5>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>المقياس</th>
-                    <th>الطالب</th>
-                    <th>متوسط الحلقة</th>
-                    <th>الفرق</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @for (comparison of studentHalaqaComparisonReport; track comparison.metric) {
-                    <tr>
-                      <td>{{ comparison.metric }}</td>
-                      <td>{{ comparison.studentValue }}</td>
-                      <td>{{ comparison.halaqaAverageValue }}</td>
-                      <td [class.text-success]="comparison.studentValue > comparison.halaqaAverageValue"
-                          [class.text-danger]="comparison.studentValue < comparison.halaqaAverageValue">
-                        {{ comparison.studentValue - comparison.halaqaAverageValue | number:'1.0-2' }}
-                      </td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-            </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h5 class="mb-0">مقارنة مع زملاء الحلقة</h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>المقياس</th>
+                  <th>الطالب</th>
+                  <th>متوسط الحلقة</th>
+                  <th>الفرق</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (comparison of studentHalaqaComparisonReport; track comparison.metric) {
+                <tr>
+                  <td>{{ comparison.metric }}</td>
+                  <td>{{ comparison.studentValue }}</td>
+                  <td>{{ comparison.halaqaAverageValue }}</td>
+                  <td [class.text-success]="comparison.studentValue > comparison.halaqaAverageValue"
+                    [class.text-danger]="comparison.studentValue < comparison.halaqaAverageValue">
+                    {{ comparison.studentValue - comparison.halaqaAverageValue }}
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
+  </div>
   }
 </div>

@@ -67,6 +67,18 @@
         </div>
         <span class="sidebar-text arabic-text"> أولياء الأومور</span>
       </a>
+      <a [routerLink]="['/dashboard/teacher-list']" routerLinkActive="active" class="sidebar-link" data-module="seerah">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
+          <i class="fa-solid fa-person-chalkboard"></i>
+        </div>
+        <span class="sidebar-text arabic-text"> المعلمين</span>
+      </a>
+      <a [routerLink]="['/dashboard/student-list']" routerLinkActive="active" class="sidebar-link" data-module="seerah">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <span class="sidebar-text arabic-text"> الطلاب</span>
+      </a>
       <a href="#" class="sidebar-link" data-module="live">
         <div
           class="sidebar-icon"

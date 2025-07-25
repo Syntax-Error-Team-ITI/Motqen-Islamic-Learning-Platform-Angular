@@ -38,29 +38,12 @@
                   {{child}}
                   @if($index < parent.children.length - 1){، } } </div>
               <td>
-                <div class="dropdown action-dropdown">
-                  <button class="btn-icon dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <span class="material-icons">more_vert</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#"><span class="material-icons me-2">edit</span>تعديل</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"><span class="material-icons me-2">visibility</span>عرض</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" [routerLink]="['/parent',parent.id,'children']"><span
-                          class="material-icons me-2">people</span>إدارة
-                        الطلاب</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item delete-action" href="#"><span
-                          class="material-icons me-2">delete</span>حذف</a>
-                    </li>
-                  </ul>
-                </div>
+                <a class="btn btn-success btn-sm rounded-pill" [routerLink]="['/parent',parent.id,'children']">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="material-icons me-2">people</span>
+                    <span>إدارة الطلاب</span>
+                  </div>
+                </a>
               </td>
             </tr>
             }

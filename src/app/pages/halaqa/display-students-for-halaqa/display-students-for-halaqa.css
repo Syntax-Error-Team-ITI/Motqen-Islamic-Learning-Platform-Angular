@@ -4,7 +4,21 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   padding: 2rem 2.5rem;
 } */
-
+.page-header {
+  background-color: #047857 !important; /* emerald-600 */
+  color: white !important;
+  padding: 2rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  gap: 24px;
+  flex-wrap: wrap; /* Allow header content to wrap */
+}
 h2 {
   font-weight: 700;
   color: #2c3e50;

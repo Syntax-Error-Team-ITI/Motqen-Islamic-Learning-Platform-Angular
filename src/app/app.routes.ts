@@ -18,6 +18,10 @@ import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-
 import { HalaqaList } from './dashboards/adminDashboard/halaqa-list/halaqa-list';
 import { ParentList } from './dashboards/adminDashboard/parent-list/parent-list';
 import { ProgressTracking } from './dashboards/teacherDashboard/progress-tracking/progress-tracking';
+import { HalaqasTeachedByTeacher } from './dashboards/teacherDashboard/halaqas-teached-by-teacher/halaqas-teached-by-teacher';
+import { TeacherList } from './dashboards/adminDashboard/teacher-list/teacher-list';
+import { StudentAttendance } from './dashboards/adminDashboard/student-attendance/student-attendance';
+import { StudentList } from './dashboards/adminDashboard/student-list/student-list';
 import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa-details';
 
 export const routes: Routes = [
@@ -40,6 +44,17 @@ export const routes: Routes = [
   { path: 'dashboard/chatbot', component: DashboardChatbot },
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
+  {
+    path: 'dashboard/progress-tracking/:halaqaId',
+    component: ProgressTracking,
+  },
+  {
+    path: 'dashboard/teacher/:teacherId/halaqas',
+    component: HalaqasTeachedByTeacher,
+  },
+  { path: 'dashboard/teacher-list', component: TeacherList },
+  { path: 'dashboard/student-attendance', component: StudentAttendance },
+  { path: 'dashboard/student-list', component: StudentList },
   { path: 'dashboard/progress-tracking', component: ProgressTracking },
   { path: 'dashboard/halaqa-details/:id', component: HalaqaDetails },
   { path: 'dashboard/halaqa-list', component: HalaqaList },
