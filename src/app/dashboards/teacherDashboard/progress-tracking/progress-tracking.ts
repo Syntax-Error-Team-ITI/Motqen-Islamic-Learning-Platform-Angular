@@ -16,6 +16,7 @@ import { IHalaqaNamesList } from '../../../models/Halaqaa/ihalaqa-names-list';
 import { HalaqaService } from '../../../services/halaqa-service';
 import { ProgressTrackingService } from '../../../services/progress-tracking-service';
 import { IProgressForm } from '../../../models/ProgressTracking/iprogress-form';
+import { CreateStudentAttendanceDto } from '../../../models/ProgressTracking/iprogress-form';
 
 @Component({
   selector: 'app-progress-tracking',
@@ -47,6 +48,10 @@ export class ProgressTracking implements OnInit {
   ayaNumbers: number[] = QURAN_AYA_NUMBERS;
   isQuranTracking: boolean = true;
   validationErrors: string[] = [];
+
+  // Attendance tracking
+  attendanceStatus: string[] = [];
+  attendanceNotes: string[] = [];
 
   constructor(
     private studentService: StudentService,
@@ -105,6 +110,8 @@ export class ProgressTracking implements OnInit {
     this.toPage = 0;
     this.lessonName = '';
     this.date = this.getTodayString();
+    this.attendanceStatus = [];
+    this.attendanceNotes = [];
   }
 
   onFromSurahChange() {
@@ -220,5 +227,38 @@ export class ProgressTracking implements OnInit {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
+  }
+
+  setAttendanceStatus(index: number, status: string) {
+    this.attendanceStatus[index] = status;
+  }
+
+  onSaveAttendance() {
+    // Build attendance DTOs for all students
+    const statusMap: { [key: string]: number } = { حاضر: 0, غائب: 1, بإذن: 2 };
+    const attendanceDtos: CreateStudentAttendanceDto[] = this.students.map(
+      (student, i) => ({
+        studentId: student.id,
+        halaqaId: this.halaqaId,
+        attendanceDate: this.date
+          ? new Date(this.date).toISOString()
+          : new Date().toISOString(),
+        status: statusMap[this.attendanceStatus[i]] ?? 0,
+      })
+    );
+    // Loop and call the service for each
+    attendanceDtos.forEach((dto) => {
+      this.progressService.addStudentAttendance(dto).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.initializeForms();
+          this.loadStudents();
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      });
+    });
   }
 }
