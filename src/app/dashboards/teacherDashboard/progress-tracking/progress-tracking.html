@@ -164,8 +164,7 @@
                 <tr>
                   <td>{{student.name}}</td>
                   <td class="evaluation-select">
-                    <select class="form-select" [(ngModel)]="evaluation[$index]" required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!evaluation[$index] || evaluation[$index].trim() === '')}">
+                    <select class="form-select" [(ngModel)]="evaluation[$index]" required>
                       <option value="ممتاز">ممتاز</option>
                       <option value="جيد" selected>جيد</option>
                       <option value="مقبول">مقبول</option>
@@ -173,12 +172,10 @@
                     </select>
                   </td>
                   <td>
-                    <input type="text" class="form-control" [(ngModel)]="notes[$index]"
-                      [ngClass]="{'is-invalid': validationErrors.length && (!notes[$index] || notes[$index].trim() === '')}" />
+                    <input type="text" class="form-control" [(ngModel)]="notes[$index]" />
                   </td>
                   <td>
-                    <input type="text" class="form-control" [(ngModel)]="status[$index]" required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!status[$index] || status[$index].trim() === '')}" />
+                    <input type="text" class="form-control" [(ngModel)]="status[$index]" required />
                   </td>
                 </tr>
                 }

@@ -151,56 +151,78 @@ export class ProgressTracking implements OnInit {
       }
     }
     // Validate per-student fields
-    this.students.forEach((student, i) => {
-      if (!this.evaluation[i] || this.evaluation[i].trim() === '') {
-        this.validationErrors.push(`يجب اختيار التقييم للطالب ${student.name}`);
-      }
-      if (!this.status[i] || this.status[i].trim() === '') {
-        this.validationErrors.push(`يجب إدخال الحالة للطالب ${student.name}`);
-      }
-      if (!this.notes[i] || this.notes[i].trim() === '') {
-        this.validationErrors.push(
-          `يجب إدخال الملاحظات للطالب ${student.name}`
-        );
-      }
-    });
+    // this.students.forEach((student, i) => {
+    //   if (!this.evaluation[i] || this.evaluation[i].trim() === '') {
+    //     this.validationErrors.push(`يجب اختيار التقييم للطالب ${student.name}`);
+    //   }
+    //   if (!this.status[i] || this.status[i].trim() === '') {
+    //     this.validationErrors.push(`يجب إدخال الحالة للطالب ${student.name}`);
+    //   }
+    //   if (!this.notes[i] || this.notes[i].trim() === '') {
+    //     this.validationErrors.push(
+    //       `يجب إدخال الملاحظات للطالب ${student.name}`
+    //     );
+    //   }
+    // });
     if (this.validationErrors.length > 0) {
       this.cdr.detectChanges();
       return;
     }
     let index = 0;
     this.students.forEach((student) => {
-      const progress: IProgressForm = {
-        studentId: student.id,
-        halaqaId: this.halaqaId,
-        isQuranTracking: this.isQuranTracking,
-        date: new Date(this.date),
-        status: this.status[index],
-        notes: this.notes[index],
-        evaluation: this.evaluation[index],
-        fromSurah: this.fromSurah,
-        toSurah: this.toSurah,
-        fromAyah: this.fromAyah,
-        toAyah: this.toAyah,
-        numberOfLines: this.numberOfLines,
-        type: this.type,
-        fromPage: this.fromPage,
-        toPage: this.toPage,
-        subject: 'dummy subject',
-        lessonName: this.lessonName,
-        progressTrackingId: 0,
-      };
-      this.progressService.addProgressTracking(progress).subscribe({
-        next: (response) => {
-          this.initializeForms();
-          this.loadStudents();
-          this.cdr.detectChanges();
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+      if (
+        this.checkProgressValidation(
+          this.notes[index],
+          this.status[index],
+          this.evaluation[index]
+        )
+      ) {
+        const progress: IProgressForm = {
+          studentId: student.id,
+          halaqaId: this.halaqaId,
+          isQuranTracking: this.isQuranTracking,
+          date: new Date(this.date),
+          status: this.status[index],
+          notes: this.notes[index],
+          evaluation: this.evaluation[index],
+          fromSurah: this.fromSurah,
+          toSurah: this.toSurah,
+          fromAyah: this.fromAyah,
+          toAyah: this.toAyah,
+          numberOfLines: this.numberOfLines,
+          type: this.type,
+          fromPage: this.fromPage,
+          toPage: this.toPage,
+          subject: 'dummy subject',
+          lessonName: this.lessonName,
+          progressTrackingId: 0,
+        };
+        this.progressService.addProgressTracking(progress).subscribe({
+          next: (response) => {
+            this.initializeForms();
+            this.loadStudents();
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
+      }
+      index++;
     });
+  }
+  checkProgressValidation(note: string, status: string, evaluation: string) {
+    if (
+      !note ||
+      !status ||
+      !evaluation ||
+      note.trim() === '' ||
+      status.trim() === '' ||
+      evaluation.trim() === ''
+    ) {
+      return false;
+    }
+    return true;
   }
 
   onQuranTrackingChange() {
