@@ -21,6 +21,7 @@ import { ProgressTracking } from './dashboards/teacherDashboard/progress-trackin
 import { HalaqasTeachedByTeacher } from './dashboards/teacherDashboard/halaqas-teached-by-teacher/halaqas-teached-by-teacher';
 import { TeacherList } from './dashboards/adminDashboard/teacher-list/teacher-list';
 import { StudentAttendance } from './dashboards/adminDashboard/student-attendance/student-attendance';
+import { StudentList } from './dashboards/adminDashboard/student-list/student-list';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
@@ -48,5 +49,6 @@ export const routes: Routes = [
   },
   { path: 'dashboard/teacher-list', component: TeacherList },
   { path: 'dashboard/student-attendance', component: StudentAttendance },
+  { path: 'dashboard/student-list', component: StudentList },
   { path: '**', component: NotFound },
 ];

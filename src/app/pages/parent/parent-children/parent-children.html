@@ -1,24 +1,32 @@
-<div class="children-list">
-  <h2 class="title">أبناء ولي الأمر</h2>
-  <div class="row g-4 children-cards">
-    @if (children.length > 0) {
-    @for (child of children; track $index) {
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm child-card h-100">
-        <div class="card-body">
-          <h5 class="card-title child-name">{{ child.name }}</h5>
-          <ul class="list-unstyled mb-3 child-details">
-            <li><span>رقم الطالب:</span> {{ child.id }}</li>
-          </ul>
-          <button class="btn btn-outline-primary w-100 mt-2">التقارير</button>
+<div class="student-list-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>
+        <span class="material-icons">school</span>
+        إدارة الابناء
+      </h1>
+      <p>إدارة معلومات الابناء</p>
+    </div>
+  </div>
+  <div class="children-list">
+    <div class="row g-4 children-cards">
+      @if (children.length > 0) {
+      @for (child of children; track $index) {
+      <div class="col-md-4">
+        <div class="card shadow-sm child-card h-100">
+          <div class="card-body">
+            <h5 class="card-title child-name">{{ child.name }}</h5>
+            <span>رقم الطالب: {{ child.id }}</span>
+            <a class="btn btn-outline-primary w-100 mt-2" [routerLink]="['/parent-reports/', child.id]">التقارير</a>
+          </div>
         </div>
       </div>
+      }
+      } @else {
+      <div class="col-12">
+        <div class="alert alert-info text-center no-children">لا يوجد أبناء مسجلين.</div>
+      </div>
+      }
     </div>
-    }
-    } @else {
-    <div class="col-12">
-      <div class="alert alert-info text-center no-children">لا يوجد أبناء مسجلين.</div>
-    </div>
-    }
   </div>
 </div>
