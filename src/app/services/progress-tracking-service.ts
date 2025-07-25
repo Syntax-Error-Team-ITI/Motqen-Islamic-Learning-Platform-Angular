@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { CreateStudentAttendanceDto, IProgressForm } from '../models/ProgressTracking/iprogress-form';
+import {
+  CreateStudentAttendanceDto,
+  IProgressForm,
+} from '../models/ProgressTracking/iprogress-form';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +21,16 @@ export class ProgressTrackingService {
   addStudentAttendance(
     studentAttendance: CreateStudentAttendanceDto
   ): Observable<any> {
-    return this.http.post(`${this.baseUrl2}/studentAttendance`, studentAttendance);
+    return this.http.post(
+      `${this.baseUrl2}/studentAttendance`,
+      studentAttendance
+    );
+  }
+
+  getStudentAttendance(halaqaId: number, date: string): Observable<any> {
+    return this.http.get(
+      `${this.baseUrl2}/studentAttendance/byHalaqaId/${halaqaId}?attendanceDate=${date}`
+    );
   }
 
   /*

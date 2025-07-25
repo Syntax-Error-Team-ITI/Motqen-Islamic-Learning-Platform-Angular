@@ -18,11 +18,19 @@
             class="form-select"
             id="classSelect"
             aria-label="الفصل (الحلقة)"
+            [(ngModel)]="selectedHalaqaId"
+            name="halaqaSelect"
+            (change)="onHalaqaChange($event)"
           >
-            <option selected disabled value="">اختر فصلاً</option>
-            <option value="1">حفظ أ</option>
-            <option value="2">مراجعة ب</option>
-            <option value="3">كلاهما ج</option>
+            <option selected disabled [ngValue]="null" value="">
+              اختر فصلاً
+            </option>
+            <option
+              *ngFor="let halaqa of halaqaNamesList"
+              [ngValue]="halaqa.id"
+            >
+              {{halaqa.name}}
+            </option>
           </select>
           <label for="classSelect">الفصل (الحلقة)</label>
         </div>
@@ -33,11 +41,18 @@
             class="form-control"
             id="dateInput"
             placeholder="التاريخ"
+            [(ngModel)]="selectedDate"
+            name="dateInput"
           />
           <label for="dateInput">التاريخ</label>
         </div>
 
-        <button type="button" class="btn btn-primary mb-3">
+        <button
+          type="button"
+          class="btn btn-primary mb-3"
+          (click)="onLoadAttendance()"
+          [disabled]="!selectedHalaqaId || !selectedDate || loading"
+        >
           <span class="material-icons">search</span>
           تحميل الطلاب
         </button>
@@ -49,181 +64,49 @@
     <div class="card-header">
       <h5 class="card-title mb-0">تسجيل الحضور</h5>
       <h6 class="card-subtitle text-muted mt-1">
-        الفصل: حفظ أ | التاريخ: 2025-07-13
+        الفصل: {{selectedHalaqaName}} | التاريخ: {{selectedDate}}
       </h6>
     </div>
     <div class="card-body">
       <div class="attendance-table">
-        <table class="students-table">
-          <thead>
-            <tr>
-              <th>اسم الطالب</th>
-              <th>حالة الحضور</th>
-              <th>ملاحظات</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>أحمد علي</td>
-              <td>
-                <div
-                  class="btn-group attendance-toggle"
-                  role="group"
-                  aria-label="حالة حضور أحمد علي"
-                >
-                  <button
-                    type="button"
-                    class="btn btn-outline-success present active"
-                  >
-                    <span class="material-icons">check_circle</span>
-                    حاضر
-                  </button>
-                  <button type="button" class="btn btn-outline-danger absent">
-                    <span class="material-icons">cancel</span>
-                    غائب
-                  </button>
-                  <button type="button" class="btn btn-outline-warning late">
-                    <span class="material-icons">schedule</span>
-                    متأخر
-                  </button>
-                  <button type="button" class="btn btn-outline-primary excused">
-                    <span class="material-icons">verified</span>
-                    بعذر
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="notes-field">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="أضف ملاحظات..."
-                  />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>فاطمة حسن</td>
-              <td>
-                <div
-                  class="btn-group attendance-toggle"
-                  role="group"
-                  aria-label="حالة حضور فاطمة حسن"
-                >
-                  <button type="button" class="btn btn-outline-success present">
-                    <span class="material-icons">check_circle</span>
-                    حاضر
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger absent active"
-                  >
-                    <span class="material-icons">cancel</span>
-                    غائب
-                  </button>
-                  <button type="button" class="btn btn-outline-warning late">
-                    <span class="material-icons">schedule</span>
-                    متأخر
-                  </button>
-                  <button type="button" class="btn btn-outline-primary excused">
-                    <span class="material-icons">verified</span>
-                    بعذر
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="notes-field">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="أضف ملاحظات..."
-                  />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>يوسف إبراهيم</td>
-              <td>
-                <div
-                  class="btn-group attendance-toggle"
-                  role="group"
-                  aria-label="حالة حضور يوسف إبراهيم"
-                >
-                  <button type="button" class="btn btn-outline-success present">
-                    <span class="material-icons">check_circle</span>
-                    حاضر
-                  </button>
-                  <button type="button" class="btn btn-outline-danger absent">
-                    <span class="material-icons">cancel</span>
-                    غائب
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-warning late active"
-                  >
-                    <span class="material-icons">schedule</span>
-                    متأخر
-                  </button>
-                  <button type="button" class="btn btn-outline-primary excused">
-                    <span class="material-icons">verified</span>
-                    بعذر
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="notes-field">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="أضف ملاحظات..."
-                  />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>عائشة محمد</td>
-              <td>
-                <div
-                  class="btn-group attendance-toggle"
-                  role="group"
-                  aria-label="حالة حضور عائشة محمد"
-                >
-                  <button type="button" class="btn btn-outline-success present">
-                    <span class="material-icons">check_circle</span>
-                    حاضر
-                  </button>
-                  <button type="button" class="btn btn-outline-danger absent">
-                    <span class="material-icons">cancel</span>
-                    غائب
-                  </button>
-                  <button type="button" class="btn btn-outline-warning late">
-                    <span class="material-icons">schedule</span>
-                    متأخر
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary excused active"
-                  >
-                    <span class="material-icons">verified</span>
-                    بعذر
-                  </button>
-                </div>
-              </td>
-              <td>
-                <div class="notes-field">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="أضف ملاحظات..."
-                  />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <ng-container *ngIf="attendanceLoaded">
+          <ng-container *ngIf="attendanceList.length > 0; else noAttendance">
+            <table class="students-table">
+              <thead>
+                <tr>
+                  <th>اسم الطالب</th>
+                  <th>حالة الحضور</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let att of attendanceList">
+                  <td>{{att.studentName}}</td>
+                  <td>
+                    <span *ngIf="att.status === 0">حاضر</span>
+                    <span *ngIf="att.status === 1">غائب</span>
+                    <span *ngIf="att.status === 2">بعذر</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+          <ng-template #noAttendance>
+            <div class="alert alert-info mt-3">
+              لا يوجد حضور مسجل لهذا الفصل في هذا التاريخ.
+            </div>
+          </ng-template>
+        </ng-container>
+        <div *ngIf="loading" class="text-center my-3">
+          <span
+            class="spinner-border spinner-border-sm"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          جاري التحميل...
+        </div>
       </div>
 
-      <div class="attendance-summary">
+      <!-- <div class="attendance-summary">
         <div class="summary-stats">
           <div class="stat present">
             <span class="material-icons">check_circle</span>
@@ -233,31 +116,13 @@
             <span class="material-icons">cancel</span>
             <span>غائب: 1</span>
           </div>
-          <div class="stat late">
-            <span class="material-icons">schedule</span>
-            <span>متأخر: 1</span>
-          </div>
           <div class="stat excused">
             <span class="material-icons">verified</span>
             <span>بعذر: 1</span>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="form-actions">
-        <button type="button" class="btn btn-primary">
-          <span class="material-icons">save</span>
-          حفظ الحضور
-        </button>
-        <button type="button" class="btn btn-secondary">
-          <span class="material-icons">done_all</span>
-          تحديد الكل كحاضر
-        </button>
-        <button type="button" class="btn btn-secondary">
-          <span class="material-icons">clear_all</span>
-          مسح الكل
-        </button>
-      </div>
     </div>
   </div>
 </div>
