@@ -18,7 +18,9 @@ import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-
 import { HalaqaList } from './dashboards/adminDashboard/halaqa-list/halaqa-list';
 import { ParentList } from './dashboards/adminDashboard/parent-list/parent-list';
 import { ProgressTracking } from './dashboards/teacherDashboard/progress-tracking/progress-tracking';
-
+import { HalaqasTeachedByTeacher } from './dashboards/teacherDashboard/halaqas-teached-by-teacher/halaqas-teached-by-teacher';
+import { TeacherList } from './dashboards/adminDashboard/teacher-list/teacher-list';
+import { StudentAttendance } from './dashboards/adminDashboard/student-attendance/student-attendance';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: Home },
@@ -40,6 +42,11 @@ export const routes: Routes = [
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
   { path: 'dashboard/progress-tracking', component: ProgressTracking },
-
+  {
+    path: 'dashboard/teacher/:teacherId/halaqas',
+    component: HalaqasTeachedByTeacher,
+  },
+  { path: 'dashboard/teacher-list', component: TeacherList },
+  { path: 'dashboard/student-attendance', component: StudentAttendance },
   { path: '**', component: NotFound },
 ];

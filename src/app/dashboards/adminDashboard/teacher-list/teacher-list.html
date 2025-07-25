@@ -1,1 +1,39 @@
-<p>teacher-list works!</p>
+<div class="container">
+  <!-- Page Header -->
+  <div class="page-header-custom d-flex align-items-center justify-content-between gap-3">
+    <div>
+      <div class="text-center">
+
+        <h1 class="fs-1 fw-bold mb-1"><i class="fas fa-chalkboard-teacher fs-1"></i> إدارة المعلمين</h1>
+        <p class="fs-4 opacity-90">إدارة معلومات المعلمين</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <h2> عدد المعلمين: {{ teachers.length }}</h2>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>الاسم</th>
+          <th>البريد الإلكتروني</th>
+          <th>الجنس</th>
+          <th>العمر</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (teacher of teachers; track teacher.id) {
+        <tr>
+          <td>{{ teacher.name }}</td>
+          <td>{{ teacher.email }}</td>
+          <td>{{ teacher.gender }}</td>
+          <td>{{ teacher.age }}</td>
+          <td>
+            <a [routerLink]="['/dashboard/teacher', teacher.id,'halaqas']" class="btn btn-success">عرض حلقاته</a>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

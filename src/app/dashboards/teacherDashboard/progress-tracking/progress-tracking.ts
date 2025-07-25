@@ -95,8 +95,8 @@ export class ProgressTracking implements OnInit {
     this.evaluation = [];
     this.notes = [];
     this.status = [];
-    this.fromSurah = 0;
-    this.toSurah = 0;
+    this.fromSurah = 1;
+    this.toSurah = 1;
     this.fromAyah = 1;
     this.toAyah = 1;
     this.numberOfLines = 1;
