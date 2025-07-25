@@ -44,7 +44,7 @@ export class ParentReports implements OnInit {
   chartControlForm: FormGroup;
 
   reportData: StudentAttendanceReportDto[] = [];
-  chartData: StudentAttendancePieChartDto[] = []; // Used for Pie Chart data
+  chartData: StudentAttendancePieChartDto[] = [];
 
   public attendanceBarChartData: ChartData<'bar'> = {
     labels: [],
@@ -74,7 +74,7 @@ export class ParentReports implements OnInit {
         stacked: false,
         title: {
           display: true,
-          text: 'الفترة' // Changed to "الفترة" as it will be monthly periods
+          text: 'الفترة'
         }
       },
       y: {
@@ -325,27 +325,8 @@ export class ParentReports implements OnInit {
       next: (data) => {
         if (data && data.length > 0) {
           this.chartData = data;
-          // Ensure pieChartData is defined or initialized before assigning
-          // For example, if you still use pieChartData property.
-          // This part depends on whether pieChartData is still needed for the HTML.
-          // If you removed pieChartData from the component, you might not need this.
-          // Assuming you still have pieChartData for the Pie Chart.
-          // public pieChartData: ChartData<'pie'> = { labels: [], datasets: [{ data: [] }] };
-          // public pieChartOptions: ChartOptions<'pie'> = { ... };
-          // public pieChartType: 'pie' = 'pie';
-          // public pieChartLegend = true;
-          // If these are still in component, populate them:
-          // this.pieChartData = {
-          //   labels: data.map(item => item.status),
-          //   datasets: [{
-          //     data: data.map(item => item.percentage),
-          //     backgroundColor: ['#4CAF50', '#F44336', '#FFEB3B', '#2196F3'],
-          //     hoverBackgroundColor: ['#66BB6A', '#EF5350', '#FFF176', '#42A5F5']
-          //   }]
-          // };
         } else {
           this.chartData = [];
-          // this.pieChartData = { labels: [], datasets: [{ data: [] }] };
         }
         this.cdr.detectChanges();
       },
@@ -481,11 +462,9 @@ calculateAttendancePercentage(halaqaIndex: number): number {
     if (value === null || value === undefined) {
       return 0;
     }
-    // إذا كانت القيمة مصفوفة (مخطط مزدوج) نأخذ العنصر الأول
     return Array.isArray(value) ? value[0] : value;
   };
 
-  // 3. الحصول على قيم الحضور والغياب والإعذار بشكل آمن
   const present = getSafeNumber(this.attendanceBarChartData.datasets[0]?.data[halaqaIndex]);
   const absent = getSafeNumber(this.attendanceBarChartData.datasets[1]?.data[halaqaIndex]);
   const excused = getSafeNumber(this.attendanceBarChartData.datasets[2]?.data[halaqaIndex]);
