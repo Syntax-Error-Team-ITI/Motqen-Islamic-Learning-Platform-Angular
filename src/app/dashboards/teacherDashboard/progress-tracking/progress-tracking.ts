@@ -55,6 +55,8 @@ export class ProgressTracking implements OnInit {
   // Modal state
   showAttendanceSuccessModal: boolean = false;
   attendanceSuccessMessage: string = '';
+  showAttendanceErrorModal: boolean = false;
+  attendanceErrorMessage: string = '';
 
   constructor(
     private studentService: StudentService,
@@ -281,11 +283,12 @@ export class ProgressTracking implements OnInit {
       return;
     }
     let completed = 0;
+    let errorShown = false;
     attendanceDtos.forEach((dto, idx) => {
       this.progressService.addStudentAttendance(dto).subscribe({
         next: (response) => {
           completed++;
-          if (completed === attendanceDtos.length) {
+          if (completed === attendanceDtos.length && !errorShown) {
             this.initializeForms();
             this.loadStudents();
             this.cdr.detectChanges();
@@ -294,7 +297,14 @@ export class ProgressTracking implements OnInit {
           }
         },
         error: (error) => {
-          console.error(error);
+          if (!errorShown && error.status === 409) {
+            this.attendanceErrorMessage =
+              'تم تسجيل حضور الطلاب لهذا الفصل في هذا التاريخ بالفعل.';
+            this.showAttendanceErrorModal = true;
+            errorShown = true;
+          } else {
+            console.error(error);
+          }
         },
       });
     });
@@ -303,5 +313,10 @@ export class ProgressTracking implements OnInit {
   closeAttendanceSuccessModal() {
     this.showAttendanceSuccessModal = false;
     this.attendanceSuccessMessage = '';
+  }
+
+  closeAttendanceErrorModal() {
+    this.showAttendanceErrorModal = false;
+    this.attendanceErrorMessage = '';
   }
 }
