@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ParentService } from '../../../services/parent-service';
 import { IParentChildren } from '../../../models/parent/iparent-children';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-parent-children',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './parent-children.html',
   styleUrl: './parent-children.css',
 })

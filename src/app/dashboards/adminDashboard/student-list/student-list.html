@@ -7,204 +7,7 @@
       </h1>
       <p>إدارة معلومات الطلاب</p>
     </div>
-    <div class="header-actions">
-      <a
-        href="#"
-        class="btn btn-success"
-        data-bs-toggle="modal"
-        data-bs-target="#addStudentModal"
-      >
-        <span class="material-icons">person_add</span>
-        إضافة طالب
-      </a>
-    </div>
   </div>
-
-  <!-- Add Student Modal -->
-  <div
-    class="modal modal-lg fade"
-    id="addStudentModal"
-    tabindex="-1"
-    aria-labelledby="addStudentModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-xl shadow-lg">
-        <div class="modal-body p-4">
-          <div class="d-flex align-items-center justify-content-center">
-            <div class="w-100" style="max-width: 700px">
-              <div class="card shadow-lg rounded-xl overflow-hidden">
-                <div
-                  class="bg-success text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
-                  style="background-color: #047857 !important"
-                >
-                  <i class="fas fa-user-graduate fa-3x"></i>
-                  <div class="text-right">
-                    <h2 class="fs-2 fw-bold mb-1">إضافة طالب جديد</h2>
-                    <p class="fs-5 opacity-90">أدخل تفاصيل ومعلومات الطالب</p>
-                  </div>
-                </div>
-
-                <div class="card-body p-5">
-                  <form>
-                    <div class="row g-4 mb-4">
-                      <div class="col-12 col-md-6">
-                        <label
-                          for="studentName"
-                          class="form-label fs-sm fw-semibold"
-                          >اسم الطالب</label
-                        >
-                        <input
-                          type="text"
-                          id="studentName"
-                          placeholder="أدخل اسم الطالب"
-                          class="form-control"
-                          required
-                        />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label for="gender" class="form-label fs-sm fw-semibold"
-                          >الجنس</label
-                        >
-                        <select id="gender" class="form-select" required>
-                          <option value="">اختر الجنس</option>
-                          <option value="male">ذكر</option>
-                          <option value="female">أنثى</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="row g-4 mb-4">
-                      <div class="col-12 col-md-6">
-                        <label for="age" class="form-label fs-sm fw-semibold"
-                          >العمر</label
-                        >
-                        <input
-                          type="number"
-                          id="age"
-                          placeholder="أدخل عمر الطالب"
-                          class="form-control"
-                          required
-                        />
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <label
-                          for="birthDate"
-                          class="form-label fs-sm fw-semibold"
-                          >تاريخ الميلاد</label
-                        >
-                        <input
-                          type="date"
-                          id="birthDate"
-                          class="form-control"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div class="row g-4 mb-4">
-                      <div class="col-12 col-md-6">
-                        <label
-                          for="nationality"
-                          class="form-label fs-sm fw-semibold"
-                          >الجنسية</label
-                        >
-                        <input
-                          type="text"
-                          id="nationality"
-                          placeholder="أدخل جنسية الطالب"
-                          class="form-control"
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    <div class="credentials-section rounded-xl p-4 mb-4">
-                      <h3
-                        class="h5 fw-bold text-gray-800 mb-3 pb-2 credentials-section"
-                      >
-                        بيانات تسجيل الدخول
-                      </h3>
-                      <div class="row g-4 mb-3">
-                        <div class="col-12 col-md-6">
-                          <div>
-                            <label
-                              for="emailUsername"
-                              class="form-label text-gray-700 fw-semibold mb-2"
-                              >البريد الإلكتروني</label
-                            >
-                            <input
-                              type="email"
-                              id="emailUsername"
-                              placeholder="أدخل البريد الإلكتروني"
-                              class="form-control text-end"
-                              required
-                            />
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                          <div>
-                            <label
-                              for="password"
-                              class="form-label text-gray-700 fw-semibold mb-2"
-                              >كلمة المرور</label
-                            >
-                            <div class="input-group">
-                              <span
-                                class="input-group-text input-group-text-custom rounded-start-0 rounded-end-2"
-                              >
-                                <i class="fas fa-sync-alt"></i>
-                              </span>
-                              <input
-                                type="text"
-                                id="password"
-                                placeholder="كلمة مرور يتم إنشاؤها تلقائياً"
-                                readonly
-                                class="form-control text-end"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="d-flex align-items-start gap-3 info-alert-custom p-3 rounded-lg"
-                      >
-                        <i class="fas fa-info-circle fa-lg mt-1"></i>
-                        <p class="text-sm mb-0">
-                          يمكن تعديل كلمة المرور. انقر على زر التحديث لإنشاء
-                          كلمة مرور جديدة.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div class="d-flex justify-content-start gap-3 mt-4">
-                      <button
-                        type="submit"
-                        class="btn btn-success py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-                        style="background-color: #047857 !important"
-                      >
-                        <i class="fas fa-save"></i>
-                        إضافة طالب
-                      </button>
-                      <button
-                        type="button"
-                        class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-                        style="background-color: #9ca3af !important"
-                      >
-                        <i class="fas fa-times-circle"></i>
-                        إلغاء
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="card">
     <div class="card-header">
       <h5 class="card-title">قائمة الطلاب</h5>
@@ -215,159 +18,36 @@
         <table class="students-table">
           <thead>
             <tr>
-              <th>الصورة</th>
               <th>اسم الطالب</th>
-              <th>الجنس</th>
+              <!-- <th>الجنس</th> -->
               <th>العمر</th>
-              <th>تاريخ الميلاد</th>
               <th>الجنسية</th>
-              <th>معرف المستخدم</th>
               <th>ولي الأمر</th>
               <th>الإجراءات</th>
             </tr>
           </thead>
           <tbody id="studentsTableBody">
+            @for (student of students; track student.id) {
             <tr>
+
+              <td>{{student.name}}</td>
+              <!-- <td><span class="badge-chip gender-male">{{student.gender}}</span></td> -->
+              <td>{{student.age}}</td>
+              <td>{{student.nationality}}</td>
               <td>
-                <img
-                  src="https://placehold.co/40x40/E0F2F7/047857?text=صورة"
-                  alt="صورة"
-                  class="rounded-circle"
-                  style="width: 40px; height: 40px; object-fit: cover"
-                />
+                <a class="parent-link" [routerLink]="['/parent', student.parentId, 'children']">{{student.parent}}</a>
               </td>
-              <td>أحمد سعيد</td>
-              <td><span class="badge-chip gender-male">ذكر</span></td>
-              <td>10</td>
-              <td>2014-05-15</td>
-              <td>سعودي</td>
-              <td>STU-001</td>
-              <td>محمد أحمد</td>
               <td>
-                <div class="dropdown action-dropdown">
-                  <button
-                    class="btn-icon dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span class="material-icons">more_vert</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">edit</span>تعديل</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">visibility</span
-                        >عرض</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">delete</span>حذف</a
-                      >
-                    </li>
-                  </ul>
-                </div>
+                <a class="btn btn-outline-success btn-sm" [routerLink]="['/student', student.id, 'halaqa']">
+                  <div class="d-flex align-items-center gap-2 justify-content-center">
+                    <span class="material-icons">visibility</span>
+                    <span>الحلقات</span>
+                  </div>
+                </a>
+                <!-- <a class="btn btn-primary" href="#"><span class="material-icons me-2">edit</span>تعديل</a> -->
               </td>
             </tr>
-            <tr>
-              <td>
-                <img
-                  src="https://placehold.co/40x40/E0F2F7/047857?text=صورة"
-                  alt="صورة"
-                  class="rounded-circle"
-                  style="width: 40px; height: 40px; object-fit: cover"
-                />
-              </td>
-              <td>ليلى خالد</td>
-              <td><span class="badge-chip gender-female">أنثى</span></td>
-              <td>8</td>
-              <td>2016-11-20</td>
-              <td>مصري</td>
-              <td>STU-002</td>
-              <td>سارة علي</td>
-              <td>
-                <div class="dropdown action-dropdown">
-                  <button
-                    class="btn-icon dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span class="material-icons">more_vert</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">edit</span>تعديل</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">visibility</span
-                        >عرض</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">delete</span>حذف</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <img
-                  src="https://placehold.co/40x40/E0F2F7/047857?text=صورة"
-                  alt="صورة"
-                  class="rounded-circle"
-                  style="width: 40px; height: 40px; object-fit: cover"
-                />
-              </td>
-              <td>يوسف محمود</td>
-              <td><span class="badge-chip gender-male">ذكر</span></td>
-              <td>13</td>
-              <td>2011-03-01</td>
-              <td>أردني</td>
-              <td>STU-003</td>
-              <td>فهد ناصر</td>
-              <td>
-                <div class="dropdown action-dropdown">
-                  <button
-                    class="btn-icon dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    <span class="material-icons">more_vert</span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">edit</span>تعديل</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">visibility</span
-                        >عرض</a
-                      >
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#"
-                        ><span class="material-icons me-2">delete</span>حذف</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </td>
-            </tr>
+            }
           </tbody>
         </table>
       </div>

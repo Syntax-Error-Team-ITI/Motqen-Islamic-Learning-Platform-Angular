@@ -1,66 +1,74 @@
-<div class="container shadow-sm bg-white rounded-3 p-4 my-4" dir="rtl">
-  <div class="row mb-3">
-    <div class="col-12">
-      <div class="d-flex justify-content-between align-items-center">
-        <h2 class="mb-4">الطلاب المسجلين في هذه الحلقة</h2>
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#AddStudentModal"
-            (click)="getStudentsNotInHalaqa()">إضافة
-            طالب</button>
-          <!-- Modal -->
-          <div class="modal fade" id="AddStudentModal" tabindex="-1" aria-labelledby="AddStudentModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  <h1 class="modal-title fs-5" id="AddStudentModalLabel">إضافة طالب إلى الحلقة</h1>
-                </div>
-                <form (ngSubmit)="addStudentToHalaqa(studentId)">
-                  <div class="modal-body">
-                    <div class="mb-3">
-                      <label for="studentName" class="form-label">الطلاب المتاحين للإضافة</label>
-                      <select class="form-select" id="studentName" name="studentId" [(ngModel)]="studentId">
-                        @for (student of studentsNotInHalaqa; track $index) {
-                        <option value="{{ student.id }}">{{ student.name }}</option>
-                        }
-                      </select>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"
-                      #closeAddStudentModalBtn>إغلاق</button>
-                    <button type="submit" class="btn btn-outline-success">حفظ</button>
-                  </div>
-                </form>
-              </div>
+<div class="student-list-container">
+  <div class="page-header d-flex justify-content-between align-items-center">
+    <div class="header-content">
+      <h1>
+        <span class="material-icons">school</span>
+        إدارة الطلاب
+      </h1>
+      <p>إدارة معلومات الطلاب</p>
+    </div>
+    <div>
+      <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddStudentModal"
+        (click)="getStudentsNotInHalaqa()">إضافة
+        طالب</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="AddStudentModal" tabindex="-1" aria-labelledby="AddStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="AddStudentModalLabel">إضافة طالب إلى الحلقة</h1>
+        </div>
+        <form (ngSubmit)="addStudentToHalaqa(studentId)">
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="studentName" class="form-label">الطلاب المتاحين للإضافة</label>
+              <select class="form-select" id="studentName" name="studentId" [(ngModel)]="studentId">
+                @for (student of studentsNotInHalaqa; track $index) {
+                <option value="{{ student.id }}">{{ student.name }}</option>
+                }
+              </select>
             </div>
           </div>
-        </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal"
+              #closeAddStudentModalBtn>إغلاق</button>
+            <button type="submit" class="btn btn-outline-success">حفظ</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="row">
-    @if (students.length === 0) {
-    <div class="col-12">
-      <div class="alert alert-info text-center">لا توجد طلاب لهذا الحلقة.</div>
-    </div>
-    }
-    @for (student of students; track $index) {
-    <div class="col-md-6 col-lg-4 mb-4">
-      <div class="card student-card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">الاسم: {{ student.name || '' }}</h5>
-          <p class="card-text text-muted">البريد الإلكتروني: {{ student.email }}</p>
-        </div>
-        <div class="d-flex justify-content-evenly pb-4">
-          <a class="btn btn-outline-success mt-2" [routerLink]="['/student', student.id,'halaqa']">عرض
-            الحلقات</a>
-          <a class="btn btn-outline-danger mt-2" (click)="removeStudentFromHalaqa(student.id)">حذف الطالب</a>
-        </div>
+  <div class="container shadow-sm bg-white rounded-3 p-4 my-4" dir="rtl">
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2 class="mb-4">الطلاب المسجلين في هذه الحلقة</h2>
       </div>
     </div>
-    }
+    <div class="row">
+      @if (students.length === 0) {
+      <div class="col-12">
+        <div class="alert alert-info text-center">لا توجد طلاب لهذا الحلقة.</div>
+      </div>
+      }
+      @for (student of students; track $index) {
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card student-card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">الاسم: {{ student.name || '' }}</h5>
+            <p class="card-text text-muted">البريد الإلكتروني: {{ student.email }}</p>
+          </div>
+          <div class="d-flex justify-content-evenly pb-4">
+            <a class="btn btn-outline-success mt-2" [routerLink]="['/student', student.id,'halaqa']">عرض
+              الحلقات</a>
+            <a class="btn btn-outline-danger mt-2" (click)="removeStudentFromHalaqa(student.id)">حذف الطالب</a>
+          </div>
+        </div>
+      </div>
+      }
 
+    </div>
   </div>
 </div>

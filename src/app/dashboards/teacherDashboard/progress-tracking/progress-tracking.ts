@@ -202,13 +202,14 @@ export class ProgressTracking implements OnInit {
           fromAyah: this.fromAyah,
           toAyah: this.toAyah,
           numberOfLines: this.numberOfLines,
-          type: this.type,
+          type: Number(this.type),
           fromPage: this.fromPage,
           toPage: this.toPage,
           subject: 'dummy subject',
           lessonName: this.lessonName,
           progressTrackingId: 0,
         };
+        console.log(progress);
         this.progressService.addProgressTracking(progress).subscribe({
           next: (response) => {
             this.initializeForms();
