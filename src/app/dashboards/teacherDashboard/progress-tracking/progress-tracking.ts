@@ -16,6 +16,7 @@ import { IHalaqaNamesList } from '../../../models/Halaqaa/ihalaqa-names-list';
 import { HalaqaService } from '../../../services/halaqa-service';
 import { ProgressTrackingService } from '../../../services/progress-tracking-service';
 import { IProgressForm } from '../../../models/ProgressTracking/iprogress-form';
+import { CreateStudentAttendanceDto } from '../../../models/ProgressTracking/iprogress-form';
 
 @Component({
   selector: 'app-progress-tracking',
@@ -47,6 +48,15 @@ export class ProgressTracking implements OnInit {
   ayaNumbers: number[] = QURAN_AYA_NUMBERS;
   isQuranTracking: boolean = true;
   validationErrors: string[] = [];
+
+  // Attendance tracking
+  attendanceStatus: string[] = [];
+  attendanceNotes: string[] = [];
+  // Modal state
+  showAttendanceSuccessModal: boolean = false;
+  attendanceSuccessMessage: string = '';
+  showAttendanceErrorModal: boolean = false;
+  attendanceErrorMessage: string = '';
 
   constructor(
     private studentService: StudentService,
@@ -105,6 +115,8 @@ export class ProgressTracking implements OnInit {
     this.toPage = 0;
     this.lessonName = '';
     this.date = this.getTodayString();
+    this.attendanceStatus = [];
+    this.attendanceNotes = [];
   }
 
   onFromSurahChange() {
@@ -242,5 +254,69 @@ export class ProgressTracking implements OnInit {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const dd = String(today.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
+  }
+
+  setAttendanceStatus(index: number, status: string) {
+    this.attendanceStatus[index] = status;
+  }
+
+  onSaveAttendance() {
+    // Build attendance DTOs for students with set attendance only
+    const statusMap: { [key: string]: number } = { حاضر: 0, غائب: 1, بإذن: 2 };
+    const attendanceDtos: CreateStudentAttendanceDto[] = this.students
+      .map((student, i) => {
+        if (this.attendanceStatus[i]) {
+          return {
+            studentId: student.id,
+            halaqaId: this.halaqaId,
+            attendanceDate: this.date
+              ? new Date(this.date).toISOString()
+              : new Date().toISOString(),
+            status: statusMap[this.attendanceStatus[i]] ?? 0,
+          };
+        }
+        return null;
+      })
+      .filter((dto): dto is CreateStudentAttendanceDto => dto !== null);
+    if (attendanceDtos.length === 0) {
+      // Optionally show a warning or do nothing
+      return;
+    }
+    let completed = 0;
+    let errorShown = false;
+    attendanceDtos.forEach((dto, idx) => {
+      this.progressService.addStudentAttendance(dto).subscribe({
+        next: (response) => {
+          completed++;
+          if (completed === attendanceDtos.length && !errorShown) {
+            this.initializeForms();
+            this.loadStudents();
+            this.cdr.detectChanges();
+            this.attendanceSuccessMessage = 'تم حفظ الحضور بنجاح';
+            this.showAttendanceSuccessModal = true;
+          }
+        },
+        error: (error) => {
+          if (!errorShown && error.status === 409) {
+            this.attendanceErrorMessage =
+              'تم تسجيل حضور الطلاب لهذا الفصل في هذا التاريخ بالفعل.';
+            this.showAttendanceErrorModal = true;
+            errorShown = true;
+          } else {
+            console.error(error);
+          }
+        },
+      });
+    });
+  }
+
+  closeAttendanceSuccessModal() {
+    this.showAttendanceSuccessModal = false;
+    this.attendanceSuccessMessage = '';
+  }
+
+  closeAttendanceErrorModal() {
+    this.showAttendanceErrorModal = false;
+    this.attendanceErrorMessage = '';
   }
 }
