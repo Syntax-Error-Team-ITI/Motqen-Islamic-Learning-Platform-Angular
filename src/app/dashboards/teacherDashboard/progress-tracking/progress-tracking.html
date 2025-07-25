@@ -1,10 +1,12 @@
 <div class="progress-tracking-container">
-  <div class="page-header">
+  <div class="page-header d-flex justify-content-between align-items-center">
+    <div class="header-content">
     <h1>
       <span class="material-icons">trending_up</span>
       تتبع التقدم
     </h1>
     <p>مراقبة وتحديث تقدم الطلاب في الفصول</p>
+  </div>
   </div>
 
   <div class="card filter-card">
@@ -12,13 +14,8 @@
     <div class="card-body">
       <div class="filter-form-group d-flex gap-2 my-2">
         <div class="form-floating col-md-4">
-          <select
-            class="form-select"
-            id="classSelect"
-            aria-label="Select Class"
-            [(ngModel)]="halaqaId"
-            (ngModelChange)="onHalaqaChange()"
-          >
+          <select class="form-select" id="classSelect" aria-label="Select Class" [(ngModel)]="halaqaId"
+            (ngModelChange)="onHalaqaChange()">
             <option [value]="0">اختر الفصل</option>
             @for(halaqa of halaqaNamesList; track $index) {
             <option [value]="halaqa.id">{{halaqa.name}}</option>
@@ -28,22 +25,12 @@
         </div>
 
         <div class="form-floating col-md-4">
-          <input
-            type="date"
-            class="form-control"
-            id="dateSelect"
-            placeholder="اختر التاريخ"
-            [(ngModel)]="date"
-            [ngClass]="{'is-invalid': validationErrors.length && (!date )}"
-          />
+          <input type="date" class="form-control" id="dateSelect" placeholder="اختر التاريخ" [(ngModel)]="date"
+            [ngClass]="{'is-invalid': validationErrors.length && (!date )}" />
           <label for="dateSelect">التاريخ</label>
         </div>
         <div class="form-floating col-md-4">
-          <select
-            class="form-select"
-            [(ngModel)]="isQuranTracking"
-            (ngModelChange)="onQuranTrackingChange()"
-          >
+          <select class="form-select" [(ngModel)]="isQuranTracking" (ngModelChange)="onQuranTrackingChange()">
             <option [ngValue]="true">قرآن كريم</option>
             <option [ngValue]="false">علوم اسلامية</option>
           </select>
@@ -62,41 +49,20 @@
     <div class="card-body">
       <ul class="nav nav-tabs" id="progressTabs" role="tablist">
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="memorization-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#memorization"
-            type="button"
-            role="tab"
-            aria-controls="memorization"
-            aria-selected="true"
-          >
+          <button class="nav-link active" id="memorization-tab" data-bs-toggle="tab" data-bs-target="#memorization"
+            type="button" role="tab" aria-controls="memorization" aria-selected="true">
             التفيـــم
           </button>
         </li>
         <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="attendance-notes-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#attendance-notes"
-            type="button"
-            role="tab"
-            aria-controls="attendance-notes"
-            aria-selected="false"
-          >
+          <button class="nav-link" id="attendance-notes-tab" data-bs-toggle="tab" data-bs-target="#attendance-notes"
+            type="button" role="tab" aria-controls="attendance-notes" aria-selected="false">
             الحضـــور
           </button>
         </li>
       </ul>
       <div class="tab-content" id="progressTabsContent">
-        <div
-          class="tab-pane fade show active"
-          id="memorization"
-          role="tabpanel"
-          aria-labelledby="memorization-tab"
-        >
+        <div class="tab-pane fade show active" id="memorization" role="tabpanel" aria-labelledby="memorization-tab">
           <div class="table-container">
             @if(isQuranTracking) {
             <table class="table progress-table">
@@ -113,64 +79,40 @@
               <tbody>
                 <tr>
                   <td>
-                    <select
-                      class="form-select"
-                      [(ngModel)]="fromSurah"
-                      (ngModelChange)="onFromSurahChange()"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!fromSurah || fromSurah === 0)}"
-                    >
+                    <select class="form-select" [(ngModel)]="fromSurah" (ngModelChange)="onFromSurahChange()" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromSurah || fromSurah === 0)}">
                       @for(surah of quranList; track $index) {
                       <option [value]="$index+1">{{surah}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select
-                      class="form-select"
-                      [(ngModel)]="fromAyah"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!fromAyah || fromAyah === 0)}"
-                    >
-                      @for(num of getAyahRange(fromSurah); track num) {
+                    <select class="form-select" [(ngModel)]="fromAyah" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromAyah || fromAyah === 0)}">
+                      @for(num of getAyahRange(fromSurah -1); track num) {
                       <option [value]="num">{{num}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select
-                      class="form-select"
-                      [(ngModel)]="toSurah"
-                      (ngModelChange)="onFromSurahChange()"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!toSurah || toSurah === 0)}"
-                    >
+                    <select class="form-select" [(ngModel)]="toSurah" (ngModelChange)="onToSurahChange()" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toSurah || toSurah === 0)}">
                       @for(surah of quranList; track $index) {
                       <option [value]="$index+1">{{surah}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select
-                      class="form-select"
-                      [(ngModel)]="toAyah"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!toAyah || toAyah === 0)}"
-                    >
-                      @for(num of getAyahRange(toSurah); track num) {
+                    <select class="form-select" [(ngModel)]="toAyah" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toAyah || toAyah === 0)}">
+                      @for(num of getAyahRange(toSurah-1); track num) {
                       <option [value]="num">{{num}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <input
-                      type="number"
-                      class="form-control"
-                      [(ngModel)]="numberOfLines"
-                      min="1"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!numberOfLines || numberOfLines < 1)}"
-                    />
+                    <input type="number" class="form-control" [(ngModel)]="numberOfLines" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!numberOfLines || numberOfLines < 1)}" />
                   </td>
                   <td>
                     <select class="form-select" [(ngModel)]="type">
@@ -194,33 +136,16 @@
               <tbody>
                 <tr>
                   <td>
-                    <input
-                      type="number"
-                      class="form-control"
-                      [(ngModel)]="fromPage"
-                      min="1"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!fromPage || fromPage < 1)}"
-                    />
+                    <input type="number" class="form-control" [(ngModel)]="fromPage" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromPage || fromPage < 1)}" />
                   </td>
                   <td>
-                    <input
-                      type="number"
-                      class="form-control"
-                      [(ngModel)]="toPage"
-                      min="1"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!toPage || toPage < 1)}"
-                    />
+                    <input type="number" class="form-control" [(ngModel)]="toPage" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toPage || toPage < 1)}" />
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="lessonName"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!lessonName || lessonName.trim() === '')}"
-                    />
+                    <input type="text" class="form-control" [(ngModel)]="lessonName" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!lessonName || lessonName.trim() === '')}" />
                   </td>
                 </tr>
               </tbody>
@@ -240,12 +165,8 @@
                 <tr>
                   <td>{{student.name}}</td>
                   <td class="evaluation-select">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="evaluation[$index]"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!evaluation[$index] || evaluation[$index].trim() === '')}"
-                    >
+                    <select class="form-select" [(ngModel)]="evaluation[$index]" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!evaluation[$index] || evaluation[$index].trim() === '')}">
                       <option value="ممتاز">ممتاز</option>
                       <option value="جيد" selected>جيد</option>
                       <option value="مقبول">مقبول</option>
@@ -253,44 +174,26 @@
                     </select>
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="notes[$index]"
-                      [ngClass]="{'is-invalid': validationErrors.length && (!notes[$index] || notes[$index].trim() === '')}"
-                    />
+                    <input type="text" class="form-control" [(ngModel)]="notes[$index]"
+                      [ngClass]="{'is-invalid': validationErrors.length && (!notes[$index] || notes[$index].trim() === '')}" />
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      class="form-control"
-                      [(ngModel)]="status[$index]"
-                      required
-                      [ngClass]="{'is-invalid': validationErrors.length && (!status[$index] || status[$index].trim() === '')}"
-                    />
+                    <input type="text" class="form-control" [(ngModel)]="status[$index]" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!status[$index] || status[$index].trim() === '')}" />
                   </td>
                 </tr>
                 }
               </tbody>
             </table>
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="onProgressSubmit()"
-              [disabled]="students.length == 0"
-            >
+            <button type="button" class="btn btn-primary" (click)="onProgressSubmit()"
+              [disabled]="students.length == 0">
               <span class="material-icons">save</span>
               حفظ التقدم
             </button>
           </div>
         </div>
 
-        <div
-          class="tab-pane fade"
-          id="attendance-notes"
-          role="tabpanel"
-          aria-labelledby="attendance-notes-tab"
-        >
+        <div class="tab-pane fade" id="attendance-notes" role="tabpanel" aria-labelledby="attendance-notes-tab">
           <div class="table-container">
             <table class="table progress-table">
               <thead>
@@ -306,75 +209,45 @@
                   <td>{{student.name}}</td>
                   <td class="attendance-toggle">
                     <div class="btn-group" role="group">
-                      <button
-                        type="button"
-                        class="btn btn-outline-success btn-attendance-present"
+                      <button type="button" class="btn btn-outline-success btn-attendance-present"
                         [class.active]="attendanceStatus[$index] === 'حاضر'"
-                        (click)="setAttendanceStatus($index, 'حاضر')"
-                      >
+                        (click)="setAttendanceStatus($index, 'حاضر')">
                         حاضر
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-danger btn-attendance-absent"
+                      <button type="button" class="btn btn-outline-danger btn-attendance-absent"
                         [class.active]="attendanceStatus[$index] === 'غائب'"
-                        (click)="setAttendanceStatus($index, 'غائب')"
-                      >
+                        (click)="setAttendanceStatus($index, 'غائب')">
                         غائب
                       </button>
-                      <button
-                        type="button"
-                        class="btn btn-outline-info btn-attendance-excused"
+                      <button type="button" class="btn btn-outline-info btn-attendance-excused"
                         [class.active]="attendanceStatus[$index] === 'بإذن'"
-                        (click)="setAttendanceStatus($index, 'بإذن')"
-                      >
+                        (click)="setAttendanceStatus($index, 'بإذن')">
                         بإذن
                       </button>
                     </div>
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="أضف ملاحظات..."
-                      [(ngModel)]="attendanceNotes[$index]"
-                    />
+                    <input type="text" class="form-control" placeholder="أضف ملاحظات..."
+                      [(ngModel)]="attendanceNotes[$index]" />
                   </td>
                 </tr>
                 }
               </tbody>
             </table>
-            <button
-              type="button"
-              class="btn btn-primary"
-              (click)="onSaveAttendance()"
-              [disabled]="students.length == 0"
-            >
+            <button type="button" class="btn btn-primary" (click)="onSaveAttendance()"
+              [disabled]="students.length == 0">
               <span class="material-icons">save</span>
               حفظ الحضور
             </button>
           </div>
         </div>
       </div>
-      <div class="action-buttons mt-4">
-        <button type="button" class="btn btn-secondary">
-          <span class="material-icons">clear_all</span>
-          مسح التقدم
-        </button>
-        <button type="button" class="btn btn-primary">
-          <span class="material-icons">save</span>
-          حفظ التقدم
-        </button>
-      </div>
     </div>
   </div>
 </div>
 
 <!-- Attendance Success Modal -->
-<div
-  class="modal-backdrop"
-  *ngIf="showAttendanceSuccessModal"
-  style="
+<div class="modal-backdrop" *ngIf="showAttendanceSuccessModal" style="
     position: fixed;
     top: 0;
     left: 0;
@@ -382,34 +255,19 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
     z-index: 1050;
-  "
-></div>
-<div
-  class="modal show d-block"
-  tabindex="-1"
-  *ngIf="showAttendanceSuccessModal"
-  style="z-index: 1060"
->
+  "></div>
+<div class="modal show d-block" tabindex="-1" *ngIf="showAttendanceSuccessModal" style="z-index: 1060">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">نجاح</h5>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="closeAttendanceSuccessModal()"
-        ></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAttendanceSuccessModal()"></button>
       </div>
       <div class="modal-body">
         <p>{{attendanceSuccessMessage}}</p>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="closeAttendanceSuccessModal()"
-        >
+        <button type="button" class="btn btn-primary" (click)="closeAttendanceSuccessModal()">
           إغلاق
         </button>
       </div>
@@ -418,10 +276,7 @@
 </div>
 
 <!-- Attendance Error Modal -->
-<div
-  class="modal-backdrop"
-  *ngIf="showAttendanceErrorModal"
-  style="
+<div class="modal-backdrop" *ngIf="showAttendanceErrorModal" style="
     position: fixed;
     top: 0;
     left: 0;
@@ -429,34 +284,19 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.3);
     z-index: 1050;
-  "
-></div>
-<div
-  class="modal show d-block"
-  tabindex="-1"
-  *ngIf="showAttendanceErrorModal"
-  style="z-index: 1060"
->
+  "></div>
+<div class="modal show d-block" tabindex="-1" *ngIf="showAttendanceErrorModal" style="z-index: 1060">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">خطأ</h5>
-        <button
-          type="button"
-          class="btn-close"
-          aria-label="Close"
-          (click)="closeAttendanceErrorModal()"
-        ></button>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeAttendanceErrorModal()"></button>
       </div>
       <div class="modal-body">
         <p>{{attendanceErrorMessage}}</p>
       </div>
       <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="closeAttendanceErrorModal()"
-        >
+        <button type="button" class="btn btn-danger" (click)="closeAttendanceErrorModal()">
           إغلاق
         </button>
       </div>

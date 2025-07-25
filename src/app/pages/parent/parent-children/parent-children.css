@@ -1,3 +1,7 @@
+.parent-children-list-container {
+  margin: 0 auto;
+  padding: 30px 15px;
+}
 .page-header {
   background-color: #047857 !important; /* emerald-600 */
   color: white !important;
@@ -13,59 +17,36 @@
   gap: 24px;
   flex-wrap: wrap; /* Allow header content to wrap */
 }
-.children-list {
-  max-width: 700px;
-  margin: 2rem auto;
-  direction: rtl;
+.card-title-custom {
+  color: #047857; /* emerald-600 */
+  font-weight: 700; /* font-bold */
+  font-size: 1.5rem; /* text-2xl */
+  margin-bottom: 0.75rem;
 }
-
-.title {
-  text-align: center;
-  color: #2e8b57;
-  margin-bottom: 2rem;
-  font-family: "Amiri", serif;
+.card-text-label {
+  color: #4b5563; /* gray-700 */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.875rem; /* text-sm */
+  margin-bottom: 0.25rem;
 }
-
-.child-card {
-  transition: box-shadow 0.3s, transform 0.2s;
+.card-text-value {
+  color: #1f2937; /* gray-900 */
+  font-size: 1rem; /* text-base */
+  margin-bottom: 0.75rem;
 }
-.child-card:hover {
-  box-shadow: 0 8px 32px rgba(46, 139, 87, 0.18) !important;
-  transform: translateY(-6px) scale(1.03);
-}
-.child-info {
-  flex: 1;
-}
-.child-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #4a90e2;
-  margin-bottom: 0.5rem;
-  font-family: "Amiri", serif;
-}
-.child-details {
-  display: flex;
-  gap: 1.5rem;
-  color: #333;
-  font-size: 1rem;
-  font-family: "Amiri", serif;
-}
-.child-details span {
-  background: #e0f7fa;
-  border-radius: 8px;
-  padding: 0.25rem 0.75rem;
-  margin-left: 0.5rem;
-}
-.child-card .btn.btn-outline-primary {
-  border: 2px solid #2e8b57;
-  color: #2e8b57;
-  transition: background 0.2s, color 0.2s;
-  -webkit-transition: background 0.2s, color 0.2s;
-  -moz-transition: background 0.2s, color 0.2s;
-  -ms-transition: background 0.2s, color 0.2s;
-  -o-transition: background 0.2s, color 0.2s;
-}
-.child-card .btn.btn-outline-primary:hover {
-  background: #2e8b57;
+.btn-report {
+  background-color: #059669 !important; /* emerald-500 */
+  border-color: #059669 !important;
   color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+.btn-report:hover {
+  background-color: #047857 !important; /* emerald-600 */
+  border-color: #047857 !important;
 }

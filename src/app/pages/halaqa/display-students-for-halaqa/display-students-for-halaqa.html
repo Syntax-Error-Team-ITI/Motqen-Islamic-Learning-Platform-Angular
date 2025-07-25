@@ -8,9 +8,13 @@
       <p>إدارة معلومات الطلاب</p>
     </div>
     <div>
-      <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddStudentModal"
-        (click)="getStudentsNotInHalaqa()">إضافة
-        طالب</button>
+      <div class="d-flex justify-content-end gap-2">
+        <a class="btn btn-outline-dark fw-bold border-2" [routerLink]="['/dashboard/progress-tracking', halaqaId]">تقديم
+          التقرير</a>
+        <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddStudentModal"
+          (click)="getStudentsNotInHalaqa()">إضافة
+          طالب</button>
+      </div>
     </div>
   </div>
   <!-- Modal -->

@@ -10,12 +10,12 @@
     </div>
     <div class="d-flex align-items-center gap-2">
       <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addHalaqaModal"
-      (click)="getNotAssignedHalaqas()">
-      <i class="fas fa-plus"></i> إضافة حلقة للمعلم
-    </button>
-    <a [routerLink]="['/dashboard/teacher-list']" class="btn btn-outline-dark">
-    الرجوع للقائمة المعلمين <i class="fas fa-arrow-left-long"></i> 
-    </a>
+        (click)="getNotAssignedHalaqas()">
+        <i class="fas fa-plus"></i> إضافة حلقة للمعلم
+      </button>
+      <a [routerLink]="['/dashboard/teacher-list']" class="btn btn-outline-dark">
+        الرجوع للقائمة المعلمين <i class="fas fa-arrow-left-long"></i>
+      </a>
     </div>
   </div>
   <!-- modal -->
@@ -64,10 +64,6 @@
             <p class="card-text">
               <span class="card-text-label">المجموعة: </span>
               <span class="card-text-value">{{ halaqa.genderGroup }}</span>
-            </p>
-            <p class="card-text">
-              <span class="card-text-label">الجدول الزمني: </span>
-              <span class="card-text-value">الأحد، الثلاثاء، الخميس - 4:00 مساءً</span>
             </p>
             <div class="d-flex mt-3 gap-2 justify-content-between align-items-center">
               <div class="col-md-8">

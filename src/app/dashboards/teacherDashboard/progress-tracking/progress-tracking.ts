@@ -17,6 +17,7 @@ import { HalaqaService } from '../../../services/halaqa-service';
 import { ProgressTrackingService } from '../../../services/progress-tracking-service';
 import { IProgressForm } from '../../../models/ProgressTracking/iprogress-form';
 import { CreateStudentAttendanceDto } from '../../../models/ProgressTracking/iprogress-form';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-progress-tracking',
@@ -62,10 +63,12 @@ export class ProgressTracking implements OnInit {
     private studentService: StudentService,
     private halaqaService: HalaqaService,
     private progressService: ProgressTrackingService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.halaqaId = this.route.snapshot.params['halaqaId'];
     this.loadStudents();
     this.loadHalaqaNamesList();
   }
@@ -162,20 +165,6 @@ export class ProgressTracking implements OnInit {
         this.validationErrors.push('يجب إدخال اسم الدرس.');
       }
     }
-    // Validate per-student fields
-    // this.students.forEach((student, i) => {
-    //   if (!this.evaluation[i] || this.evaluation[i].trim() === '') {
-    //     this.validationErrors.push(`يجب اختيار التقييم للطالب ${student.name}`);
-    //   }
-    //   if (!this.status[i] || this.status[i].trim() === '') {
-    //     this.validationErrors.push(`يجب إدخال الحالة للطالب ${student.name}`);
-    //   }
-    //   if (!this.notes[i] || this.notes[i].trim() === '') {
-    //     this.validationErrors.push(
-    //       `يجب إدخال الملاحظات للطالب ${student.name}`
-    //     );
-    //   }
-    // });
     if (this.validationErrors.length > 0) {
       this.cdr.detectChanges();
       return;
@@ -209,7 +198,6 @@ export class ProgressTracking implements OnInit {
           lessonName: this.lessonName,
           progressTrackingId: 0,
         };
-        console.log(progress);
         this.progressService.addProgressTracking(progress).subscribe({
           next: (response) => {
             this.initializeForms();

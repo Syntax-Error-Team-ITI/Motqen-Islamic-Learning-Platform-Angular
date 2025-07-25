@@ -42,7 +42,10 @@ export const routes: Routes = [
   { path: 'dashboard/chatbot', component: DashboardChatbot },
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
-  { path: 'dashboard/progress-tracking', component: ProgressTracking },
+  {
+    path: 'dashboard/progress-tracking/:halaqaId',
+    component: ProgressTracking,
+  },
   {
     path: 'dashboard/teacher/:teacherId/halaqas',
     component: HalaqasTeachedByTeacher,
