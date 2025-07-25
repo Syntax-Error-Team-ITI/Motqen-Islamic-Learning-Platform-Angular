@@ -18,6 +18,7 @@ import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-
 import { HalaqaList } from './dashboards/adminDashboard/halaqa-list/halaqa-list';
 import { ParentList } from './dashboards/adminDashboard/parent-list/parent-list';
 import { ProgressTracking } from './dashboards/teacherDashboard/progress-tracking/progress-tracking';
+import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa-details';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -40,6 +41,7 @@ export const routes: Routes = [
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
   { path: 'dashboard/progress-tracking', component: ProgressTracking },
-
+  { path: 'dashboard/halaqa-details/:id', component: HalaqaDetails },
+  { path: 'dashboard/halaqa-list', component: HalaqaList },
   { path: '**', component: NotFound },
 ];

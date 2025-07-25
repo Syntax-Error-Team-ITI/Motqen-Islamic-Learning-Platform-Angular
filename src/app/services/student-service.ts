@@ -47,6 +47,7 @@ export class StudentService {
     return this.http.get<IStudentHalaqaDisplay[]>(
       `${this.baseUrl}/student/halaqa/${halaqaId}/all-students?includeDeleted=${includeDeleted}`
     );
+    
   }
 
   getAllHalaqaForStudent(

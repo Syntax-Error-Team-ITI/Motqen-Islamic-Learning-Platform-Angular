@@ -3,6 +3,8 @@ export interface IHalaqaDto {
   name: string;
   description: string;
   guestLiveLink: string;
+  HostLiveLink: string;
   subjectName: string;
-  genderGroup: string;
+  genderGroup: number;
+  isDeleted: boolean;
 }
