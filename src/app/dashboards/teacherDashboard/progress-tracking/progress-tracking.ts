@@ -29,8 +29,8 @@ export class ProgressTracking implements OnInit {
   evaluation: string[] = [];
   notes: string[] = [];
   status: string[] = [];
-  date: Date = new Date();
-  halaqaId: number = 0;
+  date: string = this.getTodayString();
+  halaqaId: number = 1;
   // QuranProgressTracking
   fromSurah: number = 0;
   toSurah: number = 0;
@@ -46,6 +46,7 @@ export class ProgressTracking implements OnInit {
   quranList: string[] = QURAN_SURAHS_AR;
   ayaNumbers: number[] = QURAN_AYA_NUMBERS;
   isQuranTracking: boolean = true;
+  validationErrors: string[] = [];
 
   constructor(
     private studentService: StudentService,
@@ -103,6 +104,7 @@ export class ProgressTracking implements OnInit {
     this.fromPage = 0;
     this.toPage = 0;
     this.lessonName = '';
+    this.date = this.getTodayString();
   }
 
   onFromSurahChange() {
@@ -122,13 +124,57 @@ export class ProgressTracking implements OnInit {
   }
 
   onProgressSubmit() {
+    this.validationErrors = [];
+    // Validate main fields
+    if (!this.halaqaId || this.halaqaId === 0) {
+      this.validationErrors.push('يجب اختيار الفصل.');
+    }
+    if (!this.date) {
+      this.validationErrors.push('يجب اختيار التاريخ.');
+    }
+    if (this.isQuranTracking) {
+      if (!this.fromSurah || !this.toSurah) {
+        this.validationErrors.push('يجب اختيار سور البداية والنهاية.');
+      }
+      if (!this.fromAyah || !this.toAyah) {
+        this.validationErrors.push('يجب اختيار آيات البداية والنهاية.');
+      }
+      if (!this.numberOfLines || this.numberOfLines < 1) {
+        this.validationErrors.push('عدد الأسطر يجب أن يكون أكبر من 0.');
+      }
+    } else {
+      if (!this.fromPage || !this.toPage) {
+        this.validationErrors.push('يجب إدخال صفحات البداية والنهاية.');
+      }
+      if (!this.lessonName || this.lessonName.trim() === '') {
+        this.validationErrors.push('يجب إدخال اسم الدرس.');
+      }
+    }
+    // Validate per-student fields
+    this.students.forEach((student, i) => {
+      if (!this.evaluation[i] || this.evaluation[i].trim() === '') {
+        this.validationErrors.push(`يجب اختيار التقييم للطالب ${student.name}`);
+      }
+      if (!this.status[i] || this.status[i].trim() === '') {
+        this.validationErrors.push(`يجب إدخال الحالة للطالب ${student.name}`);
+      }
+      if (!this.notes[i] || this.notes[i].trim() === '') {
+        this.validationErrors.push(
+          `يجب إدخال الملاحظات للطالب ${student.name}`
+        );
+      }
+    });
+    if (this.validationErrors.length > 0) {
+      this.cdr.detectChanges();
+      return;
+    }
     let index = 0;
     this.students.forEach((student) => {
       const progress: IProgressForm = {
         studentId: student.id,
         halaqaId: this.halaqaId,
         isQuranTracking: this.isQuranTracking,
-        date: this.date,
+        date: new Date(this.date),
         status: this.status[index],
         notes: this.notes[index],
         evaluation: this.evaluation[index],
@@ -146,7 +192,9 @@ export class ProgressTracking implements OnInit {
       };
       this.progressService.addProgressTracking(progress).subscribe({
         next: (response) => {
-          console.log(response);
+          this.initializeForms();
+          this.loadStudents();
+          this.cdr.detectChanges();
         },
         error: (error) => {
           console.error(error);
@@ -164,5 +212,13 @@ export class ProgressTracking implements OnInit {
     this.halaqaId = Number(this.halaqaId);
     this.initializeForms();
     this.loadStudents();
+  }
+
+  getTodayString(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
   }
 }

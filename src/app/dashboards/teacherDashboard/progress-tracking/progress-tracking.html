@@ -22,7 +22,8 @@
         </div>
 
         <div class="form-floating col-md-4">
-          <input type="date" class="form-control" id="dateSelect" placeholder="اختر التاريخ" [(ngModel)]="date" />
+          <input type="date" class="form-control" id="dateSelect" placeholder="اختر التاريخ" [(ngModel)]="date"
+            [ngClass]="{'is-invalid': validationErrors.length && (!date )}" />
           <label for="dateSelect">التاريخ</label>
         </div>
         <div class="form-floating col-md-4">
@@ -33,6 +34,12 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="validationErrors.length > 0" class="alert alert-danger">
+    <ul>
+      <li *ngFor="let err of validationErrors">{{err}}</li>
+    </ul>
   </div>
 
   <div class="card progress-table-card">
@@ -69,35 +76,40 @@
               <tbody>
                 <tr>
                   <td>
-                    <select class="form-select" [(ngModel)]="fromSurah" (ngModelChange)="onFromSurahChange()">
+                    <select class="form-select" [(ngModel)]="fromSurah" (ngModelChange)="onFromSurahChange()" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromSurah || fromSurah === 0)}">
                       @for(surah of quranList; track $index) {
                       <option [value]="$index+1">{{surah}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select class="form-select" [(ngModel)]="fromAyah">
+                    <select class="form-select" [(ngModel)]="fromAyah" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromAyah || fromAyah === 0)}">
                       @for(num of getAyahRange(fromSurah); track num) {
                       <option [value]="num">{{num}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select class="form-select" [(ngModel)]="toSurah" (ngModelChange)="onFromSurahChange()">
+                    <select class="form-select" [(ngModel)]="toSurah" (ngModelChange)="onFromSurahChange()" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toSurah || toSurah === 0)}">
                       @for(surah of quranList; track $index) {
                       <option [value]="$index+1">{{surah}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <select class="form-select" [(ngModel)]="toAyah">
+                    <select class="form-select" [(ngModel)]="toAyah" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toAyah || toAyah === 0)}">
                       @for(num of getAyahRange(toSurah); track num) {
                       <option [value]="num">{{num}}</option>
                       }
                     </select>
                   </td>
                   <td>
-                    <input type="number" class="form-control" [(ngModel)]="numberOfLines" />
+                    <input type="number" class="form-control" [(ngModel)]="numberOfLines" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!numberOfLines || numberOfLines < 1)}" />
                   </td>
                   <td>
                     <select class="form-select" [(ngModel)]="type">
@@ -122,13 +134,16 @@
               <tbody>
                 <tr>
                   <td>
-                    <input type="number" class="form-control" [(ngModel)]="fromPage" />
+                    <input type="number" class="form-control" [(ngModel)]="fromPage" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!fromPage || fromPage < 1)}" />
                   </td>
                   <td>
-                    <input type="number" class="form-control" [(ngModel)]="toPage" />
+                    <input type="number" class="form-control" [(ngModel)]="toPage" min="1" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!toPage || toPage < 1)}" />
                   </td>
                   <td>
-                    <input type="text" class="form-control" [(ngModel)]="lessonName" />
+                    <input type="text" class="form-control" [(ngModel)]="lessonName" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!lessonName || lessonName.trim() === '')}" />
                   </td>
                 </tr>
               </tbody>
@@ -149,7 +164,8 @@
                 <tr>
                   <td>{{student.name}}</td>
                   <td class="evaluation-select">
-                    <select class="form-select" [(ngModel)]="evaluation[$index]">
+                    <select class="form-select" [(ngModel)]="evaluation[$index]" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!evaluation[$index] || evaluation[$index].trim() === '')}">
                       <option value="ممتاز">ممتاز</option>
                       <option value="جيد" selected>جيد</option>
                       <option value="مقبول">مقبول</option>
@@ -157,10 +173,12 @@
                     </select>
                   </td>
                   <td>
-                    <input type="text" class="form-control" [(ngModel)]="notes[$index]" />
+                    <input type="text" class="form-control" [(ngModel)]="notes[$index]"
+                      [ngClass]="{'is-invalid': validationErrors.length && (!notes[$index] || notes[$index].trim() === '')}" />
                   </td>
                   <td>
-                    <input type="text" class="form-control" [(ngModel)]="status[$index]" />
+                    <input type="text" class="form-control" [(ngModel)]="status[$index]" required
+                      [ngClass]="{'is-invalid': validationErrors.length && (!status[$index] || status[$index].trim() === '')}" />
                   </td>
                 </tr>
                 }
