@@ -52,6 +52,9 @@ export class ProgressTracking implements OnInit {
   // Attendance tracking
   attendanceStatus: string[] = [];
   attendanceNotes: string[] = [];
+  // Modal state
+  showAttendanceSuccessModal: boolean = false;
+  attendanceSuccessMessage: string = '';
 
   constructor(
     private studentService: StudentService,
@@ -256,31 +259,49 @@ export class ProgressTracking implements OnInit {
   }
 
   onSaveAttendance() {
-    // Build attendance DTOs for all students
+    // Build attendance DTOs for students with set attendance only
     const statusMap: { [key: string]: number } = { حاضر: 0, غائب: 1, بإذن: 2 };
-    const attendanceDtos: CreateStudentAttendanceDto[] = this.students.map(
-      (student, i) => ({
-        studentId: student.id,
-        halaqaId: this.halaqaId,
-        attendanceDate: this.date
-          ? new Date(this.date).toISOString()
-          : new Date().toISOString(),
-        status: statusMap[this.attendanceStatus[i]] ?? 0,
+    const attendanceDtos: CreateStudentAttendanceDto[] = this.students
+      .map((student, i) => {
+        if (this.attendanceStatus[i]) {
+          return {
+            studentId: student.id,
+            halaqaId: this.halaqaId,
+            attendanceDate: this.date
+              ? new Date(this.date).toISOString()
+              : new Date().toISOString(),
+            status: statusMap[this.attendanceStatus[i]] ?? 0,
+          };
+        }
+        return null;
       })
-    );
-    // Loop and call the service for each
-    attendanceDtos.forEach((dto) => {
+      .filter((dto): dto is CreateStudentAttendanceDto => dto !== null);
+    if (attendanceDtos.length === 0) {
+      // Optionally show a warning or do nothing
+      return;
+    }
+    let completed = 0;
+    attendanceDtos.forEach((dto, idx) => {
       this.progressService.addStudentAttendance(dto).subscribe({
         next: (response) => {
-          console.log(response);
-          this.initializeForms();
-          this.loadStudents();
-          this.cdr.detectChanges();
+          completed++;
+          if (completed === attendanceDtos.length) {
+            this.initializeForms();
+            this.loadStudents();
+            this.cdr.detectChanges();
+            this.attendanceSuccessMessage = 'تم حفظ الحضور بنجاح';
+            this.showAttendanceSuccessModal = true;
+          }
         },
         error: (error) => {
           console.error(error);
         },
       });
     });
+  }
+
+  closeAttendanceSuccessModal() {
+    this.showAttendanceSuccessModal = false;
+    this.attendanceSuccessMessage = '';
   }
 }

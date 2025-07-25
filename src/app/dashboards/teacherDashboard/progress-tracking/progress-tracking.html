@@ -369,3 +369,50 @@
     </div>
   </div>
 </div>
+
+<!-- Attendance Success Modal -->
+<div
+  class="modal-backdrop"
+  *ngIf="showAttendanceSuccessModal"
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+  "
+></div>
+<div
+  class="modal show d-block"
+  tabindex="-1"
+  *ngIf="showAttendanceSuccessModal"
+  style="z-index: 1060"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">نجاح</h5>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="closeAttendanceSuccessModal()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>{{attendanceSuccessMessage}}</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="closeAttendanceSuccessModal()"
+        >
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
