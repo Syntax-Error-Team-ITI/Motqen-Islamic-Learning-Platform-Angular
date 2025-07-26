@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { Navbar } from './layout/navbar/navbar';
 import { Home } from './pages/home/home';
 import { AboutUs } from './pages/about-us/about-us';
-import { Login } from './pages/login/login';
+import { Login } from './pages/Auth/login/login';
 import { Halaqas } from './pages/halaqas/halaqas';
 import { Chatbot } from './layout/chatbot/chatbot';
 import { Footer } from './layout/footer/footer';
