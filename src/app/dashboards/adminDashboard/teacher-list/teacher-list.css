@@ -1,0 +1,9 @@
+.page-header-custom {
+  background-color: #047857 !important; /* emerald-600 */
+  color: white;
+  padding: 2rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

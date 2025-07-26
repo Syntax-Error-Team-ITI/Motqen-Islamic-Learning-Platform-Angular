@@ -1,0 +1,99 @@
+<div class="container">
+  <div class="page-header d-flex align-items-center justify-content-between gap-3 flex-wrap">
+    <div class="d-flex align-items-center gap-3">
+      <i class="fas fa-book-reader text-5xl"></i>
+      <div class="text-right">
+        <h1 class="fs-1 fw-bold mb-1">إدارة المواد الدراسية</h1>
+        <p class="fs-4 opacity-90">استعرض وقم بإدارة المواد المتاحة</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="btn btn-light text-success mx-2 fw-bold py-2 px-4 rounded-pill shadow-sm" data-bs-toggle="modal"
+        data-bs-target="#addSubjectModal">
+        <span class="material-icons me-2">add_circle</span>
+        إنشاء مادة جديدة
+      </a>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="table-container">
+      <table class="subjects-table">
+        <thead>
+          <tr>
+            <th>اسم المادة</th>
+            <th>الحالة</th>
+            <th>الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="subjectsTableBody">
+          @for (subject of subjects; track subject.id) {
+          <tr>
+            <td>{{subject.name}}</td>
+            <td>
+              <span class="badge"
+                [ngClass]="{'bg-danger': subject.isDeleted, 'bg-success': !subject.isDeleted}">{{subject.isDeleted ?
+                'محذوف' : 'مفعل'}}</span>
+            </td>
+            <td class="d-flex gap-2">
+              <button class="btn btn-danger" (click)="deleteSubject(subject)" *ngIf="!subject.isDeleted">
+                <i class="fas fa-trash"></i>
+                حذف
+              </button>
+              <button class="btn btn-success" (click)="restoreSubject(subject)" *ngIf="subject.isDeleted">
+                <i class="fas fa-undo"></i>
+                إستعادة
+              </button>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSubjectModal"
+                (click)="startEditSubject(subject)">
+                <i class="fas fa-edit"></i>
+                تعديل
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Subject Modal-->
+<div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-xl shadow-lg">
+      <div class="modal-header bg-success text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
+        style="background-color: #047857 !important">
+        <i class="fas fa-book-reader fa-3x"></i>
+        <div class="text-right">
+          <h2 class="fs-2 fw-bold mb-1">إضافة مادة جديدة</h2>
+          <p class="fs-5 opacity-90">أدخل تفاصيل ومعلومات المادة</p>
+        </div>
+      </div>
+      <div class="modal-body p-5">
+        <form id="addSubjectForm" (ngSubmit)="saveSubject(newSubject)">
+          <div class="row g-4 mb-4">
+            <div class="col-12">
+              <label for="subjectName" class="form-label fs-sm fw-semibold">اسم المادة</label>
+              <input type="text" id="subjectName" placeholder="أدخل اسم المادة" class="form-control" required
+                [(ngModel)]="newSubject.name" name="name" />
+            </div>
+          </div>
+          <div class="d-flex justify-content-start gap-3 mt-4">
+            <button type="submit" class="btn btn-success py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+              style="background-color: #047857 !important" [disabled]="isSavingSubject">
+              <span *ngIf="isSavingSubject" class="spinner-border spinner-border-sm me-2" role="status"
+                aria-hidden="true"></span>
+              <i class="fas fa-save"></i>
+              إضافة مادة
+            </button>
+            <button type="button" class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+              data-bs-dismiss="modal" style="background-color: #9ca3af !important">
+              <i class="fas fa-times-circle"></i>
+              إلغاء
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

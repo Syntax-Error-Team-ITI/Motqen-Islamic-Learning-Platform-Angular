@@ -20,7 +20,6 @@ export class Teacher_Reports {
     return this.http.get<TeacherQuranSummaryDto>(`${this.baseUrl}/Quran/Summary/${halaqaId}`);
   }
 
-  // 2. تقارير الحضور
   getHalaqaAttendanceTrend(halaqaId: number, periodType: string = 'month'): Observable<MonthlyWeeklyAttendanceChartDto[]> {
     return this.http.get<MonthlyWeeklyAttendanceChartDto[]>(
       `${this.baseUrl}/Attendance/Trend/${halaqaId}?periodType=${periodType}`
@@ -31,16 +30,15 @@ export class Teacher_Reports {
     return this.http.get<StudentAttendancePieChartDto[]>(`${this.baseUrl}/Attendance/Summary/${halaqaId}`);
   }
 
-  // 3. لوحة التحكم
   getTeacherDashboard(teacherId: number): Observable<TeacherDashboardDto> {
     return this.http.get<TeacherDashboardDto>(`${this.baseUrl}/Dashboard/${teacherId}`);
   }
 
-  // 4. تقارير المواد الإسلامية
   getHalaqaIslamicProgress(halaqaId: number): Observable<IslamicSubjectsDetailedProgressReportDto[]> {
     return this.http.get<IslamicSubjectsDetailedProgressReportDto[]>(`${this.baseUrl}/IslamicProgress/${halaqaId}`);
   }
- getHalaqasComparison(halaqaIds: number[]): Observable<HalaqaComparisonDto[]> {
+  
+  getHalaqasComparison(halaqaIds: number[]): Observable<HalaqaComparisonDto[]> {
   const params = halaqaIds.map(id => `halaqaIds=${id}`).join('&');
   return this.http.get<HalaqaComparisonDto[]>(`${this.baseUrl}/Comparison?${params}`);
 }

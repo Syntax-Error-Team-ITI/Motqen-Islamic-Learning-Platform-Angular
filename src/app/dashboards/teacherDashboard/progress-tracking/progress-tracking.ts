@@ -16,6 +16,8 @@ import { IHalaqaNamesList } from '../../../models/Halaqaa/ihalaqa-names-list';
 import { HalaqaService } from '../../../services/halaqa-service';
 import { ProgressTrackingService } from '../../../services/progress-tracking-service';
 import { IProgressForm } from '../../../models/ProgressTracking/iprogress-form';
+import { CreateStudentAttendanceDto } from '../../../models/ProgressTracking/iprogress-form';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-progress-tracking',
@@ -29,8 +31,8 @@ export class ProgressTracking implements OnInit {
   evaluation: string[] = [];
   notes: string[] = [];
   status: string[] = [];
-  date: Date = new Date();
-  halaqaId: number = 0;
+  date: string = this.getTodayString();
+  halaqaId: number = 1;
   // QuranProgressTracking
   fromSurah: number = 0;
   toSurah: number = 0;
@@ -46,15 +48,27 @@ export class ProgressTracking implements OnInit {
   quranList: string[] = QURAN_SURAHS_AR;
   ayaNumbers: number[] = QURAN_AYA_NUMBERS;
   isQuranTracking: boolean = true;
+  validationErrors: string[] = [];
+
+  // Attendance tracking
+  attendanceStatus: string[] = [];
+  attendanceNotes: string[] = [];
+  // Modal state
+  showAttendanceSuccessModal: boolean = false;
+  attendanceSuccessMessage: string = '';
+  showAttendanceErrorModal: boolean = false;
+  attendanceErrorMessage: string = '';
 
   constructor(
     private studentService: StudentService,
     private halaqaService: HalaqaService,
     private progressService: ProgressTrackingService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.halaqaId = this.route.snapshot.params['halaqaId'];
     this.loadStudents();
     this.loadHalaqaNamesList();
   }
@@ -94,8 +108,8 @@ export class ProgressTracking implements OnInit {
     this.evaluation = [];
     this.notes = [];
     this.status = [];
-    this.fromSurah = 0;
-    this.toSurah = 0;
+    this.fromSurah = 1;
+    this.toSurah = 1;
     this.fromAyah = 1;
     this.toAyah = 1;
     this.numberOfLines = 1;
@@ -103,6 +117,9 @@ export class ProgressTracking implements OnInit {
     this.fromPage = 0;
     this.toPage = 0;
     this.lessonName = '';
+    this.date = this.getTodayString();
+    this.attendanceStatus = [];
+    this.attendanceNotes = [];
   }
 
   onFromSurahChange() {
@@ -122,37 +139,91 @@ export class ProgressTracking implements OnInit {
   }
 
   onProgressSubmit() {
+    this.validationErrors = [];
+    // Validate main fields
+    if (!this.halaqaId || this.halaqaId === 0) {
+      this.validationErrors.push('يجب اختيار الفصل.');
+    }
+    if (!this.date) {
+      this.validationErrors.push('يجب اختيار التاريخ.');
+    }
+    if (this.isQuranTracking) {
+      if (!this.fromSurah || !this.toSurah) {
+        this.validationErrors.push('يجب اختيار سور البداية والنهاية.');
+      }
+      if (!this.fromAyah || !this.toAyah) {
+        this.validationErrors.push('يجب اختيار آيات البداية والنهاية.');
+      }
+      if (!this.numberOfLines || this.numberOfLines < 1) {
+        this.validationErrors.push('عدد الأسطر يجب أن يكون أكبر من 0.');
+      }
+    } else {
+      if (!this.fromPage || !this.toPage) {
+        this.validationErrors.push('يجب إدخال صفحات البداية والنهاية.');
+      }
+      if (!this.lessonName || this.lessonName.trim() === '') {
+        this.validationErrors.push('يجب إدخال اسم الدرس.');
+      }
+    }
+    if (this.validationErrors.length > 0) {
+      this.cdr.detectChanges();
+      return;
+    }
     let index = 0;
     this.students.forEach((student) => {
-      const progress: IProgressForm = {
-        studentId: student.id,
-        halaqaId: this.halaqaId,
-        isQuranTracking: this.isQuranTracking,
-        date: this.date,
-        status: this.status[index],
-        notes: this.notes[index],
-        evaluation: this.evaluation[index],
-        fromSurah: this.fromSurah,
-        toSurah: this.toSurah,
-        fromAyah: this.fromAyah,
-        toAyah: this.toAyah,
-        numberOfLines: this.numberOfLines,
-        type: this.type,
-        fromPage: this.fromPage,
-        toPage: this.toPage,
-        subject: 'dummy subject',
-        lessonName: this.lessonName,
-        progressTrackingId: 0,
-      };
-      this.progressService.addProgressTracking(progress).subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          console.error(error);
-        },
-      });
+      if (
+        this.checkProgressValidation(
+          this.notes[index],
+          this.status[index],
+          this.evaluation[index]
+        )
+      ) {
+        const progress: IProgressForm = {
+          studentId: student.id,
+          halaqaId: this.halaqaId,
+          isQuranTracking: this.isQuranTracking,
+          date: new Date(this.date),
+          status: this.status[index],
+          notes: this.notes[index],
+          evaluation: this.evaluation[index],
+          fromSurah: this.fromSurah,
+          toSurah: this.toSurah,
+          fromAyah: this.fromAyah,
+          toAyah: this.toAyah,
+          numberOfLines: this.numberOfLines,
+          type: Number(this.type),
+          fromPage: this.fromPage,
+          toPage: this.toPage,
+          subject: 'dummy subject',
+          lessonName: this.lessonName,
+          progressTrackingId: 0,
+        };
+        this.progressService.addProgressTracking(progress).subscribe({
+          next: (response) => {
+            this.initializeForms();
+            this.loadStudents();
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            console.error(error);
+          },
+        });
+      }
+      index++;
     });
+  }
+  checkProgressValidation(note: string, status: string, evaluation: string) {
+    if (
+      !note ||
+      !status ||
+      !evaluation ||
+      note.trim() === '' ||
+      status.trim() === '' ||
+      evaluation.trim() === ''
+    ) {
+      return false;
+    }
+    return true;
   }
 
   onQuranTrackingChange() {
@@ -164,5 +235,77 @@ export class ProgressTracking implements OnInit {
     this.halaqaId = Number(this.halaqaId);
     this.initializeForms();
     this.loadStudents();
+  }
+
+  getTodayString(): string {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  setAttendanceStatus(index: number, status: string) {
+    this.attendanceStatus[index] = status;
+  }
+
+  onSaveAttendance() {
+    // Build attendance DTOs for students with set attendance only
+    const statusMap: { [key: string]: number } = { حاضر: 0, غائب: 1, بإذن: 2 };
+    const attendanceDtos: CreateStudentAttendanceDto[] = this.students
+      .map((student, i) => {
+        if (this.attendanceStatus[i]) {
+          return {
+            studentId: student.id,
+            halaqaId: this.halaqaId,
+            attendanceDate: this.date
+              ? new Date(this.date).toISOString()
+              : new Date().toISOString(),
+            status: statusMap[this.attendanceStatus[i]] ?? 0,
+          };
+        }
+        return null;
+      })
+      .filter((dto): dto is CreateStudentAttendanceDto => dto !== null);
+    if (attendanceDtos.length === 0) {
+      // Optionally show a warning or do nothing
+      return;
+    }
+    let completed = 0;
+    let errorShown = false;
+    attendanceDtos.forEach((dto, idx) => {
+      this.progressService.addStudentAttendance(dto).subscribe({
+        next: (response) => {
+          completed++;
+          if (completed === attendanceDtos.length && !errorShown) {
+            this.initializeForms();
+            this.loadStudents();
+            this.cdr.detectChanges();
+            this.attendanceSuccessMessage = 'تم حفظ الحضور بنجاح';
+            this.showAttendanceSuccessModal = true;
+          }
+        },
+        error: (error) => {
+          if (!errorShown && error.status === 409) {
+            this.attendanceErrorMessage =
+              'تم تسجيل حضور الطلاب لهذا الفصل في هذا التاريخ بالفعل.';
+            this.showAttendanceErrorModal = true;
+            errorShown = true;
+          } else {
+            console.error(error);
+          }
+        },
+      });
+    });
+  }
+
+  closeAttendanceSuccessModal() {
+    this.showAttendanceSuccessModal = false;
+    this.attendanceSuccessMessage = '';
+  }
+
+  closeAttendanceErrorModal() {
+    this.showAttendanceErrorModal = false;
+    this.attendanceErrorMessage = '';
   }
 }

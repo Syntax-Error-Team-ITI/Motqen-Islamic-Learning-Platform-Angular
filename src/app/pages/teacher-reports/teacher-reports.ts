@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { Teacher_Reports } from '../../services/teacher-reports.service';
 import {
   QuranProgressChartPointDto,
@@ -28,7 +28,7 @@ import {
   templateUrl: './teacher-reports.html',
   styleUrls: ['./teacher-reports.css'],
   standalone: true,
-  imports: [CommonModule, BaseChartDirective, ReactiveFormsModule],
+  imports: [CommonModule, BaseChartDirective, ReactiveFormsModule , DecimalPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeacherReports implements OnInit {
@@ -39,21 +39,16 @@ export class TeacherReports implements OnInit {
 
   chartControlForm: FormGroup;
 
-  // Dashboard Data
   dashboardData: TeacherDashboardDto | null = null;
 
-  // Quran Reports
   quranProgressData: QuranProgressChartPointDto[] = [];
   quranSummaryData: TeacherQuranSummaryDto | null = null;
 
-  // Attendance Reports
   attendanceTrendData: MonthlyWeeklyAttendanceChartDto[] = [];
   attendanceSummaryData: StudentAttendancePieChartDto[] = [];
 
-  // Islamic Subjects Reports
   islamicProgressData: IslamicSubjectsDetailedProgressReportDto[] = [];
 
-  // Charts Data with proper initialization
   public comparisonChartData: ChartData<'bar'> = {
     labels: [] as string[],
     datasets: [
@@ -117,7 +112,7 @@ export class TeacherReports implements OnInit {
       {
         data: [] as number[],
         label: 'الحفظ الجديد',
-        borderColor: '#4CAF50', // أخضر
+        borderColor: '#4CAF50',
         backgroundColor: 'rgba(76, 175, 80, 0.1)',
         fill: false,
         tension: 0.1,
@@ -135,7 +130,7 @@ export class TeacherReports implements OnInit {
       {
         data: [] as number[],
         label: 'الحفظ التراكمي',
-        borderColor: '#9C27B0', // بنفسجي
+        borderColor: '#9C27B0',
         backgroundColor: 'rgba(156, 39, 176, 0.1)',
         fill: true,
         tension: 0.1,
@@ -334,6 +329,7 @@ export class TeacherReports implements OnInit {
       },
     });
   }
+
   toggleDatasetVisibility(index: number, event: Event): void {
     const isChecked = (event.target as HTMLInputElement).checked;
     const hidden = !isChecked;
@@ -343,7 +339,7 @@ export class TeacherReports implements OnInit {
     this.cdr.detectChanges();
   }
   updateChartData(): void {
-    // 1. تحضير بيانات الحفظ والمراجعة
+
     const memorizationData = this.quranProgressData
       .filter((item) => item.type === 'Memorization')
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -352,14 +348,13 @@ export class TeacherReports implements OnInit {
       .filter((item) => item.type === 'Review')
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-    // 2. حساب الحفظ التراكمي
+
     let cumulativeMemorization = 0;
     const cumulativeData = memorizationData.map((item) => {
       cumulativeMemorization += item.numberOfLines;
       return cumulativeMemorization;
     });
 
-    // 3. تحضير التواريخ (نستخدم تواريخ الحفظ كمرجع)
     const dates = memorizationData.map((item) =>
       new Date(item.date).toLocaleDateString('ar-EG', {
         year: 'numeric',
@@ -368,7 +363,6 @@ export class TeacherReports implements OnInit {
       })
     );
 
-    // 4. تحديث مخطط تقدم الحفظ القرآني
     this.quranProgressChartData = {
       labels: dates,
       datasets: [
@@ -403,7 +397,6 @@ export class TeacherReports implements OnInit {
       ],
     };
 
-    // 5. تحديث مخطط دائرة الحضور
     this.attendancePieChartData = {
       labels: this.attendanceSummaryData.map((item) => item.status),
       datasets: [
@@ -415,7 +408,6 @@ export class TeacherReports implements OnInit {
       ],
     };
 
-    // 6. تحديث مخطط تطور الحضور
     this.attendanceTrendChartData = {
       labels: this.attendanceTrendData.map((item) => item.period),
       datasets: [
@@ -443,7 +435,6 @@ export class TeacherReports implements OnInit {
       ],
     };
 
-    // 7. إعادة تحميل المخططات
     this.cdr.detectChanges();
   }
 

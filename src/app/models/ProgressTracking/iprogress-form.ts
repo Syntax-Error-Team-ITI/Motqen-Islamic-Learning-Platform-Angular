@@ -22,3 +22,10 @@ export interface IProgressForm {
   lessonName: string | null;
   progressTrackingId: number | null;
 }
+
+export interface CreateStudentAttendanceDto {
+  studentId: number;
+  halaqaId: number;
+  attendanceDate: string; // ISO string
+  status: number;
+}
