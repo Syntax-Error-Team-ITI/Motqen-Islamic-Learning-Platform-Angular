@@ -26,7 +26,8 @@
       </div>
       <div class="summary-card">
         <h3>معدل الحضور</h3>
-        <p>{{ dashboardData.overallAttendanceRate || 0 }}%</p>
+        <p>{{ dashboardData.overallAttendanceRate ? (dashboardData.overallAttendanceRate | number:'1.0-2') : '0.00' }} %</p>
+
       </div>
       <div class="summary-card">
         <h3>المنضمون الجدد للحلقات هذا الشهر</h3>
@@ -39,18 +40,18 @@
     <h2>ملخص المستخدمين</h2>
     <table class="data-table">
       <thead>
-        <tr>
-          <th>الرقم</th>
-          <th>الاسم الكامل</th>
-          <th>البريد الإلكتروني</th>
-          <th>الدور</th>
-          <th>الحالة</th>
+        <tr >
+          <!-- <th  class="text-end">الرقم</th> -->
+          <th  class="text-end">الاسم الكامل</th>
+          <th  class="text-end">البريد الإلكتروني</th>
+          <th  class="text-end">الدور</th>
+          <th  class="text-end">الحالة</th>
         </tr>
       </thead>
       <tbody>
         @for (user of UserSummaryData; track user.userId) {
           <tr>
-            <td>{{ user.userId }}</td>
+            <!-- <td>{{ user.userId }}</td> -->
             <td>{{ user.fullName }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
@@ -69,23 +70,23 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>الرقم</th>
-          <th>الاسم</th>
-          <th>البريد الإلكتروني</th>
-          <th>الحلقات</th>
-          <th>متوسط الحضور</th>
-          <th>متوسط التقدم في الحفظ </th>
+          <!-- <th class="text-end">الرقم</th> -->
+          <th class="text-end">الاسم</th>
+          <th class="text-end">البريد الإلكتروني</th>
+          <th class="text-end">الحلقات</th>
+          <th class="text-end">متوسط الحضور</th>
+          <th class="text-end">متوسط التقدم في الحفظ </th>
         </tr>
       </thead>
       <tbody>
         @for (teacher of TeacherPerformanceData; track teacher.teacherId) {
           <tr>
-            <td>{{ teacher.teacherId }}</td>
+            <!-- <td>{{ teacher.teacherId }}</td> -->
             <td>{{ teacher.teacherName }}</td>
             <td>{{ teacher.email }}</td>
             <td>{{ teacher.totalAssignedHalaqas }}</td>
-            <td>{{ teacher.averageAttendanceRate }}%</td>
-            <td>{{ teacher.averageStudentProgress }}%</td>
+            <td>{{ teacher.averageAttendanceRate | number:'1.0-2' }}%</td>
+            <td>{{ teacher.averageStudentProgress | number:'1.0-2' }}%</td>
           </tr>
         }
       </tbody>
@@ -98,22 +99,22 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>الرقم</th>
-          <th>الاسم</th>
-          <th>البريد الإلكتروني</th>
-          <th>نسبه الحضور</th>
-          <th>اجمالي المحفوظ </th>
-          <th>اجمالي المراجعه</th>
-          <th>اجمالي الصفحات في العلوم الشرعيه</th>
+          <!-- <th class="text-end">الرقم</th> -->
+          <th class="text-end">الاسم</th>
+          <th class="text-end">البريد الإلكتروني</th>
+          <th class="text-end">نسبه الحضور</th>
+          <th class="text-end">اجمالي المحفوظ </th>
+          <th class="text-end">اجمالي المراجعه</th>
+          <th class="text-end">اجمالي الصفحات في العلوم الشرعيه</th>
         </tr>
       </thead>
       <tbody>
         @for (student of StudentPerformanceData; track student.studentId) {
           <tr>
-            <td>{{ student.studentId }}</td>
+            <!-- <td>{{ student.studentId }}</td> -->
             <td>{{ student.studentName }}</td>
             <td>{{ student.email }}</td>
-            <td>{{ student.attendanceRate }}%</td>
+            <td>{{ student.attendanceRate | number:'1.0-2' }}%</td>
             <td>{{ student.totalQuranLinesMemorized }}</td>
             <td>{{ student.totalQuranLinesReviewed }}</td>
             <td>{{ student.totalIslamicPagesCompleted }}</td>
@@ -129,23 +130,23 @@
     <table class="data-table">
       <thead>
         <tr>
-          <th>الرقم</th>
-          <th>الاسم</th>
-          <th>الطلاب</th>
-          <th>المعلمين</th>
-          <th>متوسط الحضور</th>
-          <th>متوسط التقدم</th>
+          <!-- <th class="text-end">الرقم</th> -->
+          <th class="text-end">الاسم</th>
+          <th class="text-end">الطلاب</th>
+          <th class="text-end">المعلمين</th>
+          <th class="text-end">متوسط الحضور</th>
+          <th class="text-end">متوسط التقدم</th>
         </tr>
       </thead>
       <tbody>
         @for (halaqa of HalaqaHealthData; track halaqa.halaqaId) {
           <tr>
-            <td>{{ halaqa.halaqaId }}</td>
+            <!-- <td>{{ halaqa.halaqaId }}</td> -->
             <td>{{ halaqa.halaqaName }}</td>
             <td>{{ halaqa.studentCount }}</td>
             <td>{{ halaqa.teacherCount }}</td>
-            <td>{{ halaqa.averageAttendanceRate }}%</td>
-            <td>{{ halaqa.averageProgress }}%</td>
+            <td>{{ halaqa.averageAttendanceRate  | number:'1.0-2'}}%</td>
+            <td>{{ halaqa.averageProgress | number:'1.0-2' }}%</td>
           </tr>
         }
       </tbody>

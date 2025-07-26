@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminReportsService } from '../../services/admin-reports.service';
 import { IAdminDashboardSummary, IHalaqaHealthReport, IStudentPerformanceOverview, ITeacherPerformance, IUserSummary } from '../../models/reports/admin-reports-dtos';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-admin-reports',
-  imports: [],
+  imports: [DecimalPipe],
   templateUrl: './admin-reports.html',
   styleUrl: './admin-reports.css'
+
 })
 export class AdminReports implements OnInit{
   dashboardData! :IAdminDashboardSummary;
