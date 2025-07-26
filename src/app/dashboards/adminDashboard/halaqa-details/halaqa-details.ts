@@ -27,9 +27,21 @@ export class HalaqaDetails implements OnInit {
     isDeleted: false,
     classSchedules: [],
   };
-  newSchedule: IclassScheduleForm = { day: 0, startTime: '', endTime: '' };
-  editSchedule: IclassScheduleForm = { day: 0, startTime: '', endTime: '' };
-  editingScheduleId: number | null = null;
+  newSchedule: IclassScheduleForm = {
+    day: 0,
+    startTime: '',
+    endTime: '',
+    halaqaId: 0,
+    id: 0,
+  };
+  editSchedule: IclassScheduleForm = {
+    day: 0,
+    startTime: '',
+    endTime: '',
+    halaqaId: 0,
+    id: 0,
+  };
+  editingScheduleId: number = 0;
   halaqaId: number = 0;
 
   constructor(
@@ -40,8 +52,11 @@ export class HalaqaDetails implements OnInit {
 
   ngOnInit() {
     this.halaqaId = Number(this.route.snapshot.paramMap.get('id'));
+
     if (this.halaqaId) {
       this.loadHalaqa();
+      this.newSchedule.halaqaId = this.halaqaId;
+      this.editSchedule.halaqaId = this.halaqaId;
     }
   }
 
@@ -59,11 +74,18 @@ export class HalaqaDetails implements OnInit {
   }
 
   addSchedule() {
+    this.newSchedule.day = Number(this.newSchedule.day);
     this.halaqaService
       .addClassSchedule(this.halaqaId, this.newSchedule)
       .subscribe(() => {
         this.loadHalaqa();
-        this.newSchedule = { day: 0, startTime: '', endTime: '' };
+        this.newSchedule = {
+          day: 0,
+          startTime: '',
+          endTime: '',
+          halaqaId: this.halaqaId,
+          id: 0,
+        };
         (window as any).bootstrap?.Modal.getOrCreateInstance(
           document.getElementById('addScheduleModal')
         ).hide();
@@ -73,14 +95,16 @@ export class HalaqaDetails implements OnInit {
   startEditSchedule(schedule: any) {
     this.editingScheduleId = schedule.id;
     this.editSchedule = {
-      day: schedule.day,
+      day: Number(schedule.day),
       startTime: schedule.startTime,
       endTime: schedule.endTime,
+      halaqaId: this.halaqaId,
+      id: schedule.id,
     };
-    
   }
 
   updateSchedule() {
+    this.editSchedule.day = Number(this.editSchedule.day);
     if (this.editingScheduleId !== null) {
       this.halaqaService
         .updateClassSchedule(
@@ -90,7 +114,13 @@ export class HalaqaDetails implements OnInit {
         )
         .subscribe(() => {
           this.loadHalaqa();
-          this.editingScheduleId = null;
+          this.editSchedule = {
+            day: 0,
+            startTime: '',
+            endTime: '',
+            halaqaId: this.halaqaId,
+            id: this.editingScheduleId,
+          };
           (window as any).bootstrap?.Modal.getOrCreateInstance(
             document.getElementById('updateScheduleModal')
           ).hide();

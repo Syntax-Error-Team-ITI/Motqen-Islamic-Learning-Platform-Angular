@@ -14,6 +14,7 @@ import { IclassScheduleForm } from '../models/Halaqaa/iclass-schedule-form';
 })
 export class HalaqaService {
   baseUrl = environment.apiBaseUrl + '/halaqa';
+  baseUrl2 = environment.apiBaseUrl + '/classschedule';
   constructor(private http: HttpClient) {}
 
   // Add methods to interact with halaqa data here
@@ -67,7 +68,7 @@ export class HalaqaService {
     scheduleId: number
   ): Observable<IClassSchedule> {
     return this.http.get<IClassSchedule>(
-      `${this.baseUrl}/${halaqaId}/classschedule/${scheduleId}`
+      `${this.baseUrl2}/halaqa/${halaqaId}/${scheduleId}`
     );
   }
 
@@ -77,9 +78,11 @@ export class HalaqaService {
     schedule: IclassScheduleForm
   ): Observable<IClassSchedule> {
     return this.http.post<IClassSchedule>(
-      `${this.baseUrl}/${halaqaId}/classschedule`,
+      `${this.baseUrl2}/halaqa/${halaqaId}`,
       schedule
     );
+
+    // console.log(schedule, halaqaId);
   }
 
   // Update a class schedule for a halaqa
@@ -88,8 +91,10 @@ export class HalaqaService {
     scheduleId: number,
     schedule: IclassScheduleForm
   ): Observable<IClassSchedule> {
+    console.log(schedule, halaqaId, scheduleId);
+    schedule.day = Number(schedule.day);
     return this.http.put<IClassSchedule>(
-      `${this.baseUrl}/${halaqaId}/classschedule/${scheduleId}`,
+      `${this.baseUrl2}/halaqa/${halaqaId}/${scheduleId}`,
       schedule
     );
   }
@@ -97,7 +102,7 @@ export class HalaqaService {
   // Delete a class schedule from a halaqa
   deleteClassSchedule(halaqaId: number, scheduleId: number): Observable<void> {
     return this.http.delete<void>(
-      `${this.baseUrl}/${halaqaId}/classschedule/${scheduleId}`
+      `${this.baseUrl2}/halaqa/${halaqaId}/${scheduleId}`
     );
   }
 
@@ -106,8 +111,8 @@ export class HalaqaService {
     halaqaId: number,
     scheduleId: number
   ): Observable<IClassSchedule> {
-    return this.http.patch<IClassSchedule>(
-      `${this.baseUrl}/${halaqaId}/classschedule/restore/${scheduleId}`,
+    return this.http.put<IClassSchedule>(
+      `${this.baseUrl2}/halaqa/${halaqaId}/restore/${scheduleId}`,
       {}
     );
   }

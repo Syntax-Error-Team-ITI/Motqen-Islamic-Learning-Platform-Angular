@@ -89,6 +89,7 @@
                     </button>
                     <button
                       class="btn btn-sm btn-danger me-2"
+                      *ngIf="!schedule.isDeleted"
                       (click)="deleteSchedule(schedule.id)"
                     >
                       <i class="fas fa-trash-alt"></i>
@@ -157,7 +158,7 @@
               [(ngModel)]="newSchedule.day"
               name="day"
             >
-              <option value="">اختر اليوم</option>
+              <option>اختر اليوم</option>
               <option value="0">الأحد</option>
               <option value="1">الاثنين</option>
               <option value="2">الثلاثاء</option>
