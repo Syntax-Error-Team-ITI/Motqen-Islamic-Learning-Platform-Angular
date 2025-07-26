@@ -1,7 +1,5 @@
 <div class="container">
-  <div
-    class="page-header-custom d-flex align-items-center justify-content-between gap-3 flex-wrap"
-  >
+  <div class="page-header-custom d-flex align-items-center justify-content-between gap-3 flex-wrap">
     <div class="d-flex align-items-center gap-3">
       <i class="fas fa-book-reader text-5xl"></i>
       <div class="text-right">
@@ -10,45 +8,79 @@
       </div>
     </div>
     <div class="header-actions">
-      <a
-        class="btn btn-light text-success fw-bold py-2 px-4 rounded-pill shadow-sm"
-        data-bs-toggle="modal"
-        data-bs-target="#addHalaqaModal"
-      >
+      <a class="btn btn-light text-success fw-bold py-2 px-4 rounded-pill shadow-sm" data-bs-toggle="modal"
+        data-bs-target="#addHalaqaModal">
         <span class="material-icons me-2">add_circle</span>
         إنشاء حلقة جديدة
+      </a>
+      <a class="btn btn-light text-success mx-2 fw-bold py-2 px-4 rounded-pill shadow-sm" data-bs-toggle="modal"
+        data-bs-target="#addSubjectModal">
+        <span class="material-icons me-2">add_circle</span>
+        إنشاء مادة جديدة
       </a>
     </div>
   </div>
 
+  <!-- Subject Modal-->
+  <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-xl shadow-lg">
+        <div class="modal-header bg-success text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
+          style="background-color: #047857 !important">
+          <i class="fas fa-book-reader fa-3x"></i>
+          <div class="text-right">
+            <h2 class="fs-2 fw-bold mb-1">إضافة مادة جديدة</h2>
+            <p class="fs-5 opacity-90">أدخل تفاصيل ومعلومات المادة</p>
+          </div>
+        </div>
+        <div class="modal-body p-5">
+          <form id="addSubjectForm" (ngSubmit)="addSubject()">
+            <div class="row g-4 mb-4">
+              <div class="col-12">
+                <label for="subjectName" class="form-label fs-sm fw-semibold">اسم المادة</label>
+                <input type="text" id="subjectName" placeholder="أدخل اسم المادة" class="form-control" required
+                  [(ngModel)]="newSubject.name" name="name" />
+              </div>
+            </div>
+            <div class="d-flex justify-content-start gap-3 mt-4">
+              <button type="submit" class="btn btn-success py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+                style="background-color: #047857 !important" [disabled]="isAddingSubject">
+                <span *ngIf="isAddingSubject" class="spinner-border spinner-border-sm me-2" role="status"
+                  aria-hidden="true"></span>
+                <i class="fas fa-save"></i>
+                إضافة مادة
+              </button>
+              <button type="button" class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+                data-bs-dismiss="modal" style="background-color: #9ca3af !important">
+                <i class="fas fa-times-circle"></i>
+                إلغاء
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container py-4">
-    <div
-      class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
-      id="halaqasContainer"
-    >
-      <div class="col" *ngFor="let halaqa of halaqas">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="halaqasContainer">
+      <div class="col-md-6 col-lg-6 col-xl-4" *ngFor="let halaqa of halaqas">
         <div class="card h-100 card-custom">
           <div class="card-body p-4">
             <h5 class="card-title-custom">{{ halaqa.name }}</h5>
             <p class="card-text">
               <span class="card-text-label">الوصف:</span>
-              <span class="card-text-value"
-                >{{ halaqa.description || '-' }}</span
-              >
+              <span class="card-text-value">{{ halaqa.description || '-' }}</span>
             </p>
             <p class="card-text">
               <span class="card-text-label">المادة:</span>
-              <span class="card-text-value"
-                >{{ halaqa.subjectName || '-' }}</span
-              >
+              <span class="card-text-value">{{ halaqa.subjectName || '-' }}</span>
             </p>
             <p class="card-text">
               <span class="card-text-label">المجموعة:</span>
               <span class="card-text-value">
-                <span
-                  class="badge-chip"
-                  [ngClass]="halaqa.genderGroup === 1 ? 'gender-male' : halaqa.genderGroup === 2 ? 'gender-female' : 'gender-mixed'"
-                >
+                <span class="badge-chip"
+                  [ngClass]="halaqa.genderGroup === 1 ? 'gender-male' : halaqa.genderGroup === 2 ? 'gender-female' : 'gender-mixed'">
                   {{ halaqa.genderGroup === 1 ? 'ذكور' : halaqa.genderGroup ===
                   2 ? 'إناث' : 'مختلطة' }}
                 </span>
@@ -57,59 +89,36 @@
             <p class="card-text">
               <span class="card-text-label">حالة الحلقة:</span>
               <span class="card-text-value">
-                <span
-                  class="badge-chip"
-                  [ngClass]="{ 'status-unavailable': halaqa.isDeleted, 'status-available': !halaqa.isDeleted }"
-                >
+                <span class="badge-chip"
+                  [ngClass]="{ 'status-unavailable': halaqa.isDeleted, 'status-available': !halaqa.isDeleted }">
                   {{ halaqa.isDeleted ? 'غير متاح' : 'متاح' }}
                 </span>
               </span>
             </p>
             <div class="d-flex flex-column gap-2 mt-3">
-              <a
-                [routerLink]="['/halaqa',halaqa.id,'students']"
-                class="btn btn-action-card"
-              >
+              <a [routerLink]="['/halaqa',halaqa.id,'students']" class="btn btn-action-card">
                 <i class="fas fa-users"></i>
                 الطلاب المسجلون
               </a>
-              <a
-                [routerLink]="['/halaqa-teachers', halaqa.id]"
-                class="btn btn-action-card btn-secondary-action"
-              >
+              <a [routerLink]="['/halaqa-teachers', halaqa.id]" class="btn btn-action-card btn-secondary-action">
                 <i class="fas fa-chalkboard-teacher"></i>
                 المعلمون
               </a>
               <div class="d-flex justify-content-between gap-2 mt-2">
-                <a
-                  class="btn btn-icon-action edit"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editHalaqaModal"
-                  (click)="startEditHalaqa(halaqa)"
-                >
+                <a class="btn btn-icon-action edit" data-bs-toggle="modal" data-bs-target="#editHalaqaModal"
+                  (click)="startEditHalaqa(halaqa)">
                   <span class="material-icons">edit</span>
                   تعديل
                 </a>
-                <a
-                  [routerLink]="['/dashboard/halaqa-details',halaqa.id]"
-                  class="btn btn-icon-action view"
-                >
+                <a [routerLink]="['/dashboard/halaqa-details',halaqa.id]" class="btn btn-icon-action view">
                   <span class="material-icons">visibility</span>
                   عرض
                 </a>
-                <a
-                  class="btn btn-icon-action delete"
-                  (click)="deleteHalaqa(halaqa)"
-                  *ngIf="!halaqa.isDeleted"
-                >
+                <a class="btn btn-icon-action delete" (click)="deleteHalaqa(halaqa)" *ngIf="!halaqa.isDeleted">
                   <span class="material-icons">delete</span>
                   حذف
                 </a>
-                <a
-                  class="btn btn-icon-action restore"
-                  *ngIf="halaqa.isDeleted"
-                  (click)="restoreHalaqa(halaqa)"
-                >
+                <a class="btn btn-icon-action restore" *ngIf="halaqa.isDeleted" (click)="restoreHalaqa(halaqa)">
                   <span class="material-icons">restore</span>
                   استعادة
                 </a>
@@ -122,19 +131,12 @@
   </div>
 </div>
 
-<div
-  class="modal modal-lg fade"
-  id="addHalaqaModal"
-  tabindex="-1"
-  aria-labelledby="addHalaqaModalLabel"
-  aria-hidden="true"
->
+<div class="modal modal-lg fade" id="addHalaqaModal" tabindex="-1" aria-labelledby="addHalaqaModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-xl shadow-lg">
-      <div
-        class="modal-header bg-success text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
-        style="background-color: #047857 !important"
-      >
+      <div class="modal-header bg-success text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
+        style="background-color: #047857 !important">
         <i class="fas fa-book-reader fa-3x"></i>
         <div class="text-right">
           <h2 class="fs-2 fw-bold mb-1">إضافة حلقة جديدة</h2>
@@ -146,46 +148,22 @@
         <form id="addHalaqaForm" (ngSubmit)="addHalaqa()">
           <div class="row g-4 mb-4">
             <div class="col-12 col-md-6">
-              <label for="halaqaName" class="form-label fs-sm fw-semibold"
-                >اسم الحلقة</label
-              >
-              <input
-                type="text"
-                id="halaqaName"
-                placeholder="أدخل اسم الحلقة"
-                class="form-control"
-                required
-                [(ngModel)]="newHalaqa.name"
-                name="name"
-              />
+              <label for="halaqaName" class="form-label fs-sm fw-semibold">اسم الحلقة</label>
+              <input type="text" id="halaqaName" placeholder="أدخل اسم الحلقة" class="form-control" required
+                [(ngModel)]="newHalaqa.name" name="name" />
             </div>
             <div class="col-12 col-md-6">
-              <label for="description" class="form-label fs-sm fw-semibold"
-                >الوصف</label
-              >
-              <textarea
-                id="description"
-                rows="3"
-                placeholder="أدخل وصفاً موجزاً للحلقة"
-                class="form-control"
-                [(ngModel)]="newHalaqa.description"
-                name="description"
-              ></textarea>
+              <label for="description" class="form-label fs-sm fw-semibold">الوصف</label>
+              <textarea id="description" rows="3" placeholder="أدخل وصفاً موجزاً للحلقة" class="form-control"
+                [(ngModel)]="newHalaqa.description" name="description"></textarea>
             </div>
           </div>
 
           <div class="row g-4 mb-4">
             <div class="col-12 col-md-6">
-              <label for="genderGroup" class="form-label fs-sm fw-semibold"
-                >المجموعة الجنسية</label
-              >
-              <select
-                id="genderGroup"
-                class="form-select"
-                required
-                [(ngModel)]="newHalaqa.genderGroup"
-                name="genderGroup"
-              >
+              <label for="genderGroup" class="form-label fs-sm fw-semibold">المجموعة الجنسية</label>
+              <select id="genderGroup" class="form-select" required [(ngModel)]="newHalaqa.genderGroup"
+                name="genderGroup">
                 <option [ngValue]="0">اختر المجموعة</option>
                 <option [ngValue]="1">ذكور</option>
                 <option [ngValue]="2">إناث</option>
@@ -193,16 +171,8 @@
               </select>
             </div>
             <div class="col-12 col-md-6">
-              <label for="subject" class="form-label fs-sm fw-semibold"
-                >المادة / الموضوع</label
-              >
-              <select
-                id="subject"
-                class="form-select"
-                [(ngModel)]="newHalaqa.subjectId"
-                name="subjectId"
-                required
-              >
+              <label for="subject" class="form-label fs-sm fw-semibold">المادة / الموضوع</label>
+              <select id="subject" class="form-select" [(ngModel)]="newHalaqa.subjectId" name="subjectId" required>
                 <option [ngValue]="0">اختر المادة</option>
                 <option *ngFor="let subject of subjects" [ngValue]="subject.id">
                   {{ subject.name }}
@@ -212,27 +182,15 @@
           </div>
 
           <div class="d-flex justify-content-start gap-3 mt-4">
-            <button
-              type="submit"
-              class="btn btn-success py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-              style="background-color: #047857 !important"
-              [disabled]="isAddingHalaqa"
-            >
-              <span
-                *ngIf="isAddingHalaqa"
-                class="spinner-border spinner-border-sm me-2"
-                role="status"
-                aria-hidden="true"
-              ></span>
+            <button type="submit" class="btn btn-success py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+              style="background-color: #047857 !important" [disabled]="isAddingHalaqa">
+              <span *ngIf="isAddingHalaqa" class="spinner-border spinner-border-sm me-2" role="status"
+                aria-hidden="true"></span>
               <i class="fas fa-save"></i>
               إضافة حلقة
             </button>
-            <button
-              type="button"
-              class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-              data-bs-dismiss="modal"
-              style="background-color: #9ca3af !important"
-            >
+            <button type="button" class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+              data-bs-dismiss="modal" style="background-color: #9ca3af !important">
               <i class="fas fa-times-circle"></i>
               إلغاء
             </button>
@@ -244,18 +202,11 @@
 </div>
 
 <!-- Edit Halaqa Modal -->
-<div
-  class="modal modal-lg fade"
-  id="editHalaqaModal"
-  tabindex="-1"
-  aria-labelledby="editHalaqaModalLabel"
-  aria-hidden="true"
->
+<div class="modal modal-lg fade" id="editHalaqaModal" tabindex="-1" aria-labelledby="editHalaqaModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-xl shadow-lg">
-      <div
-        class="modal-header bg-primary text-white p-4 d-flex align-items-center gap-3 rounded-top-xl"
-      >
+      <div class="modal-header bg-primary text-white p-4 d-flex align-items-center gap-3 rounded-top-xl">
         <i class="fas fa-edit fa-3x"></i>
         <div class="text-right">
           <h2 class="fs-2 fw-bold mb-1">تعديل الحلقة</h2>
@@ -266,46 +217,22 @@
         <form id="editHalaqaForm" (ngSubmit)="updateHalaqa()">
           <div class="row g-4 mb-4">
             <div class="col-12 col-md-6">
-              <label for="editHalaqaName" class="form-label fs-sm fw-semibold"
-                >اسم الحلقة</label
-              >
-              <input
-                type="text"
-                id="editHalaqaName"
-                placeholder="أدخل اسم الحلقة"
-                class="form-control"
-                required
-                [(ngModel)]="editHalaqa.name"
-                name="editName"
-              />
+              <label for="editHalaqaName" class="form-label fs-sm fw-semibold">اسم الحلقة</label>
+              <input type="text" id="editHalaqaName" placeholder="أدخل اسم الحلقة" class="form-control" required
+                [(ngModel)]="editHalaqa.name" name="editName" />
             </div>
             <div class="col-12 col-md-6">
-              <label for="editDescription" class="form-label fs-sm fw-semibold"
-                >الوصف</label
-              >
-              <textarea
-                id="editDescription"
-                rows="3"
-                placeholder="أدخل وصفاً موجزاً للحلقة"
-                class="form-control"
-                [(ngModel)]="editHalaqa.description"
-                name="editDescription"
-              ></textarea>
+              <label for="editDescription" class="form-label fs-sm fw-semibold">الوصف</label>
+              <textarea id="editDescription" rows="3" placeholder="أدخل وصفاً موجزاً للحلقة" class="form-control"
+                [(ngModel)]="editHalaqa.description" name="editDescription"></textarea>
             </div>
           </div>
 
           <div class="row g-4 mb-4">
             <div class="col-12 col-md-6">
-              <label for="editGenderGroup" class="form-label fs-sm fw-semibold"
-                >المجموعة الجنسية</label
-              >
-              <select
-                id="editGenderGroup"
-                class="form-select"
-                required
-                [(ngModel)]="editHalaqa.genderGroup"
-                name="editGenderGroup"
-              >
+              <label for="editGenderGroup" class="form-label fs-sm fw-semibold">المجموعة الجنسية</label>
+              <select id="editGenderGroup" class="form-select" required [(ngModel)]="editHalaqa.genderGroup"
+                name="editGenderGroup">
                 <option [ngValue]="0">اختر المجموعة</option>
                 <option [ngValue]="1">ذكور</option>
                 <option [ngValue]="2">إناث</option>
@@ -313,16 +240,9 @@
               </select>
             </div>
             <div class="col-12 col-md-6">
-              <label for="editSubject" class="form-label fs-sm fw-semibold"
-                >المادة / الموضوع</label
-              >
-              <select
-                id="editSubject"
-                class="form-select"
-                [(ngModel)]="editHalaqa.subjectId"
-                name="editSubjectId"
-                required
-              >
+              <label for="editSubject" class="form-label fs-sm fw-semibold">المادة / الموضوع</label>
+              <select id="editSubject" class="form-select" [(ngModel)]="editHalaqa.subjectId" name="editSubjectId"
+                required>
                 <option value="">اختر المادة</option>
                 <option *ngFor="let subject of subjects" [ngValue]="subject.id">
                   {{ subject.name }}
@@ -332,18 +252,12 @@
           </div>
 
           <div class="d-flex justify-content-start gap-3 mt-4">
-            <button
-              type="submit"
-              class="btn btn-primary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-            >
+            <button type="submit" class="btn btn-primary py-3 px-5 shadow-sm d-flex align-items-center gap-2">
               <i class="fas fa-save"></i>
               حفظ التعديلات
             </button>
-            <button
-              type="button"
-              class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+              data-bs-dismiss="modal">
               <i class="fas fa-times-circle"></i>
               إلغاء
             </button>

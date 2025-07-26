@@ -23,6 +23,7 @@ import { TeacherList } from './dashboards/adminDashboard/teacher-list/teacher-li
 import { StudentAttendance } from './dashboards/adminDashboard/student-attendance/student-attendance';
 import { StudentList } from './dashboards/adminDashboard/student-list/student-list';
 import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa-details';
+import { SubjectList } from './dashboards/adminDashboard/subject-list/subject-list';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -44,6 +45,7 @@ export const routes: Routes = [
   { path: 'dashboard/chatbot', component: DashboardChatbot },
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
+  { path: 'subject-list', component: SubjectList },
   {
     path: 'dashboard/progress-tracking/:halaqaId',
     component: ProgressTracking,
