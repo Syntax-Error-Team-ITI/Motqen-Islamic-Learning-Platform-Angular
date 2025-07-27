@@ -1,14 +1,18 @@
 <div>
-    <button class="btn btn-primary" (click)="confirmEmail()" >Confirm Email</button>
+    <button class="btn btn-primary" (click)="confirmEmail()">Confirm Email</button>
     @if(isSuccess){
     <div class="success-message">
         Email confirmed successfully! You can now login.
     </div>
     }@else{
+    <input [(ngModel)]="resendToEmail" type="email" placeholder="type your email here" dir="ltr">
     <button (click)="resendConfirmation()">
         Resend Confirmation Email
     </button>
+    @if(!isResent){
+        <div class="text-danger" >
+            {{errorMessage}}
+        </div>
+    }
     }
 </div>
-
-<!-- <div *ngIf="isLoading">Verifying your email...</div> -->

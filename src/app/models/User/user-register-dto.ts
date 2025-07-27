@@ -1,5 +1,4 @@
 interface UserRegisterDTO {
-    // role: string;
     email: string;
     username: string;
     firstName: string;
