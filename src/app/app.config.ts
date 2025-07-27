@@ -12,13 +12,11 @@ import {
 import {
   provideHttpClient,
   withFetch,
-  withInterceptors,
+  withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
-
-import { authInterceptor } from './services/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,8 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideCharts(withDefaultRegisterables()),
   ],
 };

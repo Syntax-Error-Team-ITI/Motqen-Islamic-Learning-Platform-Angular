@@ -31,22 +31,31 @@
       </div>
 
       <div class="navbar-actions d-none d-lg-flex">
-        <a routerLink="/login" class="auth-btn login-btn">
+        <!-- <a routerLink="/login" class="auth-btn login-btn">
           <i class="fas fa-sign-in-alt"></i>
           <span class="arabic-text">تسجيل الدخول</span>
-        </a>
-        <!-- <a class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">الاشتراك</span>
         </a> -->
-        <a routerLink="/student-register" class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">اشترك كطالب</span>
-        </a>
-        <a routerLink="/parent-register" class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">اشترك كولي أمر</span>
-        </a>
+        <div class="dropdown">
+          <button class="auth-btn login-btn dropdown-toggle" type="button" id="registerDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="arabic-text">الاشتراك</span>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="registerDropdown">
+            <a routerLink="/login" class="dropdown-item">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text">تسجيل الدخول</span>
+            </a>
+            <a class="dropdown-item" routerLink="/student-register">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text"> اشترك كطالب</span>
+            </a>
+            <a class="dropdown-item" routerLink="/parent-register">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text"> اشترك كولي أمر</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <button class="mobile-menu-toggle d-lg-none" (click)="toggleMobileMenu()">
