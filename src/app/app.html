@@ -1,18 +1,9 @@
-<!-- <div class="app-container">
-  <app-navbar></app-navbar>
-  <main class="main-content">
-    <router-outlet></router-outlet>
-    <app-chatbot></app-chatbot>
-  </main>
-  <app-footer></app-footer>
-</div> -->
-
-@if(false)
+@if(isLoggedIn)
 {
 <app-aside>
   <main class="main-content">
     <router-outlet></router-outlet>
-    <app-chatbot></app-chatbot>
+    <!-- <app-chatbot></app-chatbot> -->
   </main>
 </app-aside>
 } @else {
@@ -21,5 +12,5 @@
   <router-outlet></router-outlet>
 </main>
 <app-footer></app-footer>
-<app-chatbot></app-chatbot>
+<!-- <app-chatbot></app-chatbot> -->
 }

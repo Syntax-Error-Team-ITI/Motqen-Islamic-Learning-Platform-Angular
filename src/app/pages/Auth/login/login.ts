@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Route, RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,10 +20,14 @@ export class Login {
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
-    rememberMe: new FormControl(false)
+    rememberMe: new FormControl(false),
   });
 
-  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   onSubmit() {
     if (this.loginForm.invalid) {
@@ -38,16 +42,17 @@ export class Login {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         this.failedTologin = false;
-        console.log('Login successful:', response); 
 
         if (this.rememberMe) {
-          localStorage.setItem("accessToken", response.accessToken);
+          localStorage.setItem('accessToken', response.accessToken);
           // localStorage.setItem("refreshToken", response.refreshToken);
-        }else{
-          sessionStorage.setItem("accessToken", response.accessToken);
+        } else {
+          sessionStorage.setItem('accessToken', response.accessToken);
           // sessionStorage.setItem("refreshToken", response.refreshToken);
         }
-        // this.router.navigate(['/dashboard']);
+        // Notify AuthService of login
+        this.authService.notifyLogin();
+        this.router.navigate(['/dashboard/home']);
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -56,9 +61,7 @@ export class Login {
 
         // if the email is not confirmed, redirect to confirm email page
         // if the login is first time, redirect to continue registration page
-
-      }
+      },
     });
   }
-
 }
