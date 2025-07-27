@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../../services/auth-service';
 import { StudentRegisterDTO } from '../../../../models/User/user-register-dto';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-student-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './student-register.html',
   styleUrl: './student-register.css'
 })
@@ -17,7 +17,10 @@ export class StudentRegister {
 
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      username: new FormControl('', Validators.required),
+      username: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9]*$/)
+      ]),
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),

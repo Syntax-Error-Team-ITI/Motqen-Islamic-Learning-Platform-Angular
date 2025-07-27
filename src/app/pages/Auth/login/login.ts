@@ -1,48 +1,62 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Route, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
-import { Form, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterLink,ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
 export class Login {
-  // Add any necessary properties or methods for the login component
+  failedTologin = false;
+  errorMessage = '';
+
   email!: string;
   password!: string;
+  rememberMe!: boolean;
 
-  loginForm : FormGroup = new FormGroup({
+  loginForm: FormGroup = new FormGroup({
     email: new FormControl(''),
-    password: new FormControl('')
+    password: new FormControl(''),
+    rememberMe: new FormControl(false)
   });
-  
-  constructor(private authService: AuthService) {}
+
+  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) { }
 
   onSubmit() {
     if (this.loginForm.invalid) {
       console.error('Form is invalid');
       return;
     }
-
     this.email = this.loginForm.value.email;
     this.password = this.loginForm.value.password;
+    this.rememberMe = this.loginForm.value.rememberMe;
 
     console.log('Login attempted with:', this.email, this.password);
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
-        console.log('Login successful:', response);
-        // Handle successful login, e.g., redirect to dashboard
-        // if the email is not confirmed, redirect to confirm email page
-        // if the login is first time, redirect to continue registration page
-        // else store the tokens and
+        this.failedTologin = false;
+        console.log('Login successful:', response); 
+
+        if (this.rememberMe) {
+          localStorage.setItem("accessToken", response.accessToken);
+          // localStorage.setItem("refreshToken", response.refreshToken);
+        }else{
+          sessionStorage.setItem("accessToken", response.accessToken);
+          // sessionStorage.setItem("refreshToken", response.refreshToken);
+        }
         // this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Login failed:', error);
-        // Handle login error, e.g., show an error message
+        this.failedTologin = true;
+        this.errorMessage = error.error.error;
+
+        // if the email is not confirmed, redirect to confirm email page
+        // if the login is first time, redirect to continue registration page
+
       }
     });
   }

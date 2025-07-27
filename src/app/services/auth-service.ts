@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { StudentRegisterDTO, ParentRegisterDTO } from '../models/User/user-register-dto';
 
 @Injectable({
@@ -21,6 +21,9 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<any> {
+    if (this.getAccessToken())
+      return throwError(() => new Error('User is already logged in'));
+
     return this.http.post<any>(`${this.baseUrl}/login`, { email, password });
   }
 
@@ -28,14 +31,20 @@ export class AuthService {
     return this.http.get<any>(`${this.baseUrl}/confirm-email?userId=${userId}&token=${token}`);
   }
 
-  resendConfirmationEmail(userId: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/resend-confirmation-email`, userId);
+  resendConfirmationEmail(email: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/resend-confirmation-email?email=${email}`);
   }
 
-  // continueRegister(userdata: any) {
-  //   console.log("sending: ", { userdata });
-  //   return this.http.post<any>(`${this.baseUrl}/continue-registration`, userdata);
-  // }
+  getAccessToken(): string | null {
+    return localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+  }
+
+  logout() {
+    localStorage.removeItem('accessToken');
+    // localStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('accessToken');
+    // sessionStorage.removeItem('refreshToken');
+  }
 
   // signup and login with google
 
