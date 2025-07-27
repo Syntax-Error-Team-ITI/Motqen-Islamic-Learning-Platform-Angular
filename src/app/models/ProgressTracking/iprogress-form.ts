@@ -18,7 +18,6 @@ export interface IProgressForm {
   // IslamicSubjectsProgressTracking
   fromPage: number | null;
   toPage: number | null;
-  subject: string | null;
   lessonName: string | null;
   progressTrackingId: number | null;
 }
