@@ -1,0 +1,107 @@
+<!-- teacher-attendance.component.html -->
+<div class="card attendance-card">
+  <div class="card-header">
+    <h5 class="card-title mb-0">حضور المعلمين</h5>
+    <h6 class="card-subtitle text-muted mt-1">
+      التاريخ: {{getAttendanceDate() }}
+    </h6>
+  </div>
+  <div class="card-body">
+    <!-- Filters -->
+    <form class="row mb-3" (ngSubmit)="filterAttendance()">
+      <div class="col-md-4">
+        <label class="form-label">اختر الحلقة</label>
+        <select class="form-select" [(ngModel)]="filterHalaqaId" name="filterHalaqaId">
+          <option [value]="0">كل الحلقات</option>
+          <option *ngFor="let halaqa of halaqatList" [value]="halaqa.id">{{ halaqa.name }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">اختر المعلم</label>
+        <select class="form-select" [(ngModel)]="filterTeacherId" name="filterTeacherId">
+          <option [value]="0">كل المعلمين</option>
+          <option *ngFor="let teacher of teachersList" [value]="teacher.id">{{ teacher.name }}</option>
+        </select>
+      </div>
+      <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">فلترة</button>
+      </div>
+    </form>
+
+    <!-- Table -->
+    <div class="attendance-table">
+      <ng-container *ngIf="teacherAttendance.length > 0; else noAttendance">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>المعلم</th>
+              <th>الحلقة</th>
+              <th>التاريخ</th>
+              <th>الحالة</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let att of teacherAttendance">
+              <td>{{ att.teacherName }}</td>
+              <td>{{ att.halaqaName }}</td>
+              <td>{{ att.attendanceDate | date: 'yyyy-MM-dd' }}</td>
+              <td>
+                <span [ngClass]="{
+                  'text-success': att.status === 0,
+                  'text-danger': att.status === 1,
+                  'text-warning': att.status === 2
+                }">
+                  {{ getStatusLabel(att.status) }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-sm btn-info me-2" (click)="edit(att)">تعديل</button>
+                <button class="btn btn-sm btn-danger" (click)="delete(att.id)">حذف</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-template #noAttendance>
+        <div class="alert alert-info">لا يوجد سجلات حالياً.</div>
+      </ng-template>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="formModel" (ngSubmit)="onSubmit()" class="mt-4">
+      <div class="row">
+        <div class="col-md-4">
+          <label class="form-label">المعلم</label>
+          <select class="form-select" formControlName="teacherId" >
+            <option [ngValue]="null">-- اختر --</option>
+            <option *ngFor="let t of teachersList" [value]="t.id">{{ t.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">الحلقة</label>
+          <select class="form-select" formControlName="halaqaId" >
+            <option [ngValue]="null">-- اختر --</option>
+            <option *ngFor="let h of halaqatList" [value]="h.id">{{ h.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">التاريخ</label>
+          <input type="date" class="form-control" formControlName="attendanceDate"  />
+        </div>
+        <div class="col-md-4 mt-3">
+          <label class="form-label">الحالة</label>
+          <select class="form-select" formControlName="status" >
+            <option [value]="0">حاضر</option>
+            <option [value]="1">غائب</option>
+            <option [value]="2">بعذر</option>
+          </select>
+        </div>
+        <div class="col-12 mt-3">
+          <button class="btn btn-success" type="submit">{{ isEditMode ? 'تحديث' : 'إضافة' }}</button>
+          <button type="button" class="btn btn-secondary ms-2" (click)="cancel()">إلغاء</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

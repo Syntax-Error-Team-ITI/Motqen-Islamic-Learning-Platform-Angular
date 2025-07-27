@@ -7,3 +7,10 @@ export interface ITeacher {
   age: number;
   isDeleted: boolean;
 }
+
+export interface IUpdateTeacher{
+  id: number;
+  pic: string;
+  gender: string;
+  age: string;
+}

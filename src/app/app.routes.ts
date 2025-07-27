@@ -26,6 +26,8 @@ import { StudentAttendance } from './dashboards/adminDashboard/student-attendanc
 import { StudentList } from './dashboards/adminDashboard/student-list/student-list';
 import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa-details';
 import { SubjectList } from './dashboards/adminDashboard/subject-list/subject-list';
+import { HalaqaTeachers } from './dashboards/adminDashboard/halaqa-teachers/halaqa-teachers';
+import { TeacherAttendance } from './dashboards/adminDashboard/teacher-attendance/teacher-attendance';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -43,6 +45,7 @@ export const routes: Routes = [
   { path: 'parent-reports/:studentId', component: ParentReports },
   { path: 'teacher-reports/:teacherId', component: TeacherReports },
   { path: 'halaqa/:id/students', component: DisplayStudentsForHalaqa },
+  { path: 'halaqa/:id/teachers', component: HalaqaTeachers },
   { path: 'admin-Reports', component: AdminReports },
   { path: 'dashboard/home', component: MainPage },
   { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
@@ -50,6 +53,8 @@ export const routes: Routes = [
   { path: 'dashboard/parent-list', component: ParentList },
   { path: 'halaqa-list', component: HalaqaList },
   { path: 'subject-list', component: SubjectList },
+  { path: 'teacher-attendance', component: TeacherAttendance },
+
   {
     path: 'dashboard/progress-tracking/:halaqaId',
     component: ProgressTracking,
