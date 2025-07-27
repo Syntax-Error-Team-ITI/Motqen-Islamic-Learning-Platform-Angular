@@ -182,15 +182,13 @@
                     <i class="fas fa-arrow-left"></i>
                 </button>
 
-                <div class="auth-switch">
+                               <div class="auth-switch">
                     <span class="arabic-text">لديك حساب بالفعل؟</span>
-                    <a class="switch-link">تسجيل الدخول</a>
+                    <a [routerLink]="'/login'" class="switch-link">تسجيل الدخول</a>
                 </div>
 
                 <div class="back-to-site">
-                    <button type="button" class="back-link" onclick="onBackClicked()">
-                        العودة للموقع
-                    </button>
+                    <a [routerLink]="'/home'" class="switch-link">العودة للموقع</a>
                 </div>
             </form>
         </div>

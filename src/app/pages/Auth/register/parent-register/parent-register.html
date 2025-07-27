@@ -1,4 +1,3 @@
-<p>parent-register works!</p>
 <div class="auth-pages arabic-text-align">
     <div class="auth-container">
         <div class="auth-card register-card">
@@ -21,17 +20,17 @@
                     <div class="input-wrapper">
                         <i class="fas fa-envelope input-icon"></i>
                         <input formControlName="email" type="email" name="email" class="form-input"
-                            placeholder="أدخل بريدك الإلكتروني" required dir="ltr" />
+                            placeholder="أدخل بريدك الإلكتروني" required dir="rtl" />
                     </div>
                     @if(registerForm.get('email')?.touched && registerForm.get('email')?.errors){
                     @if(registerForm.get('email')?.hasError('required')){
                     <div class="text-danger">
-                        Email is required
+                        البريد الالكتروني مطلوب
                     </div>
                     }
                     @if(registerForm.get('email')?.hasError('email')){
                     <div class="text-danger">
-                        Please enter a valid email
+                        أدخل بريدا إلكترونيا صالحا (مثال: {{ emailExample }})
                     </div>
                     }
                     }
@@ -46,7 +45,11 @@
                     </div>
                     @if(registerForm.get('username')?.touched && registerForm.get('username')?.hasError('required')){
                     <div class="text-danger">
-                        Username is required
+                        اسم المستخدم مطلوب
+                    </div>
+                    }@if(registerForm.get('username')?.touched && registerForm.get('username')?.hasError('pattern')){
+                    <div class="text-danger">
+                        اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام فقط
                     </div>
                     }
                 </div>
@@ -59,10 +62,15 @@
                             <input formControlName="firstName" type="text" name="firstName" class="form-input"
                                 placeholder="أدخل اسمك الأول" required dir="rtl" />
                         </div>
-                        @if(registerForm.get('firstName')?.touched && registerForm.get('email')?.hasError('required')){
+                        @if(registerForm.get('firstName')?.touched &&
+                        registerForm.get('firstName')?.hasError('required')){
                         <div class="text-danger">
-                            firstName is required
+                            الاسم الأول مطلوب
                         </div>
+                        }
+                        @if(registerForm.get('firstName')?.touched &&
+                        registerForm.get('firstName')?.hasError('pattern')) {
+                        <div class="text-danger">الاسم يجب أن يحتوي على أحرف عربية أو انجليزية فقط</div>
                         }
                     </div>
 
@@ -76,8 +84,12 @@
                         @if(registerForm.get('lastName')?.touched &&
                         registerForm.get('lastName')?.hasError('required')){
                         <div class="text-danger">
-                            lastName is required
+                            الاسم الأخير مطلوب
                         </div>
+                        }
+                        @if(registerForm.get('lastName')?.touched &&
+                        registerForm.get('lastName')?.hasError('pattern')) {
+                        <div class="text-danger">الاسم يجب أن يحتوي على أحرف عربية أو انجليزية فقط</div>
                         }
                     </div>
                 </div>
@@ -93,7 +105,7 @@
                         @if(registerForm.get('password')?.touched &&
                         registerForm.get('password')?.hasError('required')){
                         <div class="text-danger">
-                            password is required
+                            كلمة المرور مطلوبة
                         </div>
                         }
                     </div>
@@ -109,26 +121,27 @@
                         @if(registerForm.get('confirmPassword')?.touched &&
                         registerForm.get('confirmPassword')?.hasError('required')){
                         <div class="text-danger">
-                            confirmPassword is required
-                        </div>
-                        }@if(registerForm.get('confirmPassword')?.touched
-                        && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value){
-                        <div class="text-danger">
-                            confirmPassword doesnt match password
+                            يجب إدخال تأكيد كلمة المرور
                         </div>
                         }
                     </div>
+                    @if(registerForm.get('confirmPassword')?.touched
+                    && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value){
+                    <div class="text-danger">
+                        كلمة المرور لا تتوافق مع تأكيد كلمة المرور
+                    </div>
+                    }
                 </div>
 
                 <div class="form-group">
                     <label class="form-label arabic-text">العنوان</label>
                     <div class="input-wrapper">
-                        <input formControlName="address" type="text" name="address" class="form-input"
-                            placeholder="" required />
+                        <input formControlName="address" type="text" name="address" class="form-input" placeholder=""
+                            required />
                     </div>
                     @if(registerForm.get('address')?.touched && registerForm.get('address')?.hasError('required')){
                     <div class="text-danger">
-                        address is required
+                        العنوان مطلوب
                     </div>
                     }
                 </div>
@@ -139,10 +152,16 @@
                         <input formControlName="phonenumber" type="text" name="phonenumber" class="form-input"
                             placeholder="" required />
                     </div>
-                    @if(registerForm.get('phonenumber')?.touched && registerForm.get('phonenumber')?.hasError('required')){
+                    @if(registerForm.get('phonenumber')?.touched &&
+                    registerForm.get('phonenumber')?.hasError('required')){
                     <div class="text-danger">
-                        phonenumber is required
+                        رقم الهاتف مطلوب
                     </div>
+                    }
+                    @if (registerForm.get('phonenumber')?.touched &&
+                    registerForm.get('phonenumber')?.hasError('pattern'))
+                    {
+                    <div class="text-danger">يجب أن يكون رقم الهاتف بين 10 إلى 15 رقمًا (مثال: +1234567890)</div>
                     }
                 </div>
 
@@ -152,10 +171,19 @@
                         <input formControlName="nationalId" type="text" name="nationalId" class="form-input"
                             placeholder="" required />
                     </div>
-                    @if(registerForm.get('nationalId')?.touched && registerForm.get('nationalId')?.hasError('required')){
+                    @if(registerForm.get('nationalId')?.touched &&
+                    registerForm.get('nationalId')?.hasError('required')){
                     <div class="text-danger">
-                        nationalId is required
+                        الرقم القومي مطلوب
                     </div>
+                    }
+                    @if (registerForm.get('nationalId')?.touched && registerForm.get('nationalId')?.hasError('pattern'))
+                    {
+                    <div class="text-danger">يجب أن يتكون الرقم القومي من أرقام 0-9 فقط</div>
+                    }
+                    @if (registerForm.get('nationalId')?.errors?.['minlength'] ||
+                    registerForm.get('nationalId')?.errors?.['maxlength']) {
+                    <div class="text-danger">يجب أن يتكون الرقم القومي من 14 رقمًا</div>
                     }
                 </div>
 
@@ -166,13 +194,11 @@
 
                 <div class="auth-switch">
                     <span class="arabic-text">لديك حساب بالفعل؟</span>
-                    <a class="switch-link">تسجيل الدخول</a>
+                    <a [routerLink]="'/login'" class="switch-link">تسجيل الدخول</a>
                 </div>
 
                 <div class="back-to-site">
-                    <button type="button" class="back-link" onclick="onBackClicked()">
-                        العودة للموقع
-                    </button>
+                    <a [routerLink]="'/home'" class="switch-link">العودة للموقع</a>
                 </div>
             </form>
         </div>
