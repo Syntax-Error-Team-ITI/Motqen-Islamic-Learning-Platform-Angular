@@ -75,7 +75,7 @@
           <th class="text-end">البريد الإلكتروني</th>
           <th class="text-end">الحلقات</th>
           <th class="text-end">متوسط الحضور</th>
-          <th class="text-end">متوسط التقدم في الحفظ </th>
+          <th class="text-end">متوسط اسطر الحفظ </th>
         </tr>
       </thead>
       <tbody>
@@ -86,7 +86,7 @@
             <td>{{ teacher.email }}</td>
             <td>{{ teacher.totalAssignedHalaqas }}</td>
             <td>{{ teacher.averageAttendanceRate | number:'1.0-2' }}%</td>
-            <td>{{ teacher.averageStudentProgress | number:'1.0-2' }}%</td>
+            <td>{{ teacher.averageStudentProgress | number:'1.0-2' }}</td>
           </tr>
         }
       </tbody>
@@ -135,7 +135,7 @@
           <th class="text-end">الطلاب</th>
           <th class="text-end">المعلمين</th>
           <th class="text-end">متوسط الحضور</th>
-          <th class="text-end">متوسط التقدم</th>
+          <th class="text-end">متوسط اسطر الحفظ و المراجعه</th>
         </tr>
       </thead>
       <tbody>
@@ -146,7 +146,7 @@
             <td>{{ halaqa.studentCount }}</td>
             <td>{{ halaqa.teacherCount }}</td>
             <td>{{ halaqa.averageAttendanceRate  | number:'1.0-2'}}%</td>
-            <td>{{ halaqa.averageProgress | number:'1.0-2' }}%</td>
+            <td>{{ halaqa.averageProgress | number:'1.0-2' }}</td>
           </tr>
         }
       </tbody>

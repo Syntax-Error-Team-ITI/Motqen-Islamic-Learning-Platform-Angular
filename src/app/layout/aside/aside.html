@@ -44,7 +44,10 @@
         </div>
         <span class="sidebar-text arabic-text"> الحلقات</span>
       </a>
-      <!-- <a href="#" class="sidebar-link" data-module="hadith">
+      <a [routerLink]="['admin-Reports']"
+        routerLinkActive="active"
+        class="sidebar-link"
+        data-module="seerah">
         <div
           class="sidebar-icon"
           style="background: rgba(155, 89, 182, 0.2); color: #9b59b6"
@@ -52,7 +55,7 @@
           <i class="fas fa-file-alt"></i>
         </div>
         <span class="sidebar-text arabic-text"> التقارير</span>
-      </a> -->
+      </a>
       <a
         [routerLink]="['/dashboard/parent-list']"
         routerLinkActive="active"

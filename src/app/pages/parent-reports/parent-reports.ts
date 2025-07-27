@@ -1,3 +1,4 @@
+import { HalaqaService } from './../../services/halaqa-service';
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ParentReportsService } from '../../services/reports.service';
@@ -18,8 +19,12 @@ import {
 import { ChartOptions, ChartType, ChartData } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { StudentService } from '../../services/student-service';
+import { StudentSubjectServise } from '../../services/student-subject-servise';
+import { IStudentSubject } from '../../models/student/Istudent-subject';
+import { IHalaqaStudentDisplayHalaqa } from '../../models/student/ihalaqa-student-display-halaqa';
 
 @Component({
   selector: 'app-parent-reports',
@@ -29,7 +34,9 @@ import { forkJoin } from 'rxjs';
   imports: [
     CommonModule,
     BaseChartDirective,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -38,11 +45,9 @@ export class ParentReports implements OnInit {
   studentAttendanceDetails: StudentAttendanceDetailsDto[] = [];
   islamicSubjectProgressOverTimeData: IslamicSubjectProgressOverTimeChartDto[] = [];
   studentId: number = 1;
-  defaultHalaqaId: number = 8;
-  defaultSubjectId: number = 3;
-
+  filterHalaqaId: number = 1;
+  filterSubjectName: string = "";
   chartControlForm: FormGroup;
-
   reportData: StudentAttendanceReportDto[] = [];
   chartData: StudentAttendancePieChartDto[] = [];
 
@@ -198,12 +203,15 @@ export class ParentReports implements OnInit {
   islamicSubjectPagesChartData: IslamicSubjectProgressChartDto[] = [];
   islamicSubjectsDetailedProgressReport: IslamicSubjectsDetailedProgressReportDto[] = [];
   studentHalaqaComparisonReport: StudentHalaqaComparisonReportDto[] = [];
+  halaqatList:IHalaqaStudentDisplayHalaqa [] = [];
 
   constructor(
     private fb: FormBuilder,
     private reportsService: ParentReportsService,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private studentService :StudentService,
+    private HalaqaService : HalaqaService
   ) {
     this.chartControlForm = this.fb.group({
       showMemorization: [true],
@@ -222,9 +230,25 @@ export class ParentReports implements OnInit {
       if (id) {
         this.studentId = +id;
         this.loadAllReports(this.studentId);
+        this.loadhalaqasforStudent(this.studentId);
       } else {
         this.loadAllReports(this.studentId);
       }
+      this.cdr.detectChanges();
+    });
+  }
+  filterAttendance(){
+
+  }
+  loadhalaqasforStudent(studentId: number): void {
+    this.studentService.getAllHalaqaForStudent(studentId).subscribe({
+      next: (data) => {
+        this.halaqatList = data;
+        this.filterHalaqaId = this.halaqatList.length > 0 ? this.halaqatList[0].id : 0;
+        this.filterSubjectName = this.halaqatList.length > 0 ? this.halaqatList[0].subjectName :"";
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Error fetching halaqas for student:', err)
     });
   }
 
@@ -290,9 +314,9 @@ export class ParentReports implements OnInit {
     this.loadQuranDetailedProgressReport(studentId);
     this.loadAttendanceData(studentId); // Bar Chart (monthly breakdown)
     this.loadIslamicSubjectPagesChart(studentId);
-    this.loadIslamicSubjectProgressOverTimeChart(studentId, this.defaultSubjectId);
+    this.loadIslamicSubjectProgressOverTimeChart(studentId, this.filterSubjectName);
     this.loadIslamicSubjectsDetailedProgressReport(studentId);
-    this.loadStudentHalaqaComparisonReport(studentId, this.defaultHalaqaId);
+    this.loadStudentHalaqaComparisonReport(studentId, this.filterHalaqaId);
   }
 
   loadStudentAttendanceDetails(studentId: number): void {
@@ -421,8 +445,8 @@ export class ParentReports implements OnInit {
     return colors[index % colors.length];
   }
 
-  loadIslamicSubjectProgressOverTimeChart(studentId: number, subjectId: number): void {
-    this.reportsService.getStudentIslamicSubjectProgressOverTimeChart(studentId, subjectId).subscribe({
+  loadIslamicSubjectProgressOverTimeChart(studentId: number, subjectName: string): void {
+    this.reportsService.getStudentIslamicSubjectProgressOverTimeChart(studentId, subjectName).subscribe({
       next: (data) => {
         this.islamicSubjectProgressOverTimeData = data && data.length > 0 ? data : [];
         this.cdr.detectChanges();

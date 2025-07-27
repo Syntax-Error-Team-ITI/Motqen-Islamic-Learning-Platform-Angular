@@ -13,9 +13,12 @@
         (click)="getNotAssignedHalaqas()">
         <i class="fas fa-plus"></i> إضافة حلقة للمعلم
       </button>
-      <a [routerLink]="['/dashboard/teacher-list']" class="btn btn-outline-dark">
+      <a [routerLink]="['/teacher-reports', teacherId]" class="btn btn-dark  " >عرض التقارير </a>
+      <a [routerLink]="['/dashboard/teacher-list']" class="btn btn-outline-dark border-2 fw-bold ">
+
         الرجوع للقائمة المعلمين <i class="fas fa-arrow-left-long"></i>
       </a>
+
     </div>
   </div>
   <!-- modal -->
