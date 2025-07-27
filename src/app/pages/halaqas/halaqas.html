@@ -24,41 +24,6 @@
 
 <section class="courses-section">
   <div class="container">
-    <div class="filter-bar">
-      <div class="filter-group">
-        <label for="search-input" class="arabic-text">ابحث عن دورة</label>
-        <input
-          type="text"
-          id="search-input"
-          class="filter-input arabic-text"
-          placeholder="اسم الدورة، المعلم..."
-        />
-      </div>
-      <div class="filter-group">
-        <label for="category-select" class="arabic-text">الفئة</label>
-        <select id="category-select" class="filter-select arabic-text">
-          <option value="">كل الفئات</option>
-          <option value="تحفيظ القرآن">تحفيظ القرآن</option>
-          <option value="تجويد">تجويد</option>
-          <option value="فقه">فقه</option>
-          <option value="تفسير">تفسير</option>
-          <option value="حديث">حديث</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="level-select" class="arabic-text">المستوى</label>
-        <select id="level-select" class="filter-select arabic-text">
-          <option value="">كل المستويات</option>
-          <option value="مبتدئ">مبتدئ</option>
-          <option value="متوسط">متوسط</option>
-          <option value="متقدم">متقدم</option>
-        </select>
-      </div>
-      <button class="search-button arabic-text">
-        بحث <i class="fas fa-search"></i>
-      </button>
-    </div>
-
     <div class="courses-grid">
       @for (halaqa of halaqas; track $index) {
       <div class="course-card">
@@ -242,18 +207,6 @@
       </div> -->
     </div>
 
-    <div class="pagination-container">
-      <div class="pagination-nav">
-        <a href="#" class="page-btn arabic-text"
-          ><i class="fas fa-chevron-right"></i
-        ></a>
-        <a href="#" class="page-btn active arabic-text">1</a>
-        <a href="#" class="page-btn arabic-text">2</a>
-        <a href="#" class="page-btn arabic-text">3</a>
-        <a href="#" class="page-btn arabic-text"
-          ><i class="fas fa-chevron-left"></i
-        ></a>
-      </div>
-    </div>
+
   </div>
 </section>
