@@ -25,6 +25,8 @@ import { StudentAttendance } from './dashboards/adminDashboard/student-attendanc
 import { StudentList } from './dashboards/adminDashboard/student-list/student-list';
 import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa-details';
 import { SubjectList } from './dashboards/adminDashboard/subject-list/subject-list';
+import { AddTeacher } from './pages/Auth/register/add-teacher/add-teacher';
+import { ForgotPassword } from './pages/Auth/forgot-password/forgot-password';
 import { HalaqaTeachers } from './dashboards/adminDashboard/halaqa-teachers/halaqa-teachers';
 import { TeacherAttendance } from './dashboards/adminDashboard/teacher-attendance/teacher-attendance';
 import { RoleGuard } from './guards/role.guard';
@@ -36,7 +38,9 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'student-register', component: StudentRegister },
   { path: 'parent-register', component: ParentRegister },
+  { path: 'add-teacher', component: AddTeacher },
   { path: 'confirm-email', component: ConfirmEmail },
+  { path: 'forgot-password', component: ForgotPassword },
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
   {

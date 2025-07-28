@@ -44,24 +44,22 @@ export class Login {
         this.failedTologin = false;
 
         if (this.rememberMe) {
-          localStorage.setItem('accessToken', response.accessToken);
-          // localStorage.setItem("refreshToken", response.refreshToken);
-        } else {
-          sessionStorage.setItem('accessToken', response.accessToken);
-          // sessionStorage.setItem("refreshToken", response.refreshToken);
-        }
-        // Notify AuthService of login
-        this.authService.notifyLogin();
-        this.router.navigate(['/dashboard/home']);
+          localStorage.setItem("accessToken", response.accessToken);
+          localStorage.setItem("refreshToken", response.refreshToken);
+        }else{
+          sessionStorage.setItem("accessToken", response.accessToken);
+          sessionStorage.setItem("refreshToken", response.refreshToken);
+        } 
+        this.loginForm.reset();
+        this.loginForm.markAsUntouched();
+        this.loginForm.markAsPristine();
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         console.error('Login failed:', error);
         this.failedTologin = true;
         this.errorMessage = error.error.error;
-
-        // if the email is not confirmed, redirect to confirm email page
-        // if the login is first time, redirect to continue registration page
-      },
+      }
     });
   }
 }

@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../../services/auth-service';
-import { StudentRegisterDTO } from '../../../../models/User/user-register-dto';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../../services/auth-service';
+import { AddTeacherDTO } from '../../../../models/User/user-register-dto';
+
 
 @Component({
-  selector: 'app-student-register',
+  selector: 'app-add-teacher',
   imports: [ReactiveFormsModule, RouterModule],
-  templateUrl: './student-register.html',
-  styleUrl: './student-register.css'
+  templateUrl: './add-teacher.html',
+  styleUrl: './add-teacher.css'
 })
-export class StudentRegister {
+export class AddTeacher {
   emailExample = 'example@domain.com';
+  isAgeTamam = true;
 
   registerForm: FormGroup;
 
@@ -24,35 +26,32 @@ export class StudentRegister {
       lastName: new FormControl('', [Validators.required, Validators.pattern(/^[\u0600-\u06FF\u0750-\u077Fa-zA-Z\- ]+$/)]),
       password: new FormControl('', [Validators.required, Validators.minLength(3)]),
       confirmPassword: new FormControl('', Validators.required),
-      birthdate: new FormControl(null, Validators.required),
-      gender: new FormControl('', Validators.required),
-      nationality: new FormControl('', Validators.required),
-      parentNationalId: new FormControl('', [Validators.required, Validators.minLength(14), Validators.maxLength(14), Validators.pattern(/^[0-9]{14}$/)])
+      gender: new FormControl('', [Validators.required, Validators.pattern(/^[\u0600-\u06FF\u0750-\u077Fa-zA-Z\- ]+$/)]),
+      age: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)])
     });
-
 
   }
 
   onSubmit(): void {
     if (this.registerForm.invalid) {
+      if (this.registerForm.value.age < 22) {this.isAgeTamam = false;} else this.isAgeTamam = true;
       console.error("form invalid");
       this.markAllAsTouched();
       return;
     }
+    if (this.registerForm.value.age < 22) {
+      this.isAgeTamam = false;
+      this.markAllAsTouched();
+      return;
+    }else 
+      this.isAgeTamam = true;
+
     const formData = this.registerForm.value;
-    const studentData: StudentRegisterDTO = {
-      ...formData,
-      birthdate: new Date(formData.birthdate)
-    };
-    console.log(studentData);
-    this.authService.registerStudent(studentData).subscribe({
+    const teacherData: AddTeacherDTO = { ...formData };
+    console.log(teacherData);
+    this.authService.addTeacher(teacherData).subscribe({
       next: (resp) => {
         console.log(resp);
-        this.registerForm.reset();
-        this.registerForm.markAsUntouched();
-        this.registerForm.markAsPristine();
-        alert("successful registration, check your email for verification");
-        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.log(err);
