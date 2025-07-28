@@ -8,6 +8,7 @@ import { IHalaqaForm } from '../../../models/Halaqaa/ihalaqa-form';
 import { FormsModule } from '@angular/forms';
 import { SubjectService } from '../../../services/subject-service';
 import { ISubject } from '../../../models/Subject/isubject';
+import { ISubjectForm } from '../../../models/Subject/i-subject-form';
 @Component({
   selector: 'app-halaqa-list',
   imports: [RouterLink, CommonModule, FormsModule],
@@ -31,6 +32,11 @@ export class HalaqaList implements OnInit {
   editingHalaqaId: number | null = null;
   subjects: ISubject[] = [];
   isAddingHalaqa = false;
+  newSubject: ISubjectForm = {
+    id: 0,
+    name: '',
+  };
+  isAddingSubject = false;
   constructor(
     private halaqaService: HalaqaService,
     private cdr: ChangeDetectorRef,
@@ -131,5 +137,31 @@ export class HalaqaList implements OnInit {
           },
         });
     }
+  }
+  addSubject() {
+    this.isAddingSubject = true;
+    this.subjectService.addSubject(this.newSubject).subscribe({
+      next: () => {
+        this.loadSubjects();
+        this.newSubject = {
+          id: 0,
+          name: '',
+        };
+        (window as any).bootstrap?.Modal.getOrCreateInstance(
+          document.getElementById('addSubjectModal')
+        ).hide();
+        this.isAddingSubject = false;
+      },
+      error: (error: unknown) => {
+        console.error('Error adding subject:', error);
+        this.isAddingSubject = false;
+      },
+    });
+  }
+  loadSubjects() {
+    this.subjectService.getAllSubjects().subscribe((subjects) => {
+      this.subjects = subjects;
+      this.cdr.detectChanges();
+    });
   }
 }

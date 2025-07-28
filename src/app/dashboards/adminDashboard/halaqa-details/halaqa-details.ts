@@ -1,3 +1,4 @@
+import { RoleGuard } from './../../../guards/role.guard';
 import { IClassSchedule } from './../../../models/Halaqaa/iclass-schedule';
 
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
@@ -8,6 +9,7 @@ import { CommonModule } from '@angular/common';
 
 import { IclassScheduleForm } from '../../../models/Halaqaa/iclass-schedule-form';
 import { FormsModule } from '@angular/forms';
+import { JwtService } from '../../../services/jwt-service';
 
 @Component({
   selector: 'app-halaqa-details',
@@ -43,11 +45,12 @@ export class HalaqaDetails implements OnInit {
   };
   editingScheduleId: number = 0;
   halaqaId: number = 0;
-
+  userRole : string ="";
   constructor(
     private halaqaService: HalaqaService,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private jwt : JwtService,
   ) {}
 
   ngOnInit() {
@@ -58,6 +61,9 @@ export class HalaqaDetails implements OnInit {
       this.newSchedule.halaqaId = this.halaqaId;
       this.editSchedule.halaqaId = this.halaqaId;
     }
+    this.userRole = this.jwt.getDecodedAccessToken().role;
+    console.log(this.userRole);
+    this.cdr.detectChanges();
   }
 
   loadHalaqa() {

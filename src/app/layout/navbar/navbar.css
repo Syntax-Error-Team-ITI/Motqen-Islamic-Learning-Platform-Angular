@@ -1,3 +1,66 @@
+/* Add dropdown styles */
+.register-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.register-dropdown-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  overflow: hidden;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  direction: rtl;
+}
+
+.register-dropdown:hover .register-dropdown-content {
+  display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.dropdown-item {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  display: block;
+  color: #6c757d;
+  font-family: "Amiri", serif;
+  transition: all 0.2s ease;
+  text-align: right;
+}
+
+.dropdown-item:hover {
+  background: rgba(46, 139, 87, 0.1);
+  color: #2e8b57;
+}
+
+/* Adjust the main register button to remove the gradient when dropdown is present */
+.register-dropdown-btn {
+  background: #2e8b57 !important;
+  border: none;
+  color: white;
+  box-shadow: 0 4px 15px rgba(46, 139, 87, 0.3);
+}
+
+.register-dropdown-btn:hover {
+  background: #2e8b57 !important;
+}
+
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+/*  */
+
 .modern-navbar {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
@@ -41,6 +104,11 @@
 }
 .brand-icon i {
   font-size: 28px; /* For Font Awesome icon */
+}
+.motqen-logo{
+  border-radius: 25%;
+  width: 55px;
+  height: 55px;
 }
 
 .brand-title {
@@ -284,4 +352,32 @@
     width: 45px;
     height: 45px;
   }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-item {
+  background-color: #fff;
+  color: #2e8b57;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.dropdown-item:hover {
+  background-color: #2e8b57;
+  color: white;
 }

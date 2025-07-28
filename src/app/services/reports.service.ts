@@ -39,7 +39,7 @@ export class ParentReportsService {
   getStudentMonthlyWeeklyAttendanceChart(studentId: number, periodType: string): Observable<MonthlyWeeklyAttendanceChartDto[]> {
     return this.http.get<MonthlyWeeklyAttendanceChartDto[]>(`${this.baseUrl}/Attendance/MonthlyWeeklyChart/${studentId}?periodType=${periodType}`);
   }
-  
+
 getStudentAttendanceBarChartData(studentId: number): Observable<MonthlyWeeklyAttendanceChartDto[]> {
   return this.http.get<MonthlyWeeklyAttendanceChartDto[]>(`${this.baseUrl}/Attendance/BarChart/${studentId}`);
 }
@@ -70,8 +70,8 @@ getStudentAttendanceBarChartData(studentId: number): Observable<MonthlyWeeklyAtt
     return this.http.get<IslamicSubjectProgressChartDto[]>(`${this.baseUrl}/IslamicSubjects/PagesChart/${studentId}`);
   }
 
-  getStudentIslamicSubjectProgressOverTimeChart(studentId: number, subjectId: number): Observable<IslamicSubjectProgressOverTimeChartDto[]> {
-    return this.http.get<IslamicSubjectProgressOverTimeChartDto[]>(`${this.baseUrl}/IslamicSubjects/ProgressOverTimeChart/${studentId}/${subjectId}`);
+  getStudentIslamicSubjectProgressOverTimeChart(studentId: number, subjectName: string): Observable<IslamicSubjectProgressOverTimeChartDto[]> {
+    return this.http.get<IslamicSubjectProgressOverTimeChartDto[]>(`${this.baseUrl}/IslamicSubjects/ProgressOverTimeChart/${studentId}/${subjectName}`);
   }
 
 

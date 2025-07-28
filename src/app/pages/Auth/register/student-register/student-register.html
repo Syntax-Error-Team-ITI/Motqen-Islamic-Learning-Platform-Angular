@@ -1,0 +1,220 @@
+<div class="auth-pages arabic-text-align">
+    <div class="auth-container">
+        <div class="auth-card register-card">
+            <div class="auth-header">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h1 class="logo-title arabic-text">متقن</h1>
+                    <p class="logo-subtitle">منصة العلوم الشرعية</p>
+                </div>
+                <h2 class="auth-title arabic-text">إنشاء حساب جديد كطالب</h2>
+                <p class="auth-subtitle arabic-text">ابدأ رحلتك التعليمية معنا</p>
+            </div>
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+
+                <div class="form-group">
+                    <label class="form-label arabic-text">البريد الإلكتروني</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input formControlName="email" type="email" name="email" class="form-input"
+                            placeholder="أدخل بريدك الإلكتروني" required dir="rtl" />
+                    </div>
+                    @if(registerForm.get('email')?.touched && registerForm.get('email')?.errors){
+                    @if(registerForm.get('email')?.hasError('required')){
+                    <div class="text-danger">
+                        البريد الالكتروني مطلوب
+                    </div>
+                    }
+                    @if(registerForm.get('email')?.hasError('email')){
+                    <div class="text-danger">
+                        أدخل بريدا إلكترونيا صالحا (مثال: {{ emailExample }})
+                    </div>
+                    }
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label arabic-text">اسم المستخدم</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input formControlName="username" type="text" name="username" class="form-input"
+                            placeholder="أدخل اسم المستخدم" required dir="rtl" />
+                    </div>
+                    @if(registerForm.get('username')?.touched && registerForm.get('username')?.hasError('required')){
+                    <div class="text-danger">
+                        اسم المستخدم مطلوب
+                    </div>
+                    }@if(registerForm.get('username')?.touched && registerForm.get('username')?.hasError('pattern')){
+                    <div class="text-danger">
+                        اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام فقط
+                    </div>
+                    }
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label arabic-text">الاسم الأول</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input formControlName="firstName" type="text" name="firstName" class="form-input"
+                                placeholder="أدخل اسمك الأول" required dir="rtl" />
+                        </div>
+                        @if(registerForm.get('firstName')?.touched &&
+                        registerForm.get('firstName')?.hasError('required')){
+                        <div class="text-danger">
+                            الاسم الأول مطلوب
+                        </div>
+                        }
+                        @if(registerForm.get('firstName')?.touched &&
+                        registerForm.get('firstName')?.hasError('pattern')) {
+                        <div class="text-danger">الاسم يجب أن يحتوي على أحرف عربية أو انجليزية فقط</div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label arabic-text">الاسم الأخير</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input formControlName="lastName" type="text" name="lastName" class="form-input"
+                                placeholder="أدخل اسمك الأخير" required dir="rtl" />
+                        </div>
+                        @if(registerForm.get('lastName')?.touched &&
+                        registerForm.get('lastName')?.hasError('required')){
+                        <div class="text-danger">
+                            الاسم الأخير مطلوب
+                        </div>
+                        }
+                        @if(registerForm.get('lastName')?.touched &&
+                        registerForm.get('lastName')?.hasError('pattern')) {
+                        <div class="text-danger">الاسم يجب أن يحتوي على أحرف عربية أو انجليزية فقط</div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label arabic-text">كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input formControlName="password" type="password" name="password" class="form-input"
+                                placeholder="أدخل كلمة المرور" required dir="ltr" id="register-password" />
+                        </div>
+                        @if(registerForm.get('password')?.touched &&
+                        registerForm.get('password')?.hasError('required')){
+                        <div class="text-danger">
+                            كلمة المرور مطلوبة
+                        </div>
+                        }
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label arabic-text">تأكيد كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input formControlName="confirmPassword" type="password" name="confirmPassword"
+                                class="form-input" placeholder="أعد إدخال كلمة المرور" required dir="ltr"
+                                id="confirm-password" />
+                        </div>
+                        @if(registerForm.get('confirmPassword')?.touched &&
+                        registerForm.get('confirmPassword')?.hasError('required')){
+                        <div class="text-danger">
+                            يجب إدخال تأكيد كلمة المرور
+                        </div>
+                        }
+                    </div>
+                    @if(registerForm.get('confirmPassword')?.touched
+                    && registerForm.get('confirmPassword')?.value !== registerForm.get('password')?.value){
+                    <div class="text-danger">
+                        كلمة المرور لا تتوافق مع تأكيد كلمة المرور
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label arabic-text">تاريخ الميلاد</label>
+                    <div class="input-wrapper">
+                        <input formControlName="birthdate" type="date" name="birthdate" class="form-input"
+                            placeholder="" required />
+                    </div>
+                    @if(registerForm.get('birthdate')?.touched && registerForm.get('birthdate')?.hasError('required')){
+                    <div class="text-danger">
+                          تاريخ الميلاد مطلوب
+                    </div>
+                    }
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label arabic-text">النوع</label>
+                        <div class="input-wrapper">
+                            <select formControlName="gender" name="gender" class="form-input" required dir="rtl">
+                                <option value="" disabled selected>النوع</option>
+                                <option value="Male">ذكر</option>
+                                <option value="Female">أنثى</option>
+                            </select>
+                        </div>
+                        @if(registerForm.get('gender')?.touched && registerForm.get('gender')?.hasError('required')){
+                        <div class="text-danger">
+                              النوع مطلوب
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label arabic-text">الجنسية</label>
+                    <div class="input-wrapper">
+                        <input formControlName="nationality" type="text" name="nationality" class="form-input"
+                            placeholder="" required />
+                    </div>
+                    @if(registerForm.get('nationality')?.touched &&
+                    registerForm.get('nationality')?.hasError('required')){
+                    <div class="text-danger">
+                          الجنسية مطلوبة
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label arabic-text">الرقم القومي لولي الأمر</label>
+                    <div class="input-wrapper">
+                        <input formControlName="parentNationalId" type="text" name="parentNationalId" class="form-input"
+                            placeholder="" required dir="rtl" />
+                    </div>
+                    @if(registerForm.get('parentNationalId')?.touched &&
+                    registerForm.get('parentNationalId')?.hasError('required')){
+                    <div class="text-danger">
+                        الرقم القومي لولي الأمر مطلوب
+                    </div>
+                    }
+                    @if (registerForm.get('parentNationalId')?.touched && registerForm.get('parentNationalId')?.hasError('pattern'))
+                    {
+                    <div class="text-danger">يجب أن يتكون الرقم القومي من أرقام 0-9 فقط</div>
+                    }
+                    @if (registerForm.get('parentNationalId')?.errors?.['minlength'] ||
+                    registerForm.get('parentNationalId')?.errors?.['maxlength']) {
+                    <div class="text-danger">يجب أن يتكون الرقم القومي من 14 رقمًا</div>
+                    }
+                </div>
+
+
+                <button type="submit" class="auth-button">
+                    <span class="arabic-text">إنشاء الحساب</span>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+
+                <div class="auth-switch">
+                    <span class="arabic-text">لديك حساب بالفعل؟</span>
+                    <a [routerLink]="'/login'" class="switch-link">تسجيل الدخول</a>
+                </div>
+
+                <div class="back-to-site">
+                    <a [routerLink]="'/home'" class="switch-link">العودة للموقع</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

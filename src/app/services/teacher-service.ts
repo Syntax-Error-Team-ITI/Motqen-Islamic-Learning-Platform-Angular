@@ -13,4 +13,13 @@ export class TeacherService {
   getTeachers(): Observable<ITeacher[]> {
     return this.http.get<ITeacher[]>(`${this.apiUrl}`);
   }
+  getTeacherById(id: number): Observable<ITeacher> {
+    return this.http.get<ITeacher>(`${this.apiUrl}/${id}`);
+  }
+  deleteTeacher(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+  restoreTeacher(id: number): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}/restore`, {});
+  }
 }

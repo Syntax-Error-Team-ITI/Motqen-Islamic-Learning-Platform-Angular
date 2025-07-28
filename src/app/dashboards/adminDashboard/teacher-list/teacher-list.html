@@ -28,8 +28,9 @@
           <td>{{ teacher.email }}</td>
           <td>{{ teacher.gender }}</td>
           <td>{{ teacher.age }}</td>
-          <td>
+          <td class="d-flex justify-content-center gap-2">
             <a [routerLink]="['/dashboard/teacher', teacher.id,'halaqas']" class="btn btn-success">عرض حلقاته</a>
+            <a [routerLink]="['/teacher-reports', teacher.id]" class="btn btn-outline-success  " >عرض التقارير </a>
           </td>
         </tr>
         }

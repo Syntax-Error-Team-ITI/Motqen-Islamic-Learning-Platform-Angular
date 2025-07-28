@@ -1,16 +1,30 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth-service';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token =
-    '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';
-  if (req.url.includes('/chat')) {
-    const authReq = req.clone({
-      setHeaders: {
-      
-       'Content-Type': 'application/json',
-      },
-    });
-    return next(authReq);
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    const token = this.authService.getAccessToken();
+    if (token) {
+      const cloned = req.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return next.handle(cloned);
+    }
+    return next.handle(req);
   }
-  return next(req);
-};
+}

@@ -194,7 +194,6 @@ export class ProgressTracking implements OnInit {
           type: Number(this.type),
           fromPage: this.fromPage,
           toPage: this.toPage,
-          subject: 'dummy subject',
           lessonName: this.lessonName,
           progressTrackingId: 0,
         };

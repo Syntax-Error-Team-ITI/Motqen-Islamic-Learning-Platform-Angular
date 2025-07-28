@@ -1,0 +1,145 @@
+<div class="container">
+  <div
+    class="page-header-custom d-flex align-items-center justify-content-center gap-3"
+  >
+    <i class="fas fa-chalkboard-teacher text-5xl"></i>
+    <div class="text-center">
+      <h1 class="fs-1 fw-bold mb-1">المعلمون في الحلقة</h1>
+      <p class="fs-4 opacity-90" id="halaqaNameHeader">
+        للحلقة:{{ halaqaName }}
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-4">
+    <div class="d-flex justify-content-end mb-4">
+      <button
+        type="button"
+        class="btn btn-add-teacher"
+        data-bs-toggle="modal"
+        data-bs-target="#addTeacherToHalaqaModal"
+      >
+        <i class="fas fa-user-plus"></i>
+        إضافة معلم للحلقة
+      </button>
+    </div>
+
+<div
+  class="row  g-4"
+  id="teachersCardsContainer"
+>
+@for (teacher of halaqaTeachers; track $index) {
+    <div class="col-md-6 col-lg-4" >
+<div class="card h-100 card-custom text-center p-3">
+      <img
+        src="https://placehold.co/80x80/E0F2F7/047857?text=معلم"
+        class="teacher-pic mx-auto"
+        alt="صورة المعلم"
+      />
+      <h5 class="card-title-custom">{{ teacher.name }}</h5>
+      <p class="card-text">
+        <span class="card-text-label">الجنس:</span>
+        <span class="card-text-value">{{ teacher.gender == "female" ? "انثي" : "ذكر" }}</span>
+      </p>
+      <p class="card-text">
+        <span class="card-text-label">العمر:</span>
+        <span class="card-text-value">{{ teacher.age }} سنة</span>
+      </p>
+
+
+      <div class="d-grid mt-auto">
+        <button
+          class="btn btn-danger"
+          (click)="removeTeacherFromHalaqa( teacher.id)"
+        >
+          <i class="fas fa-user-times"></i>
+          إزالة من الحلقة
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
+
+
+    <div class="d-flex justify-content-start mt-4">
+      <button
+        type="button"
+        class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+         [routerLink]="['/dashboard/halaqa-list']"
+        style="background-color: #9ca3af !important"
+      >
+        <i class="fas fa-arrow-right"></i>
+        العودة
+      </button>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="addTeacherToHalaqaModal"
+  tabindex="-1"
+  aria-labelledby="addTeacherToHalaqaModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-xl shadow-lg">
+      <div class="modal-header modal-header-custom rounded-top-xl">
+        <h5 class="modal-title" id="addTeacherToHalaqaModalLabel">
+          إضافة معلم للحلقة
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+    <div class="modal-body p-4">
+  <form id="addTeacherToHalaqaForm">
+    <div class="mb-3">
+      <label for="teacherSelect" class="form-label">اختر المعلم</label>
+      <select
+        id="teacherSelect"
+        class="form-select"
+        required
+        [(ngModel)]="selectedTeacherId"
+        name="teacherSelect"
+      >
+        @if (halaqaTeachers.length === 0) {
+          <option value="" disabled selected>لا يوجد معلمون متاحون</option>
+        } @else {
+          <option value="" disabled selected>اختر معلمًا من القائمة</option>
+
+          @for (teacher of unassignedTeachers; track teacher.id) {
+            <option [value]="teacher.id">{{ teacher.name }}</option>
+          }
+        }
+      </select>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        data-bs-dismiss="modal"
+      >
+        إلغاء
+      </button>
+      <button
+        type="submit"
+        class="btn btn-success"
+        style="background-color: #047857 !important"
+        (click)="addTeacherToHalaqa()"
+      >
+        إضافة المعلم
+      </button>
+    </div>
+  </form>
+</div>
+
+    </div>
+  </div>
+</div>

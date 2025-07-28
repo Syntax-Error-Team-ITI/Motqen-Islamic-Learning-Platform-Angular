@@ -4,7 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { Teacher_Reports } from '../../services/teacher-reports.service';
 import {
   QuranProgressChartPointDto,
@@ -28,7 +28,7 @@ import {
   templateUrl: './teacher-reports.html',
   styleUrls: ['./teacher-reports.css'],
   standalone: true,
-  imports: [CommonModule, BaseChartDirective, ReactiveFormsModule],
+  imports: [CommonModule, BaseChartDirective, ReactiveFormsModule , DecimalPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeacherReports implements OnInit {
