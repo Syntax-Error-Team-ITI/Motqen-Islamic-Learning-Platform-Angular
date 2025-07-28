@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IHalaqaNamesList } from '../../../models/Halaqaa/ihalaqa-names-list';
 import { FormsModule } from '@angular/forms';
+import { JwtService } from '../../../services/jwt-service';
 
 @Component({
   selector: 'app-halaqas-teached-by-teacher',
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './halaqas-teached-by-teacher.css',
 })
 export class HalaqasTeachedByTeacher {
+  userRole: string = '';
   halaqas: IHalaqaTeacher[] = [];
   teacherId: number = 0;
   notAssignedHalaqas: IHalaqaNamesList[] = [];
@@ -26,10 +28,12 @@ export class HalaqasTeachedByTeacher {
   constructor(
     private halaqaTeacherService: HalaqaTeacherService,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private jwtService: JwtService
   ) {}
   ngOnInit(): void {
     this.teacherId = this.route.snapshot.params['teacherId'];
+    this.userRole = this.jwtService.getDecodedAccessToken().role;
     this.halaqaTeacherService
       .getHalaqaTeacherByTeacherId(this.teacherId)
       .subscribe({
