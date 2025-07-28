@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { ChatService } from '../../services/chat-service';
+import { SmartBot } from '../../services/smart-bot';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {
+  SmartQueryRequest,
+  SmartQueryResponse,
+} from '../../models/smart-query';
 
 interface ChatMessage {
   sender: 'user' | 'bot';
@@ -17,6 +21,9 @@ interface ChatMessage {
   styleUrl: './chatbot.css',
 })
 export class DashboardChatbot {
+  userId!: string;
+  userRole!: string;
+
   messages: ChatMessage[] = [
     {
       sender: 'bot',
@@ -32,7 +39,7 @@ export class DashboardChatbot {
   userInput: string = '';
   loading: boolean = false;
 
-  constructor(private chatService: ChatService) {}
+  constructor(private smartBot: SmartBot) {}
 
   sendMessage() {
     const trimmed = this.userInput.trim();
@@ -41,42 +48,46 @@ export class DashboardChatbot {
     const userMsg: ChatMessage = {
       sender: 'user',
       text: trimmed,
-      time:
-        now.toLocaleTimeString('ar-EG', {
-          hour: '2-digit',
-          minute: '2-digit',
-        }) ,
+      time: now.toLocaleTimeString('ar-EG', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
     };
     this.messages.push(userMsg);
     this.userInput = '';
     this.loading = true;
-    this.chatService.MessageChatAssistant(trimmed).subscribe({
-      next: (res) => {
+
+    // Create smart query request
+    const request: SmartQueryRequest = {
+      question: trimmed,
+      id: this.userId,
+      role: this.userRole,
+    };
+
+    this.smartBot.ask(request).subscribe({
+      next: (response: SmartQueryResponse) => {
         const botMsg: ChatMessage = {
           sender: 'bot',
           text:
-            typeof res === 'string'
-              ? res
-              : res?.message || 'حدث خطأ في الرد من المساعد.',
-          time:
-            new Date().toLocaleTimeString('ar-EG', {
-              hour: '2-digit',
-              minute: '2-digit',
-            }) ,
+            response.answer || 'عذراً، لم أتمكن من فهم سؤالك. حاول مرة أخرى.',
+          time: new Date().toLocaleTimeString('ar-EG', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
         };
         this.messages.push(botMsg);
         this.loading = false;
         setTimeout(() => this.scrollToBottom(), 100);
       },
-      error: () => {
+      error: (error) => {
+        console.error('SmartBot error:', error);
         this.messages.push({
           sender: 'bot',
-          text: 'حدث خطأ أثناء الاتصال بالمساعد. حاول مرة أخرى.',
-          time:
-            new Date().toLocaleTimeString('ar-EG', {
-              hour: '2-digit',
-              minute: '2-digit',
-            }) ,
+          text: 'حدث خطأ أثناء الاتصال بالمساعد الذكي. حاول مرة أخرى.',
+          time: new Date().toLocaleTimeString('ar-EG', {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
         });
         this.loading = false;
         setTimeout(() => this.scrollToBottom(), 100);
