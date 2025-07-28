@@ -10,12 +10,14 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { Chart, registerables } from 'chart.js';
+import { AuthInterceptor } from './services/auth.interceptor';
 Chart.register(...registerables);
 
 export const appConfig: ApplicationConfig = {
@@ -25,6 +27,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
     provideCharts(withDefaultRegisterables()),
   ],
 };

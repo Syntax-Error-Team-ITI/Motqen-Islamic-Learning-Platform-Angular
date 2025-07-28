@@ -67,6 +67,7 @@ export class HalaqaTeacherService {
     );
   }
   getTeacherAssignedToHalaqa(halaqaId: number): Observable<ITeacher[]> {
+
     return this.http.get<ITeacher[]>(
       `${this.apiUrl}/halaqaTeacher/halaqa/${halaqaId}/assignedTeachers`
     );

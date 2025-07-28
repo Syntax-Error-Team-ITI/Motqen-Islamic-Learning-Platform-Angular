@@ -20,6 +20,7 @@ export class StudentList implements OnInit {
     this.studentService.getAllStudents().subscribe({
       next: (students) => {
         this.students = students;
+        console.log(this.students);
         this.cdr.detectChanges();
       },
       error: (error) => {

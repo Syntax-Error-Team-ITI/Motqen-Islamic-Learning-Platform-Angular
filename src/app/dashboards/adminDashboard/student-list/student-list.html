@@ -19,8 +19,8 @@
           <thead>
             <tr>
               <th>اسم الطالب</th>
-              <!-- <th>الجنس</th> -->
-              <th>العمر</th>
+              <th>الجنس</th>
+              <!-- <th>العمر</th> -->
               <th>الجنسية</th>
               <th>ولي الأمر</th>
               <th>الإجراءات</th>
@@ -29,17 +29,27 @@
           <tbody id="studentsTableBody">
             @for (student of students; track student.id) {
             <tr>
-
               <td>{{student.name}}</td>
-              <!-- <td><span class="badge-chip gender-male">{{student.gender}}</span></td> -->
-              <td>{{student.age}}</td>
+              <td>
+                <span class="badge-chip" [ngClass]="student.gender == 'Male'?'gender-male':'gender-female'">{{student.gender == "Male"? "ذكر":"انثي"}}</span>
+              </td>
+              <!-- <td>{{student.age}}</td> -->
               <td>{{student.nationality}}</td>
               <td>
-                <a class="parent-link" [routerLink]="['/parent', student.parentId, 'children']">{{student.parent}}</a>
+                <a
+                  class="parent-link"
+                  [routerLink]="['/parent', student.parentId, 'children']"
+                  >{{student.parent}}</a
+                >
               </td>
               <td>
-                <a class="btn btn-outline-success btn-sm" [routerLink]="['/student', student.id, 'halaqa']">
-                  <div class="d-flex align-items-center gap-2 justify-content-center">
+                <a
+                  class="btn btn-outline-success btn-sm"
+                  [routerLink]="['/student', student.id, 'halaqa']"
+                >
+                  <div
+                    class="d-flex align-items-center gap-2 justify-content-center"
+                  >
                     <span class="material-icons">visibility</span>
                     <span>الحلقات</span>
                   </div>

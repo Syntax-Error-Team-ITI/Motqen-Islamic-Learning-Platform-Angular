@@ -31,11 +31,11 @@
 @for (teacher of halaqaTeachers; track $index) {
     <div class="col-md-6 col-lg-4" >
 <div class="card h-100 card-custom text-center p-3">
-      <img
+      <!-- <img
         src="https://placehold.co/80x80/E0F2F7/047857?text=معلم"
         class="teacher-pic mx-auto"
         alt="صورة المعلم"
-      />
+      /> -->
       <h5 class="card-title-custom">{{ teacher.name }}</h5>
       <p class="card-text">
         <span class="card-text-label">الجنس:</span>
@@ -108,7 +108,7 @@
         [(ngModel)]="selectedTeacherId"
         name="teacherSelect"
       >
-        @if (halaqaTeachers.length === 0) {
+        @if (unassignedTeachers.length === 0) {
           <option value="" disabled selected>لا يوجد معلمون متاحون</option>
         } @else {
           <option value="" disabled selected>اختر معلمًا من القائمة</option>

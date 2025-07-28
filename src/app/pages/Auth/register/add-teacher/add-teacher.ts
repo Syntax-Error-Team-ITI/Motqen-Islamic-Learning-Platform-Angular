@@ -52,6 +52,7 @@ export class AddTeacher {
     this.authService.addTeacher(teacherData).subscribe({
       next: (resp) => {
         console.log(resp);
+        this.router.navigate(['/dashboard/halaqa-list'])
       },
       error: (err) => {
         console.log(err);

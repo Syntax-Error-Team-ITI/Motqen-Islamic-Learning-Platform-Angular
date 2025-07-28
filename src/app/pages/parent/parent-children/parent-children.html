@@ -17,20 +17,21 @@
           <div class="col">
             <div class="card h-100 card-custom">
               <div class="card-body p-4">
-                <h5 class="card-title-custom">
-                  {{ child.name }}
-                </h5>
+                <h5 class="card-title-custom">{{ child.name }}</h5>
                 <p class="card-text">
                   <span class="card-text-label">الايميل: </span>
                   <span class="card-text-value">{{ child.email }}</span>
                 </p>
-                <p class="card-text">
+                <!-- <p class="card-text">
                   <span class="card-text-label">العمر: </span>
                   <span class="card-text-value">{{ child.age }}</span>
-                </p>
+                </p> -->
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="col-12">
-                    <a [routerLink]="['/parent-reports/', child.id]" class="btn btn-report py-2">
+                    <a
+                      [routerLink]="['/parent-reports/', child.id]"
+                      class="btn btn-report py-2"
+                    >
                       <i class="fa-solid fa-sheet-plastic"></i>
                       التقارير
                     </a>
@@ -44,7 +45,9 @@
       </div>
       } @else {
       <div class="col-12">
-        <div class="alert alert-info text-center no-children">لا يوجد أبناء مسجلين.</div>
+        <div class="alert alert-info text-center no-children">
+          لا يوجد أبناء مسجلين.
+        </div>
       </div>
       }
     </div>

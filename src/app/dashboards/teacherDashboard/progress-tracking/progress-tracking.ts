@@ -232,6 +232,7 @@ export class ProgressTracking implements OnInit {
 
   onHalaqaChange() {
     this.halaqaId = Number(this.halaqaId);
+    console.log(this.halaqaId);
     this.initializeForms();
     this.loadStudents();
   }

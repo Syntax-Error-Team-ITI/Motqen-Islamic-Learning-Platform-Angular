@@ -53,6 +53,7 @@ export class Login {
         this.loginForm.reset();
         this.loginForm.markAsUntouched();
         this.loginForm.markAsPristine();
+        this.authService.notifyLogin();
         this.router.navigate(['/home']);
       },
       error: (error) => {

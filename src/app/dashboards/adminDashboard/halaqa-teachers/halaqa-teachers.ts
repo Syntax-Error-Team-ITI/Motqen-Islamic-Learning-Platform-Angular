@@ -59,6 +59,8 @@ forname!:IHalaqaTeacher[];
     this.halaqaTeacherService.getTeacherNotAssignedToHalaqa(this.halaqaId).subscribe({
       next: (data) => {
         this.unassignedTeachers = data;
+        console.log(this.unassignedTeachers);
+
         this.cdr.detectChanges();
       },
       error: (error) => {
