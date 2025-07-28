@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { JwtService } from './../../services/jwt-service';
+import { Component, OnInit } from '@angular/core';
 import { SmartBot } from '../../services/smart-bot';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +7,7 @@ import {
   SmartQueryRequest,
   SmartQueryResponse,
 } from '../../models/smart-query';
+import { AuthService } from '../../services/auth-service';
 
 interface ChatMessage {
   sender: 'user' | 'bot';
@@ -20,7 +22,7 @@ interface ChatMessage {
   templateUrl: './chatbot.html',
   styleUrl: './chatbot.css',
 })
-export class DashboardChatbot {
+export class DashboardChatbot implements OnInit {
   userId!: string;
   userRole!: string;
 
@@ -39,7 +41,17 @@ export class DashboardChatbot {
   userInput: string = '';
   loading: boolean = false;
 
-  constructor(private smartBot: SmartBot) {}
+  constructor(
+    private smartBot: SmartBot,
+    private authService: AuthService,
+    private JwtService: JwtService
+  ) {}
+  ngOnInit(): void {
+    this.userId = this.JwtService.getDecodedAccessToken().userId;
+    this.userRole = this.JwtService.getDecodedAccessToken().role;
+    console.log(this.userId);
+    console.log(this.userRole);
+  }
 
   sendMessage() {
     const trimmed = this.userInput.trim();
@@ -60,12 +72,15 @@ export class DashboardChatbot {
     // Create smart query request
     const request: SmartQueryRequest = {
       question: trimmed,
-      id: this.userId,
+      Id: this.userId,
       role: this.userRole,
     };
 
+    console.log(request);
+
     this.smartBot.ask(request).subscribe({
       next: (response: SmartQueryResponse) => {
+        console.log(response);
         const botMsg: ChatMessage = {
           sender: 'bot',
           text:

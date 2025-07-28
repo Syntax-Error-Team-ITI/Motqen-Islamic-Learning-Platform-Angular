@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
 import { SmartQueryRequest, SmartQueryResponse } from '../models/smart-query';
+import { AuthService } from './auth-service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { SmartQueryRequest, SmartQueryResponse } from '../models/smart-query';
 export class SmartBot {
   baseUrl = environment.apiBaseUrl + '/smartquery';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   /**
    * Ask a question to the smart query system
@@ -20,6 +21,7 @@ export class SmartBot {
   ask(request: SmartQueryRequest): Observable<SmartQueryResponse> {
     return this.http.post<SmartQueryResponse>(`${this.baseUrl}/ask`, request, {
       headers: new HttpHeaders({
+        Authorization: `Bearer ${this.authService.getAccessToken()}`,
         'Content-Type': 'application/json',
       }),
     });
