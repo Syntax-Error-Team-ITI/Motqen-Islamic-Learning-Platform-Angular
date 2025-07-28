@@ -80,7 +80,7 @@ export const routes: Routes = [
     path: 'halaqa/:id/teachers',
     component: HalaqaTeachers,
     canActivate: [RoleGuard],
-    data: { roles: ['Admin', 'Teacher'] },
+    data: { roles: ['Admin'] },
   },
   {
     path: 'admin-Reports',

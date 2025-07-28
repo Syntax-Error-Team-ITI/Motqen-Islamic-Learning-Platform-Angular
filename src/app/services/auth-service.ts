@@ -15,7 +15,12 @@ export class AuthService {
   baseUrl = `${environment.apiBaseUrl}/auth`;
   private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // On service creation, check if a token exists and update loggedIn state
+    if (this.getAccessToken()) {
+      this.loggedIn.next(true);
+    }
+  }
 
   registerStudent(studentData: StudentRegisterDTO): Observable<any> {
     return this.http.post(`${this.baseUrl}/register-student`, studentData);
@@ -45,6 +50,9 @@ export class AuthService {
   }
 
   getAccessToken(): string | null {
+    if (typeof window === 'undefined') {
+      return null;
+    }
     return (
       localStorage.getItem('accessToken') ||
       sessionStorage.getItem('accessToken')

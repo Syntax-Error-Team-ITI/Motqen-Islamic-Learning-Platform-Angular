@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './layout/navbar/navbar';
 import { Home } from './pages/home/home';
@@ -21,12 +21,13 @@ import { Subscription } from 'rxjs';
 })
 export class App implements OnInit {
   protected title = 'متقن';
-  isLoggedIn = false;
+  isLoggedIn: boolean = false ;
   private loginSub?: Subscription;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private cdr :ChangeDetectorRef) {}
   ngOnInit(): void {
     this.loginSub = this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
+      // this.cdr.detectChanges()
     });
   }
   ngOnDestroy(): void {
