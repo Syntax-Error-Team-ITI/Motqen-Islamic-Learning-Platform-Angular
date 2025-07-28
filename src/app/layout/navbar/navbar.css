@@ -42,6 +42,11 @@
 .brand-icon i {
   font-size: 28px; /* For Font Awesome icon */
 }
+.motqen-logo{
+  border-radius: 25%;
+  width: 55px;
+  height: 55px;
+}
 
 .brand-title {
   color: #2e8b57;

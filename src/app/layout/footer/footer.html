@@ -21,7 +21,7 @@
             <div class="contact-info">
               <div class="contact-item">
                 <i class="fas fa-phone-alt"></i>
-                <span>+201012958437</span>
+                <span>201012958437+</span>
               </div>
               <div class="contact-item">
                 <i class="fas fa-envelope"></i>
@@ -40,16 +40,17 @@
             <h4 class="footer-title arabic-text">روابط سريعة</h4>
             <ul class="footer-links">
               <li>
-                <a href="#" class="footer-link arabic-text">الرئيسية</a>
+
+                <a [routerLink]="['/home']" routerLinkActive="router-link-active"  class="footer-link arabic-text">الرئيسية</a>
               </li>
               <li>
-                <a href="#" class="footer-link arabic-text">الدورات</a>
+                <a [routerLink]="['/halaqas']" routerLinkActive="router-link-active" class="footer-link arabic-text" >الحلقات</a>
               </li>
               <li>
-                <a href="#" class="footer-link arabic-text">من نحن</a>
+                <a [routerLink]="['/about-us']" routerLinkActive="router-link-active" class="footer-link arabic-text">من نحن</a>
               </li>
               <li>
-                <a href="#" class="footer-link arabic-text">تواصل معنا</a>
+                <a [routerLink]="['/contact-us']" routerLinkActive="router-link-active" class="footer-link arabic-text">تواصل معنا</a>
               </li>
             </ul>
           </div>
