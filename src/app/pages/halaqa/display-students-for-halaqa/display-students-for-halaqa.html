@@ -9,11 +9,15 @@
     </div>
     <div>
       <div class="d-flex justify-content-end gap-2">
+        @if(userRole == 'Teacher') {
         <a class="btn btn-outline-dark fw-bold border-2" [routerLink]="['/dashboard/progress-tracking', halaqaId]">تقديم
           التقرير</a>
+        }
+        @if(userRole == 'Admin') {
         <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#AddStudentModal"
           (click)="getStudentsNotInHalaqa()">إضافة
           طالب</button>
+        }
       </div>
     </div>
   </div>
@@ -64,11 +68,13 @@
             <h5 class="card-title">الاسم: {{ student.name || '' }}</h5>
             <p class="card-text text-muted">البريد الإلكتروني: {{ student.email }}</p>
           </div>
+          @if(userRole == 'Admin') {
           <div class="d-flex justify-content-evenly pb-4">
             <a class="btn btn-outline-success mt-2" [routerLink]="['/student', student.id,'halaqa']">عرض
               الحلقات</a>
             <a class="btn btn-outline-danger mt-2" (click)="removeStudentFromHalaqa(student.id)">حذف الطالب</a>
           </div>
+          }
         </div>
       </div>
       }

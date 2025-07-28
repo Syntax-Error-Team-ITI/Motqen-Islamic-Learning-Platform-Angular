@@ -11,6 +11,7 @@ import { IStudentHalaqaDisplay } from '../../../models/student/istudent-halaqa-d
 import { HalaqaStudentService } from '../../../services/halaqa-student-service';
 import { IStudentShortDisplay } from '../../../models/student/istudent-short-display';
 import { FormsModule } from '@angular/forms';
+import { JwtService } from '../../../services/jwt-service';
 
 @Component({
   selector: 'app-display-students-for-halaqa',
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './display-students-for-halaqa.css',
 })
 export class DisplayStudentsForHalaqa implements OnInit {
+  userRole: string = '';
   halaqaId: number = 0;
   studentId: number = 0;
   students: IStudentHalaqaDisplay[] = [];
@@ -28,10 +30,12 @@ export class DisplayStudentsForHalaqa implements OnInit {
     private route: ActivatedRoute,
     private studentService: StudentService,
     private halaqaStudentService: HalaqaStudentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private jwtService: JwtService
   ) {}
 
   ngOnInit(): void {
+    this.userRole = this.jwtService.getDecodedAccessToken().role;
     this.route.params.subscribe((params) => {
       this.halaqaId = params['id'];
     });

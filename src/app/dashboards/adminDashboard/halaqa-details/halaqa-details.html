@@ -1,9 +1,7 @@
 <div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
   <div class="w-100" style="max-width: 900px">
     <div class="card shadow-lg rounded-xl overflow-hidden">
-      <div
-        class="card-header-custom p-4 d-flex align-items-center gap-3 rounded-top-xl"
-      >
+      <div class="card-header-custom p-4 d-flex align-items-center gap-3 rounded-top-xl">
         <i class="fas fa-book-open text-4xl"></i>
         <div class="text-right">
           <h2 class="fs-2 fw-bold mb-1">تفاصيل الحلقة</h2>
@@ -47,18 +45,16 @@
           </p>
         </div>
 
-          <div class="mt-5">
+        <div class="mt-5">
           <h4 class="mb-3 fw-bold">جدول الحصص</h4>
-          <button
-            type="button"
-            class="btn btn-success mb-3 py-2 px-4 shadow-sm d-flex align-items-center gap-2"
-            data-bs-toggle="modal"
-            data-bs-target="#addScheduleModal"
-            style="background-color: #047857 !important"
-          >
+          @if(userRole == "Admin")
+          {
+          <button type="button" class="btn btn-success mb-3 py-2 px-4 shadow-sm d-flex align-items-center gap-2"
+            data-bs-toggle="modal" data-bs-target="#addScheduleModal" style="background-color: #047857 !important">
             <i class="fas fa-plus-circle"></i>
             إضافة حصة جديدة
           </button>
+          }
 
           <div class="table-responsive rounded-lg shadow-sm">
             <table class="table table-hover mb-0">
@@ -69,9 +65,9 @@
                   <th scope="col">وقت الانتهاء</th>
                   <th scope="col">الحالة</th>
                   @if(userRole == "Admin")
-        {
+                  {
                   <th scope="col">إجراءات</th>
-        }
+                  }
                 </tr>
               </thead>
               <tbody id="scheduleTableBody">
@@ -81,32 +77,22 @@
                   <td>{{ schedule.endTime }}</td>
                   <td>{{ schedule.isDeleted ? 'غير متوفرة' : 'متوفرة' }}</td>
                   @if(userRole == "Admin")
-      {
+                  {
                   <td>
-                    <button
-                      class="btn btn-sm btn-info text-white me-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#updateScheduleModal"
-                      (click)="startEditSchedule(schedule)"
-                    >
+                    <button class="btn btn-sm btn-info text-white me-2" data-bs-toggle="modal"
+                      data-bs-target="#updateScheduleModal" (click)="startEditSchedule(schedule)">
                       <i class="fas fa-edit"></i>
                     </button>
-                    <button
-                      class="btn btn-sm btn-danger me-2"
-                      *ngIf="!schedule.isDeleted"
-                      (click)="deleteSchedule(schedule.id)"
-                    >
+                    <button class="btn btn-sm btn-danger me-2" *ngIf="!schedule.isDeleted"
+                      (click)="deleteSchedule(schedule.id)">
                       <i class="fas fa-trash-alt"></i>
                     </button>
-                    <button
-                      class="btn btn-sm btn-success"
-                      *ngIf="schedule.isDeleted"
-                      (click)="restoreSchedule(schedule.id)"
-                    >
+                    <button class="btn btn-sm btn-success" *ngIf="schedule.isDeleted"
+                      (click)="restoreSchedule(schedule.id)">
                       <i class="fas fa-undo"></i> استعادة
                     </button>
                   </td>
-                }
+                  }
                 </tr>
                 <tr *ngIf="halaqa.classSchedules?.length === 0">
                   <td colspan="4" class="text-center">
@@ -121,12 +107,8 @@
 
 
         <div class="d-flex justify-content-start mt-4">
-          <button
-            type="button"
-            class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
-            onclick="history.back()"
-            style="background-color: #9ca3af !important"
-          >
+          <button type="button" class="btn btn-secondary py-3 px-5 shadow-sm d-flex align-items-center gap-2"
+            onclick="history.back()" style="background-color: #9ca3af !important">
             <i class="fas fa-arrow-right"></i>
             العودة
           </button>
@@ -136,36 +118,19 @@
   </div>
 </div>
 @if(userRole == "Admin")
-        {
-<div
-  class="modal fade"
-  id="addScheduleModal"
-  tabindex="-1"
-  aria-labelledby="addScheduleModalLabel"
-  aria-hidden="true"
->
+{
+<div class="modal fade" id="addScheduleModal" tabindex="-1" aria-labelledby="addScheduleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-xl shadow-lg">
       <div class="modal-header modal-header-custom rounded-top-xl">
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         <h5 class="modal-title" id="addScheduleModalLabel">إضافة حصة جديدة</h5>
       </div>
       <div class="modal-body p-4">
         <form id="addScheduleForm" (ngSubmit)="addSchedule()">
           <div class="mb-3">
             <label for="scheduleDay" class="form-label">اليوم</label>
-            <select
-              id="scheduleDay"
-              class="form-select"
-              required
-              [(ngModel)]="newSchedule.day"
-              name="day"
-            >
+            <select id="scheduleDay" class="form-select" required [(ngModel)]="newSchedule.day" name="day">
               <option>اختر اليوم</option>
               <option value="0">الأحد</option>
               <option value="1">الاثنين</option>
@@ -178,39 +143,19 @@
           </div>
           <div class="mb-3">
             <label for="scheduleStartTime" class="form-label">وقت البدء</label>
-            <input
-              type="time"
-              id="scheduleStartTime"
-              class="form-control"
-              required
-              [(ngModel)]="newSchedule.startTime"
-              name="startTime"
-            />
+            <input type="time" id="scheduleStartTime" class="form-control" required [(ngModel)]="newSchedule.startTime"
+              name="startTime" />
           </div>
           <div class="mb-3">
             <label for="scheduleEndTime" class="form-label">وقت الانتهاء</label>
-            <input
-              type="time"
-              id="scheduleEndTime"
-              class="form-control"
-              required
-              [(ngModel)]="newSchedule.endTime"
-              name="endTime"
-            />
+            <input type="time" id="scheduleEndTime" class="form-control" required [(ngModel)]="newSchedule.endTime"
+              name="endTime" />
           </div>
           <div class="d-flex justify-content-end gap-2 mt-4">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               إلغاء
             </button>
-            <button
-              type="submit"
-              class="btn btn-success"
-              style="background-color: #047857 !important"
-            >
+            <button type="submit" class="btn btn-success" style="background-color: #047857 !important">
               حفظ الحصة
             </button>
           </div>
@@ -220,35 +165,19 @@
   </div>
 </div>
 
-<div
-  class="modal fade"
-  id="updateScheduleModal"
-  tabindex="-1"
-  aria-labelledby="updateScheduleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="updateScheduleModal" tabindex="-1" aria-labelledby="updateScheduleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content rounded-xl shadow-lg">
       <div class="modal-header modal-header-custom rounded-top-xl">
-        <button
-          type="button"
-          class="btn-close btn-close-white"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         <h5 class="modal-title" id="updateScheduleModalLabel">تعديل الحصة</h5>
       </div>
       <div class="modal-body p-4">
         <form id="updateScheduleForm" (ngSubmit)="updateSchedule()">
           <div class="mb-3">
             <label for="updateScheduleDay" class="form-label">اليوم</label>
-            <select
-              id="updateScheduleDay"
-              class="form-select"
-              required
-              [(ngModel)]="editSchedule.day"
-              name="day"
-            >
+            <select id="updateScheduleDay" class="form-select" required [(ngModel)]="editSchedule.day" name="day">
               <option value="">اختر اليوم</option>
               <option value="0">الأحد</option>
               <option value="1">الاثنين</option>
@@ -260,44 +189,20 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="updateScheduleStartTime" class="form-label"
-              >وقت البدء</label
-            >
-            <input
-              type="time"
-              id="updateScheduleStartTime"
-              class="form-control"
-              required
-              [(ngModel)]="editSchedule.startTime"
-              name="editStartTime"
-            />
+            <label for="updateScheduleStartTime" class="form-label">وقت البدء</label>
+            <input type="time" id="updateScheduleStartTime" class="form-control" required
+              [(ngModel)]="editSchedule.startTime" name="editStartTime" />
           </div>
           <div class="mb-3">
-            <label for="updateScheduleEndTime" class="form-label"
-              >وقت الانتهاء</label
-            >
-            <input
-              type="time"
-              id="updateScheduleEndTime"
-              class="form-control"
-              required
-              [(ngModel)]="editSchedule.endTime"
-              name="editEndTime"
-            />
+            <label for="updateScheduleEndTime" class="form-label">وقت الانتهاء</label>
+            <input type="time" id="updateScheduleEndTime" class="form-control" required
+              [(ngModel)]="editSchedule.endTime" name="editEndTime" />
           </div>
           <div class="d-flex justify-content-end gap-2 mt-4">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
               إلغاء
             </button>
-            <button
-              type="submit"
-              class="btn btn-success"
-              style="background-color: #047857 !important"
-            >
+            <button type="submit" class="btn btn-success" style="background-color: #047857 !important">
               حفظ التعديلات
             </button>
           </div>
@@ -306,4 +211,4 @@
     </div>
   </div>
 </div>
-        }
+}

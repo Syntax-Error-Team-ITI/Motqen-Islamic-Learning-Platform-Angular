@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SubjectService } from '../../../services/subject-service';
 import { ISubject } from '../../../models/Subject/isubject';
 import { ISubjectForm } from '../../../models/Subject/i-subject-form';
+import { JwtService } from '../../../services/jwt-service';
 @Component({
   selector: 'app-halaqa-list',
   imports: [RouterLink, CommonModule, FormsModule],
@@ -16,6 +17,7 @@ import { ISubjectForm } from '../../../models/Subject/i-subject-form';
   styleUrl: './halaqa-list.css',
 })
 export class HalaqaList implements OnInit {
+  userRole: string = '';
   halaqas: IHalaqaDto[] = [];
   newHalaqa: IHalaqaForm = {
     name: '',
@@ -40,9 +42,11 @@ export class HalaqaList implements OnInit {
   constructor(
     private halaqaService: HalaqaService,
     private cdr: ChangeDetectorRef,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private jwtService: JwtService
   ) {}
   ngOnInit() {
+    this.userRole = this.jwtService.getDecodedAccessToken().role;
     this.loadHalaqas();
     this.subjectService.getAllSubjects().subscribe((subjects) => {
       this.subjects = subjects;

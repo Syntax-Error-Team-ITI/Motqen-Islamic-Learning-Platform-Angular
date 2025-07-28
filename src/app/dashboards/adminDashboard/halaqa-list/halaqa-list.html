@@ -7,6 +7,7 @@
         <p class="fs-4 opacity-90">استعرض وقم بإدارة الحلقات المتاحة</p>
       </div>
     </div>
+    @if(userRole == 'Admin') {
     <div class="header-actions">
       <a class="btn btn-light text-success fw-bold py-2 px-4 rounded-pill shadow-sm" data-bs-toggle="modal"
         data-bs-target="#addHalaqaModal">
@@ -19,9 +20,11 @@
         إنشاء مادة جديدة
       </a>
     </div>
+    }
   </div>
 
   <!-- Subject Modal-->
+  @if(userRole == 'Admin') {
   <div class="modal fade" id="addSubjectModal" tabindex="-1" aria-labelledby="addSubjectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content rounded-xl shadow-lg">
@@ -61,7 +64,7 @@
       </div>
     </div>
   </div>
-
+  }
   <div class="container py-4">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="halaqasContainer">
       <div class="col-md-6 col-lg-6 col-xl-4" *ngFor="let halaqa of halaqas">
@@ -96,6 +99,7 @@
               </span>
             </p>
             <div class="d-flex flex-column gap-2 mt-3">
+              @if(userRole == 'Admin') {
               <a [routerLink]="['/halaqa',halaqa.id,'students']" class="btn btn-action-card">
                 <i class="fas fa-users"></i>
                 الطلاب المسجلون
@@ -104,16 +108,20 @@
                 <i class="fas fa-chalkboard-teacher"></i>
                 المعلمون
               </a>
+              }
               <div class="d-flex justify-content-between gap-2 mt-2">
+                @if(userRole == 'Admin') {
                 <a class="btn btn-icon-action edit" data-bs-toggle="modal" data-bs-target="#editHalaqaModal"
                   (click)="startEditHalaqa(halaqa)">
                   <span class="material-icons">edit</span>
                   تعديل
                 </a>
+                }
                 <a [routerLink]="['/dashboard/halaqa-details',halaqa.id]" class="btn btn-icon-action view">
                   <span class="material-icons">visibility</span>
                   عرض
                 </a>
+                @if(userRole == 'Admin') {
                 <a class="btn btn-icon-action delete" (click)="deleteHalaqa(halaqa)" *ngIf="!halaqa.isDeleted">
                   <span class="material-icons">delete</span>
                   حذف
@@ -122,6 +130,7 @@
                   <span class="material-icons">restore</span>
                   استعادة
                 </a>
+                }
               </div>
             </div>
           </div>
@@ -131,6 +140,7 @@
   </div>
 </div>
 
+@if(userRole == 'Admin') {
 <div class="modal modal-lg fade" id="addHalaqaModal" tabindex="-1" aria-labelledby="addHalaqaModalLabel"
   aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -200,7 +210,6 @@
     </div>
   </div>
 </div>
-
 <!-- Edit Halaqa Modal -->
 <div class="modal modal-lg fade" id="editHalaqaModal" tabindex="-1" aria-labelledby="editHalaqaModalLabel"
   aria-hidden="true">
@@ -267,3 +276,4 @@
     </div>
   </div>
 </div>
+}

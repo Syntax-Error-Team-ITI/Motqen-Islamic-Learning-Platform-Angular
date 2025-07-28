@@ -16,7 +16,7 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a [routerLink]="['/dashboard/home']" routerLinkActive="active" class="sidebar-link" data-module="home">
+      <a [routerLink]="['/home']" routerLinkActive="active" class="sidebar-link" data-module="home">
         <div class="sidebar-icon" style="background: rgba(74, 144, 226, 0.2); color: #4a90e2">
           <i class="fas fa-home"></i>
         </div>
@@ -26,30 +26,18 @@
         <div class="sidebar-icon" style="background: rgba(46, 139, 87, 0.2); color: #2e8b57">
           <i class="fas fa-book-open"></i>
         </div>
-        <span class="sidebar-text arabic-text"> الحلقات</span>
+        <span class="sidebar-text arabic-text"> الحلقات المتاحة</span>
       </a>
-      <a [routerLink]="['admin-Reports']"
-        routerLinkActive="active"
-        class="sidebar-link"
-        data-module="seerah">
-        <div
-          class="sidebar-icon"
-          style="background: rgba(155, 89, 182, 0.2); color: #9b59b6"
-        >
+      @if(user.role == 'Admin') {
+      <a [routerLink]="['admin-Reports']" routerLinkActive="active" class="sidebar-link" data-module="seerah">
+        <div class="sidebar-icon" style="background: rgba(155, 89, 182, 0.2); color: #9b59b6">
           <i class="fas fa-file-alt"></i>
         </div>
         <span class="sidebar-text arabic-text"> التقارير</span>
       </a>
-      <a
-        [routerLink]="['/dashboard/parent-list']"
-        routerLinkActive="active"
-        class="sidebar-link"
-        data-module="seerah"
-      >
-        <div
-          class="sidebar-icon"
-          style="background: rgba(52, 152, 219, 0.2); color: #3498db"
-        >
+
+      <a [routerLink]="['/dashboard/parent-list']" routerLinkActive="active" class="sidebar-link" data-module="seerah">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
           <i class="fas fa-users"></i>
         </div>
         <span class="sidebar-text arabic-text"> أولياء الأومور</span>
@@ -66,24 +54,34 @@
         </div>
         <span class="sidebar-text arabic-text"> الطلاب</span>
       </a>
-      <!-- <a href="#" class="sidebar-link" data-module="live">
-        <div
-          class="sidebar-icon"
-          style="background: rgba(241, 196, 15, 0.2); color: #f1c40f"
-        >
-          <i class="fas fa-video"></i>
+      }
+      @if(user.role == 'Parent') {
+      <a [routerLink]="['parent',user.id,'children']" routerLinkActive="active" class="sidebar-link"
+        data-module="seerah">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
+          <i class="fa-solid fa-graduation-cap"></i>
         </div>
-        <span class="sidebar-text arabic-text">الدروس المباشرة</span>
-      </a> -->
-      <!-- <a href="#" class="sidebar-link" data-module="progress">
-        <div
-          class="sidebar-icon"
-          style="background: rgba(22, 160, 133, 0.2); color: #16a085"
-        >
-          <i class="fas fa-chart-line"></i>
+        <span class="sidebar-text arabic-text"> أبنائي</span>
+      </a>
+      }
+      @if(user.role == 'Student') {
+      <a [routerLink]="['/student',user.id,'halaqa']" routerLinkActive="active" class="sidebar-link"
+        data-module="quran">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
+          <i class="fas fa-book-open"></i>
         </div>
-        <span class="sidebar-text arabic-text">تتبع التقدم</span>
-      </a> -->
+        <span class="sidebar-text arabic-text"> الحلقات المسجل بها</span>
+      </a>
+      }
+      @if(user.role == 'Teacher') {
+      <a [routerLink]="['/teacher',user.id,'halaqas']" routerLinkActive="active" class="sidebar-link"
+        data-module="quran">
+        <div class="sidebar-icon" style="background: rgba(52, 152, 219, 0.2); color: #3498db">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <span class="sidebar-text arabic-text"> الحلقات المعلم بها</span>
+      </a>
+      }
       <a [routerLink]="['/dashboard/chatbot']" routerLinkActive="active" class="sidebar-link" data-module="chatbot">
         <div class="sidebar-icon" style="background: rgba(142, 68, 173, 0.2); color: #9f51c0">
           <i class="fas fa-comments"></i>

@@ -11,7 +11,6 @@ import { TeacherReports } from './pages/teacher-reports/teacher-reports';
 import { ParentReports } from './pages/parent-reports/parent-reports';
 import { DisplayStudentsForHalaqa } from './pages/halaqa/display-students-for-halaqa/display-students-for-halaqa';
 import { AdminReports } from './pages/admin-reports/admin-reports';
-import { MainPage } from './dashboards/adminDashboard/main-page/main-page';
 import { DashboardChatbot } from './pages/chatbot/chatbot';
 import { HalaqasEnrolledByStudent } from './dashboards/studentDashboard/halaqas-enrolled-by-student/halaqas-enrolled-by-student';
 import { HalaqaList } from './dashboards/adminDashboard/halaqa-list/halaqa-list';
@@ -92,14 +91,6 @@ export const routes: Routes = [
     canActivate: [RoleGuard],
     data: { roles: ['Admin'] },
   },
-
-  { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
-  {
-    path: 'dashboard/home',
-    canActivate: [RoleGuard],
-    data: { roles: ['Admin', 'Teacher', 'Parent', 'Student'] },
-    component: MainPage,
-  },
   {
     path: 'dashboard/chatbot',
     canActivate: [RoleGuard],
@@ -115,7 +106,7 @@ export const routes: Routes = [
   {
     path: 'dashboard/halaqa-list',
     canActivate: [RoleGuard],
-    data: { roles: ['Admin'] },
+    data: { roles: ['Admin', 'Teacher', 'Parent', 'Student'] },
     component: HalaqaList,
   },
   {
