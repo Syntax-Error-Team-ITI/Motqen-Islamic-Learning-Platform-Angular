@@ -20,3 +20,15 @@ export interface ParentRegisterDTO extends UserRegisterDTO {
     nationalId: string;
 }
 
+export interface AddTeacherDTO extends UserRegisterDTO {
+    gender: Date;
+    age: string;
+}
+
+export interface UserResetPasswordDTO {
+    userId: string;
+    token: string;
+    newPassword: string;
+    confirmNewPassword: string;
+}
+

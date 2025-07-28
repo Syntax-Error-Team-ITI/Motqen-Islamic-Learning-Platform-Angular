@@ -62,13 +62,13 @@
         </div>
         }
 
-        <div class="form-options">
+        <div class="form-options" dir="rtl">
           <label class="checkbox-wrapper">
             <input type="checkbox" formControlName="rememberMe" />
             <span class="checkmark"></span>
             <span class="arabic-text">تذكرني</span>
           </label>
-          <!-- <a href="" class="forgot-link arabic-text">نسيت كلمة المرور؟</a> -->
+          <a [routerLink]="['/forgot-password']" class="forgot-link arabic-text">نسيت كلمة المرور؟</a>
         </div>
 
         <button type="submit" class="auth-button">

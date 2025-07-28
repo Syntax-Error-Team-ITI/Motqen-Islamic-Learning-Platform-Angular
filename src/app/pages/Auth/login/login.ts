@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { Route, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class Login {
     rememberMe: new FormControl(false)
   });
 
-  constructor(private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   onSubmit() {
     if (this.loginForm.invalid) {
@@ -42,21 +42,20 @@ export class Login {
 
         if (this.rememberMe) {
           localStorage.setItem("accessToken", response.accessToken);
-          // localStorage.setItem("refreshToken", response.refreshToken);
+          localStorage.setItem("refreshToken", response.refreshToken);
         }else{
           sessionStorage.setItem("accessToken", response.accessToken);
-          // sessionStorage.setItem("refreshToken", response.refreshToken);
-        }
-        // this.router.navigate(['/dashboard']);
+          sessionStorage.setItem("refreshToken", response.refreshToken);
+        } 
+        this.loginForm.reset();
+        this.loginForm.markAsUntouched();
+        this.loginForm.markAsPristine();
+        this.router.navigate(['/home']);
       },
       error: (error) => {
         console.error('Login failed:', error);
         this.failedTologin = true;
         this.errorMessage = error.error.error;
-
-        // if the email is not confirmed, redirect to confirm email page
-        // if the login is first time, redirect to continue registration page
-
       }
     });
   }

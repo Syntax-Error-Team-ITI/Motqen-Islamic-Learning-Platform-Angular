@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { StudentRegisterDTO, ParentRegisterDTO } from '../models/User/user-register-dto';
+import { StudentRegisterDTO, ParentRegisterDTO, AddTeacherDTO, UserResetPasswordDTO } from '../models/User/user-register-dto';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,10 @@ export class AuthService {
 
   registerParent(parentData: ParentRegisterDTO): Observable<any> {
     return this.http.post(`${this.baseUrl}/register-parent`, parentData);
+  }
+
+  addTeacher(teacherData: AddTeacherDTO): Observable<any> {
+    return this.http.post(`${this.baseUrl}/add-teacher`, teacherData);
   }
 
   login(email: string, password: string): Observable<any> {
@@ -41,16 +45,22 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('accessToken');
-    // localStorage.removeItem('refreshToken');
+    localStorage.removeItem('refreshToken');
     sessionStorage.removeItem('accessToken');
-    // sessionStorage.removeItem('refreshToken');
+    sessionStorage.removeItem('refreshToken');
   }
 
+  forgotPassword(email: string) {
+    return this.http.get(`${this.baseUrl}/forgot-password?email=${email}`);
+  }
+
+  changePassword(resetPasswordData: UserResetPasswordDTO){
+    return this.http.post<any>(`${this.baseUrl}/forgot-password/reset-password`, resetPasswordData);
+  }
+
+
+
   // signup and login with google
-
-
-  // forgot and password
-
 
 
 }

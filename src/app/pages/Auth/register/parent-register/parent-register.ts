@@ -6,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-parent-register',
-  imports: [ReactiveFormsModule, RouterModule ],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './parent-register.html',
   styleUrl: './parent-register.css'
 })
@@ -47,7 +47,11 @@ export class ParentRegister {
     this.authService.registerParent(parentData).subscribe({
       next: (resp) => {
         console.log(resp);
-        // this.router.navigate(['/registration-success']);
+        this.registerForm.reset();
+        this.registerForm.markAsUntouched();
+        this.registerForm.markAsPristine();
+        alert("successful registration, check your email for verification");
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         console.log(err);

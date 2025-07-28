@@ -70,20 +70,4 @@ export class ConfirmEmail {
   }
 
 
-  
-
 }
-
-
-  //   this.authService.confirmEmail(this.userId, this.token).subscribe({
-  //     next: (response) => {
-  //       this.isSuccess = true;
-  //       console.log(response);
-  //       console.log(response.error.gg);
-  //     },
-  //     error: (e) => {
-  //       console.log("this is error::::::")
-  //       console.log(e);
-  //       console.log(this.token);
-  //       this.isResent = false;
-  //       this.errorMessage = e.error.gg;

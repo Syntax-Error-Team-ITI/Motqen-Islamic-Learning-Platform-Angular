@@ -35,18 +35,24 @@
           <i class="fas fa-sign-in-alt"></i>
           <span class="arabic-text">تسجيل الدخول</span>
         </a>
-        <!-- <a class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">الاشتراك</span>
-        </a> -->
-        <a routerLink="/student-register" class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">اشترك كطالب</span>
-        </a>
-        <a routerLink="/parent-register" class="auth-btn login-btn">
-          <i class="fas fa-sign-in-alt"></i>
-          <span class="arabic-text">اشترك كولي أمر</span>
-        </a>
+
+        <div class="register-dropdown">
+          <button class="auth-btn register-dropdown-btn">
+            <i class="fas fa-user-plus"></i>
+            <span class="arabic-text">إنشاء حساب</span>
+            <i class="fas fa-chevron-down" style="margin-right: 5px;"></i>
+          </button>
+          <div class="register-dropdown-content">
+            <a routerLink="/student-register" class="dropdown-item">
+              <i class="fas fa-user-graduate"></i>
+              <span class="arabic-text m-2">طالب</span>
+            </a>
+            <a routerLink="/parent-register" class="dropdown-item">
+              <i class="fas fa-user-friends"></i>
+              <span class="arabic-text m-2">ولي أمر</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       <button class="mobile-menu-toggle d-lg-none" (click)="toggleMobileMenu()">

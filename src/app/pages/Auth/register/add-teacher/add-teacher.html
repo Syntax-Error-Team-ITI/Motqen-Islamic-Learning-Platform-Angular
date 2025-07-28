@@ -9,8 +9,8 @@
                     <h1 class="logo-title arabic-text">متقن</h1>
                     <p class="logo-subtitle">منصة العلوم الشرعية</p>
                 </div>
-                <h2 class="auth-title arabic-text">إنشاء حساب جديد كطالب</h2>
-                <p class="auth-subtitle arabic-text">ابدأ رحلتك التعليمية معنا</p>
+                <h2 class="auth-title arabic-text">إنشاء حساب جديد كولي أمر</h2>
+                <p class="auth-subtitle arabic-text">سجل معنا لمتابعة ابنائك تلقائيا</p>
             </div>
 
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
@@ -133,19 +133,6 @@
                     }
                 </div>
 
-                <div class="form-group">
-                    <label class="form-label arabic-text">تاريخ الميلاد</label>
-                    <div class="input-wrapper">
-                        <input formControlName="birthdate" type="date" name="birthdate" class="form-input"
-                            placeholder="" required />
-                    </div>
-                    @if(registerForm.get('birthdate')?.touched && registerForm.get('birthdate')?.hasError('required')){
-                    <div class="text-danger">
-                          تاريخ الميلاد مطلوب
-                    </div>
-                    }
-                </div>
-
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label arabic-text">النوع</label>
@@ -158,48 +145,35 @@
                         </div>
                         @if(registerForm.get('gender')?.touched && registerForm.get('gender')?.hasError('required')){
                         <div class="text-danger">
-                              النوع مطلوب
+                            النوع مطلوب
                         </div>
                         }
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label arabic-text">الجنسية</label>
+                    <label class="form-label arabic-text">العمر</label>
                     <div class="input-wrapper">
-                        <input formControlName="nationality" type="text" name="nationality" class="form-input"
-                            placeholder="" required />
+                        <input formControlName="age" type="text" name="age" class="form-input" placeholder=""
+                            required />
                     </div>
-                    @if(registerForm.get('nationality')?.touched &&
-                    registerForm.get('nationality')?.hasError('required')){
+                    @if(registerForm.get('age')?.touched &&
+                    registerForm.get('age')?.hasError('required')){
                     <div class="text-danger">
-                          الجنسية مطلوبة
+                        العمر مطلوب
+                    </div>
+                    }@if(registerForm.get('age')?.touched &&
+                    registerForm.get('age')?.hasError('pattern')){
+                    <div class="text-danger">
+                        بيانات خاطئة
+                    </div>
+                    }
+                    @if(!isAgeTamam){
+                    <div class="text-danger">
+                        يجب أن لا يقل السن عن 22 عام
                     </div>
                     }
                 </div>
-
-                <div class="form-group">
-                    <label class="form-label arabic-text">الرقم القومي لولي الأمر</label>
-                    <div class="input-wrapper">
-                        <input formControlName="parentNationalId" type="text" name="parentNationalId" class="form-input"
-                            placeholder="" required dir="rtl" />
-                    </div>
-                    @if(registerForm.get('parentNationalId')?.touched &&
-                    registerForm.get('parentNationalId')?.hasError('required')){
-                    <div class="text-danger">
-                        الرقم القومي لولي الأمر مطلوب
-                    </div>
-                    }
-                    @if (registerForm.get('parentNationalId')?.touched && registerForm.get('parentNationalId')?.hasError('pattern'))
-                    {
-                    <div class="text-danger">يجب أن يتكون الرقم القومي من أرقام 0-9 فقط</div>
-                    }
-                    @if (registerForm.get('parentNationalId')?.errors?.['minlength'] ||
-                    registerForm.get('parentNationalId')?.errors?.['maxlength']) {
-                    <div class="text-danger">يجب أن يتكون الرقم القومي من 14 رقمًا</div>
-                    }
-                </div>
-
 
                 <button type="submit" class="auth-button">
                     <span class="arabic-text">إنشاء الحساب</span>
