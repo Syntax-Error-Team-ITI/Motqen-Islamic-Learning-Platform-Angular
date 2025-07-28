@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../environment/environment';
 import { IHalaqaTeacher } from '../models/teacher/halaqa_teacher/ihalaqa-teacher';
 import { IHalaqaNamesList } from '../models/Halaqaa/ihalaqa-names-list';
+import { ITeacher } from '../models/teacher/iteacher';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,16 @@ export class HalaqaTeacherService {
   deleteHalaqaTeacher(halaqaId: number, teacherId: number): Observable<void> {
     return this.http.delete<void>(
       `${this.apiUrl}/halaqaTeacher/teacher/${teacherId}/halaqa/${halaqaId}`
+    );
+  }
+  getTeacherNotAssignedToHalaqa( halaqaId : number): Observable<ITeacher[]> {
+    return this.http.get<ITeacher[]>(
+      `${this.apiUrl}/halaqaTeacher/halaqa/${halaqaId}/notAssignToTeacher`
+    );
+  }
+  getTeacherAssignedToHalaqa(halaqaId: number): Observable<ITeacher[]> {
+    return this.http.get<ITeacher[]>(
+      `${this.apiUrl}/halaqaTeacher/halaqa/${halaqaId}/assignedTeachers`
     );
   }
 }

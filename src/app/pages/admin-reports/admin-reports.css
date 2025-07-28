@@ -8,7 +8,7 @@
 
 h2 {
   color: #2c3e50;
-  border-bottom: 2px solid #3498db;
+  border-bottom: 2px solid #297048;
   padding-bottom: 8px;
   margin-bottom: 20px;
 }
@@ -23,7 +23,7 @@ h2 {
 
 .spinner {
   border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
+  border-top: 5px solid #297048;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -90,7 +90,7 @@ h2 {
 }
 
 .data-table th {
-  background-color: #3498db;
+  background-color: #297048;
   color: white;
   padding: 12px;
   text-align: left;

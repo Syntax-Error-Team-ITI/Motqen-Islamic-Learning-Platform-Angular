@@ -41,7 +41,7 @@ export class ParentRegister {
     const formData = this.registerForm.value;
     const parentData: ParentRegisterDTO = {
       ...formData,
-      birthdate: new Date(formData.birthdate)
+      // birthdate: new Date(formData.birthdate)
     };
     console.log(parentData);
     this.authService.registerParent(parentData).subscribe({

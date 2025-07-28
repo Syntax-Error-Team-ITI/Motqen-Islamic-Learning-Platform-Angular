@@ -7,3 +7,7 @@ export interface IHalaqaTeacher {
   genderGroup: string;
   liveCode: string;
 }
+export interface ICreateHalaqaTeacher {
+  halaqaId: number;
+  teacherId: number;
+}

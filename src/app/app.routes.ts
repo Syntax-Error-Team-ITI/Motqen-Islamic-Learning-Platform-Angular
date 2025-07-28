@@ -28,6 +28,9 @@ import { HalaqaDetails } from './dashboards/adminDashboard/halaqa-details/halaqa
 import { SubjectList } from './dashboards/adminDashboard/subject-list/subject-list';
 import { AddTeacher } from './pages/Auth/register/add-teacher/add-teacher';
 import { ForgotPassword } from './pages/Auth/forgot-password/forgot-password';
+import { HalaqaTeachers } from './dashboards/adminDashboard/halaqa-teachers/halaqa-teachers';
+import { TeacherAttendance } from './dashboards/adminDashboard/teacher-attendance/teacher-attendance';
+import { RoleGuard } from './guards/role.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -41,32 +44,129 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'halaqas', component: Halaqas },
   { path: 'contact-us', component: ContactUs },
-  { path: 'parent/:id/children', component: ParentChildren },
-  { path: 'student/:id/halaqa', component: HalaqasEnrolledByStudent },
-  { path: 'join-halaqa/:liveLink', component: HalaqaMeeting },
-  { path: 'parent-reports/:studentId', component: ParentReports },
-  { path: 'teacher-reports/:teacherId', component: TeacherReports },
-  { path: 'halaqa/:id/students', component: DisplayStudentsForHalaqa },
-  { path: 'admin-Reports', component: AdminReports },
-  { path: 'dashboard/home', component: MainPage },
-  { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
-  { path: 'dashboard/chatbot', component: DashboardChatbot },
-  { path: 'dashboard/parent-list', component: ParentList },
-  { path: 'halaqa-list', component: HalaqaList },
-  { path: 'subject-list', component: SubjectList },
   {
-    path: 'dashboard/progress-tracking/:halaqaId',
+    path: 'parent/:id/children',
+    component: ParentChildren,
+    canActivate: [RoleGuard],
+    data: { roles: ['Parent', 'Admin'] },
+  },
+  {
+    path: 'student/:id/halaqa',
+    component: HalaqasEnrolledByStudent,
+    canActivate: [RoleGuard],
+    data: { roles: ['Student', 'Admin'] },
+  },
+  {
+    path: 'join-halaqa/:liveLink',
+    component: HalaqaMeeting,
+    canActivate: [RoleGuard],
+    data: { roles: ['Student', 'Admin', 'Teacher'] },
+  },
+  {
+    path: 'parent-reports/:studentId',
+    component: ParentReports,
+    canActivate: [RoleGuard],
+    data: { roles: ['Parent', 'Admin'] },
+  },
+  {
+    path: 'teacher-reports/:teacherId',
+    component: TeacherReports,
+    canActivate: [RoleGuard],
+    data: { roles: ['Teacher', 'Admin'] },
+  },
+  {
+    path: 'halaqa/:id/students',
+    component: DisplayStudentsForHalaqa,
+    canActivate: [RoleGuard],
+    data: { roles: ['Teacher', 'Admin'] },
+  },
+  {
+    path: 'halaqa/:id/teachers',
+    component: HalaqaTeachers,
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+  },
+  {
+    path: 'admin-Reports',
+    component: AdminReports,
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+  },
+
+  { path: 'dashboard', redirectTo: 'dashboard/home', pathMatch: 'full' },
+  {
+    path: 'dashboard/home',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin', 'Teacher', 'Parent', 'Student'] },
+    component: MainPage,
+  },
+  {
+    path: 'dashboard/chatbot',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin', 'Teacher', 'Parent', 'Student'] },
+    component: DashboardChatbot,
+  },
+  {
+    path: 'dashboard/parent-list',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: ParentList,
+  },
+  {
+    path: 'dashboard/halaqa-list',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: HalaqaList,
+  },
+  {
+    path: 'dashboard/subject-list',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: SubjectList,
+  },
+  {
+    path: 'dashboard/teacher-attendance',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: TeacherAttendance,
+  },
+  {
+    path: 'dashboard/teacher-list',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: TeacherList,
+  },
+  {
+    path: 'dashboard/student-attendance',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin', 'Teacher'] },
+    component: StudentAttendance,
+  },
+  {
+    path: 'dashboard/student-list',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin'] },
+    component: StudentList,
+  },
+  {
+    path: 'dashboard/halaqa-details/:id',
+    canActivate: [RoleGuard],
+    data: { roles: ['Admin', 'Teacher', 'Parent', 'Student'] },
+    component: HalaqaDetails,
+  },
+
+  {
+    path: 'progress-tracking/:halaqaId',
+    canActivate: [RoleGuard],
+    data: { roles: ['Teacher'] },
     component: ProgressTracking,
   },
   {
-    path: 'dashboard/teacher/:teacherId/halaqas',
+    path: 'teacher/:teacherId/halaqas',
+    canActivate: [RoleGuard],
+    data: { roles: ['Teacher', 'Admin'] },
     component: HalaqasTeachedByTeacher,
   },
-  { path: 'dashboard/teacher-list', component: TeacherList },
-  { path: 'dashboard/student-attendance', component: StudentAttendance },
-  { path: 'dashboard/student-list', component: StudentList },
-  { path: 'dashboard/progress-tracking', component: ProgressTracking },
-  { path: 'dashboard/halaqa-details/:id', component: HalaqaDetails },
-  { path: 'dashboard/halaqa-list', component: HalaqaList },
+
   { path: '**', component: NotFound },
 ];

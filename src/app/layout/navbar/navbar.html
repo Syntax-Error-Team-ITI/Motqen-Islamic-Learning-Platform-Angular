@@ -2,9 +2,10 @@
   <div class="container">
     <div class="navbar-content">
       <div class="navbar-brand">
-        <div class="brand-icon">
-          <i class="fas fa-book-open"></i>
-        </div>
+        <!-- <div class="brand-icon"> -->
+          <!-- <i class="fas fa-book-open"></i> -->
+          <img class="motqen-logo" src="logo.jpg" alt=" test">
+        <!-- </div> -->
         <div class="brand-text">
           <h3 class="brand-title arabic-text">متقن</h3>
           <span class="brand-subtitle">منصة العلوم الشرعية</span>
@@ -18,7 +19,7 @@
         </a>
         <a routerLink="/halaqas" routerLinkActive="active" class="nav-link">
           <i class="fas fa-graduation-cap"></i>
-          <span class="arabic-text">الدورات</span>
+          <span class="arabic-text">الحلقات </span>
         </a>
         <a routerLink="/about-us" routerLinkActive="active" class="nav-link">
           <i class="fas fa-info-circle"></i>
@@ -31,25 +32,28 @@
       </div>
 
       <div class="navbar-actions d-none d-lg-flex">
-        <a routerLink="/login" class="auth-btn login-btn">
+        <!-- <a routerLink="/login" class="auth-btn login-btn">
           <i class="fas fa-sign-in-alt"></i>
           <span class="arabic-text">تسجيل الدخول</span>
-        </a>
-
-        <div class="register-dropdown">
-          <button class="auth-btn register-dropdown-btn">
-            <i class="fas fa-user-plus"></i>
-            <span class="arabic-text">إنشاء حساب</span>
-            <i class="fas fa-chevron-down" style="margin-right: 5px;"></i>
+        </a> -->
+        <div class="dropdown">
+          <button class="auth-btn login-btn dropdown-toggle" type="button" id="registerDropdown" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-sign-in-alt"></i>
+            <span class="arabic-text">الاشتراك</span>
           </button>
-          <div class="register-dropdown-content">
-            <a routerLink="/student-register" class="dropdown-item">
-              <i class="fas fa-user-graduate"></i>
-              <span class="arabic-text m-2">طالب</span>
+          <div class="dropdown-menu" aria-labelledby="registerDropdown">
+            <a routerLink="/login" class="dropdown-item">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text">تسجيل الدخول</span>
             </a>
-            <a routerLink="/parent-register" class="dropdown-item">
-              <i class="fas fa-user-friends"></i>
-              <span class="arabic-text m-2">ولي أمر</span>
+            <a class="dropdown-item" routerLink="/student-register">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text"> اشترك كطالب</span>
+            </a>
+            <a class="dropdown-item" routerLink="/parent-register">
+              <i class="fas fa-sign-in-alt"></i>
+              <span class="arabic-text"> اشترك كولي أمر</span>
             </a>
           </div>
         </div>

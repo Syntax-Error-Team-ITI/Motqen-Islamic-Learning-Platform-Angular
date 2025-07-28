@@ -3,14 +3,21 @@ import { environment } from '../environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { StudentRegisterDTO, ParentRegisterDTO, AddTeacherDTO, UserResetPasswordDTO } from '../models/User/user-register-dto';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   baseUrl = `${environment.apiBaseUrl}/auth`;
+  private loggedIn = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // On service creation, check if a token exists and update loggedIn state
+    if (this.getAccessToken()) {
+      this.loggedIn.next(true);
+    }
+  }
 
   registerStudent(studentData: StudentRegisterDTO): Observable<any> {
     return this.http.post(`${this.baseUrl}/register-student`, studentData);
@@ -32,15 +39,30 @@ export class AuthService {
   }
 
   confirmEmail(userId: string, token: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/confirm-email?userId=${userId}&token=${token}`);
+    return this.http.get<any>(
+      `${this.baseUrl}/confirm-email?userId=${userId}&token=${token}`
+    );
   }
 
   resendConfirmationEmail(email: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/resend-confirmation-email?email=${email}`);
+    return this.http.get(
+      `${this.baseUrl}/resend-confirmation-email?email=${email}`
+    );
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    return (
+      localStorage.getItem('accessToken') ||
+      sessionStorage.getItem('accessToken')
+    );
+  }
+
+  isLoggedIn(): boolean {
+    const token = this.getAccessToken();
+    return !!token;
   }
 
   logout() {
@@ -54,13 +76,21 @@ export class AuthService {
     return this.http.get(`${this.baseUrl}/forgot-password?email=${email}`);
   }
 
-  changePassword(resetPasswordData: UserResetPasswordDTO){
+  changePassword(resetPasswordData: UserResetPasswordDTO) {
     return this.http.post<any>(`${this.baseUrl}/forgot-password/reset-password`, resetPasswordData);
   }
 
-
-
   // signup and login with google
 
+
+  public notifyLogin() {
+    this.loggedIn.next(true);
+  }
+
+  public notifyLogout() {
+    this.loggedIn.next(false);
+  }
+
+  public isLoggedIn$ = this.loggedIn.asObservable();
 
 }

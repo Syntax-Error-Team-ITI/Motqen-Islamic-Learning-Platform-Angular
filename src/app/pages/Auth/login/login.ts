@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { Route, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,10 +20,14 @@ export class Login {
   loginForm: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
-    rememberMe: new FormControl(false)
+    rememberMe: new FormControl(false),
   });
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+  ) {}
 
   onSubmit() {
     if (this.loginForm.invalid) {
@@ -38,7 +42,6 @@ export class Login {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         this.failedTologin = false;
-        console.log('Login successful:', response); 
 
         if (this.rememberMe) {
           localStorage.setItem("accessToken", response.accessToken);
@@ -59,5 +62,4 @@ export class Login {
       }
     });
   }
-
 }

@@ -105,6 +105,11 @@
 .brand-icon i {
   font-size: 28px; /* For Font Awesome icon */
 }
+.motqen-logo{
+  border-radius: 25%;
+  width: 55px;
+  height: 55px;
+}
 
 .brand-title {
   color: #2e8b57;
@@ -347,4 +352,32 @@
     width: 45px;
     height: 45px;
   }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-item {
+  background-color: #fff;
+  color: #2e8b57;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+.dropdown-item:hover {
+  background-color: #2e8b57;
+  color: white;
 }
